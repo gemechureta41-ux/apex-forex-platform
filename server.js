@@ -13,20 +13,16 @@ app.use(express.json());
 // Public folder (Frontend static files)
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Telegram Bot Setup - Bot Token haaraa galchuuf
-const TOKEN = process.env.BOT_TOKEN || process.env.TELEGRAM_BOT_TOKEN || '8961524303:AAEWW1I_wp9wKXsbGNRBunGiPORgCXWLI6E';
+// Telegram Bot & Admin Setup
+const TOKEN = process.env.BOT_TOKEN || '8961524303:AAEc_T_YgDadX5-qYy_bdxzkkk6MM35EPNw';
+const ADMIN_CHAT_ID = process.env.ADMIN_CHAT_ID || '5558713786';
 
-if (!TOKEN) {
-    console.error("❌ ERROR: BOT_TOKEN Environment Variable keessatti hin argamne!");
-}
-
-// Bot instance (Polling mode)
 const bot = new TelegramBot(TOKEN, { polling: true });
 
 // Handle Polling Errors (409 Conflict akka hin uumamneef)
 bot.on('polling_error', (error) => {
     if (error.code === 'ETELEGRAM' && error.message.includes('409 Conflict')) {
-        console.warn("⚠️ Warning: 409 Conflict detected. Process biraatu botii kana run gochaa jira.");
+        console.warn("⚠️ Warning: 409 Conflict detected. Instansii biraatu botii kana run gochaa jira.");
     } else {
         console.error("Bot Polling Error:", error.message);
     }
@@ -40,7 +36,7 @@ bot.onText(/\/start/, (msg) => {
     const chatId = msg.chat.id;
     const name = msg.from.first_name || 'Trader';
 
-    bot.sendMessage(chatId, `👋 Baga nagaan dhuftan ${name}!\n\n🏛️ *APEX FOREX ACADEMY*\n*Founder:* Gemechu Reta\n\nVerification code (OTP) Web App irraa ergame asitti isiniif dhaqqaba.\n\nEmail keessan Web Portal irratti galchitanii 'Continue' cuqaasaa.`, {
+    bot.sendMessage(chatId, `👋 Baga nagaan dhuftan ${name}!\n\n🏛️ *APEX FOREX ACADEMY*\n*Founder:* Gemechu Reta\n\nYour Chat ID: \`${chatId}\`\n\nKoodiin verification (OTP) Web Portal irraa ergame asitti isiniif dhaqqaba.`, {
         parse_mode: 'Markdown'
     });
 });
@@ -60,24 +56,16 @@ app.post('/api/send-otp', async (req, res) => {
         expires: Date.now() + 5 * 60 * 1000 // 5 Minutes valid
     };
 
-    const targetChatId = chatId || process.env.ADMIN_CHAT_ID;
+    const targetChatId = chatId || ADMIN_CHAT_ID;
 
-    if (targetChatId) {
-        try {
-            await bot.sendMessage(targetChatId, `🔐 *APEX FOREX ACADEMY - Verification Code*\n\nKoodii Seensaa Keessan: *${otpCode}*\n\n(Koodiin kun daqiiqaa 5 qofaaf tura.)`, {
-                parse_mode: 'Markdown'
-            });
-            return res.json({ success: true, message: "Koodiin verification Telegram Bot keessaniif ergameera!" });
-        } catch (err) {
-            console.error("Error sending Telegram message:", err.message);
-            return res.status(500).json({ success: false, message: "Telegram Bot ergaa erguu dadhabeera." });
-        }
-    } else {
-        console.log(`[LOCAL OTP] Email: ${email} | Code: ${otpCode}`);
-        return res.json({ 
-            success: true, 
-            message: "OTP generated successfully!" 
+    try {
+        await bot.sendMessage(targetChatId, `🔐 *APEX FOREX ACADEMY - Verification Code*\n\nUser Email: *${email}*\nKoodii Seensaa Keessan: *${otpCode}*\n\n(Koodiin kun daqiiqaa 5 qofaaf tura.)`, {
+            parse_mode: 'Markdown'
         });
+        return res.json({ success: true, message: "Koodiin verification Telegram Bot keessaniif ergameera!" });
+    } catch (err) {
+        console.error("Error sending Telegram message:", err.message);
+        return res.status(500).json({ success: false, message: "Telegram Bot ergaa erguu dadhabeera. Chat ID ykn Token sirrii ta'uu mirkaneessaa." });
     }
 });
 
@@ -103,7 +91,7 @@ app.post('/api/verify-otp', (req, res) => {
     }
 });
 
-// Fallback Route for Web App Single Page
+// Fallback Route for Web App
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
@@ -114,6 +102,5 @@ app.listen(PORT, () => {
     console.log(`🚀 Apex Forex Platform Server-n port ${PORT} irratti ka'eera...`);
 });
 
-// Process Cleanup
 process.once('SIGINT', () => bot.stopPolling());
 process.once('SIGTERM', () => bot.stopPolling());

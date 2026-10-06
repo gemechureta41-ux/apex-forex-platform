@@ -20,22 +20,21 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
         body { background-color: var(--bg-portal); color: var(--text-dark); min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
 
-        /* HEADER / NAVIGATION */
+        /* TOP NAVBAR */
         .top-navbar { background: white; padding: 16px 40px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
         .nav-brand { display: flex; align-items: center; gap: 12px; font-size: 20px; font-weight: 800; color: var(--navy-dark); text-decoration: none; }
         .brand-icon { width: 38px; height: 38px; background: var(--orange-primary); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 800; font-size: 18px; box-shadow: 0 4px 15px rgba(255, 94, 0, 0.3); }
         .top-nav-links { display: flex; align-items: center; gap: 30px; list-style: none; }
-        .top-nav-links a { text-decoration: none; color: var(--text-muted); font-size: 14px; font-weight: 700; transition: color 0.2s; }
-        .top-nav-links a:hover, .top-nav-links a.active { color: var(--orange-primary); }
+        .top-nav-links a { text-decoration: none; color: var(--text-muted); font-size: 14px; font-weight: 700; }
+        .top-nav-links a.active { color: var(--orange-primary); }
 
         .lang-switch { background: #f1f5f9; padding: 4px; border-radius: 20px; display: flex; gap: 2px; }
-        .lang-btn { border: none; padding: 6px 14px; border-radius: 16px; font-size: 12px; font-weight: 700; cursor: pointer; background: transparent; color: var(--text-muted); transition: all 0.2s; }
+        .lang-btn { border: none; padding: 6px 14px; border-radius: 16px; font-size: 12px; font-weight: 700; cursor: pointer; background: transparent; color: var(--text-muted); }
         .lang-btn.active { background: var(--orange-primary); color: white; }
 
-        .btn-get-started { background: var(--orange-primary); color: white; padding: 10px 22px; border-radius: 30px; font-weight: 700; text-decoration: none; font-size: 14px; box-shadow: 0 4px 15px rgba(255, 94, 0, 0.3); transition: background 0.2s; border: none; cursor: pointer; }
-        .btn-get-started:hover { background: var(--orange-hover); }
+        .btn-get-started { background: var(--orange-primary); color: white; padding: 10px 22px; border-radius: 30px; font-weight: 700; font-size: 14px; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(255, 94, 0, 0.3); }
 
-        /* AUTH MODAL / SCREEN */
+        /* AUTH SCREEN */
         #auth-screen { display: flex; min-height: calc(100vh - 72px); width: 100vw; background: #ffffff; }
         .auth-left { width: 45%; background: linear-gradient(135deg, #050c1e 0%, #0f2352 100%); color: white; padding: 50px; display: flex; flex-direction: column; justify-content: space-between; }
         .auth-hero-text h1 { font-size: 38px; font-weight: 800; margin-bottom: 16px; line-height: 1.2; }
@@ -51,10 +50,9 @@
         .bot-notice { background: #eff6ff; border: 1px solid #bfdbfe; color: #1e40af; padding: 12px; border-radius: 12px; font-size: 13px; font-weight: 600; margin-bottom: 20px; line-height: 1.5; }
         .input-label { font-size: 13px; font-weight: 700; color: var(--navy-dark); margin-bottom: 8px; display: block; }
         .input-field { width: 100%; padding: 14px 16px; border-radius: 12px; border: 1px solid var(--border); font-size: 15px; outline: none; margin-bottom: 20px; }
-        .input-field:focus { border-color: var(--orange-primary); }
         .btn-continue { width: 100%; background: var(--orange-primary); color: white; padding: 15px; border-radius: 12px; border: none; font-weight: 700; font-size: 15px; cursor: pointer; box-shadow: 0 4px 15px rgba(255, 94, 0, 0.3); }
 
-        /* PORTAL & MODULES DESIGN */
+        /* PORTAL & MODULES GRID */
         #portal-screen { display: flex; min-height: calc(100vh - 72px); width: 100vw; }
         .sidebar { width: 260px; background: var(--sidebar-bg); color: white; display: flex; flex-direction: column; padding: 24px 16px; flex-shrink: 0; }
         .sidebar-menu { list-style: none; display: flex; flex-direction: column; gap: 4px; }
@@ -65,14 +63,12 @@
         .hero-banner { text-align: center; max-width: 800px; margin: 0 auto 40px; }
         .hero-banner h3 { color: var(--orange-primary); font-size: 13px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 10px; }
         .hero-banner h1 { font-size: 38px; font-weight: 800; color: var(--navy-dark); margin-bottom: 15px; }
-        .hero-banner p { color: var(--text-muted); font-size: 16px; }
 
-        /* MODULES GRID (15 MODULES) */
         .modules-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; margin-bottom: 40px; }
-        .module-card { background: white; border-radius: 20px; border: 1px solid var(--border); overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.03); transition: transform 0.2s, box-shadow 0.2s; cursor: pointer; }
-        .module-card:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
-        .module-banner { background: linear-gradient(135deg, #050c1e 0%, #0f2352 100%); height: 160px; padding: 20px; display: flex; align-items: flex-end; justify-content: space-between; color: white; }
-        .module-banner .num { font-size: 32px; font-weight: 800; }
+        .module-card { background: white; border-radius: 20px; border: 1px solid var(--border); overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.03); transition: transform 0.2s; }
+        .module-card:hover { transform: translateY(-4px); }
+        .module-banner { background: linear-gradient(135deg, #050c1e 0%, #0f2352 100%); height: 150px; padding: 20px; display: flex; align-items: flex-end; justify-content: space-between; color: white; }
+        .module-banner .num { font-size: 30px; font-weight: 800; }
         .module-banner .num span { color: var(--orange-primary); }
         .badge-tag { background: rgba(255, 94, 0, 0.2); color: var(--orange-primary); border: 1px solid var(--orange-primary); font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 20px; }
 
@@ -80,27 +76,23 @@
         .module-category { font-size: 11px; font-weight: 800; color: var(--orange-primary); text-transform: uppercase; margin-bottom: 6px; }
         .module-title { font-size: 16px; font-weight: 800; color: var(--navy-dark); margin-bottom: 10px; line-height: 1.4; }
         .module-desc { font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 15px; }
-        .module-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 12px; font-size: 12px; font-weight: 700; color: var(--navy-dark); }
-        .btn-view-prog { width: 100%; background: #000052; color: white; border: none; padding: 12px; border-radius: 12px; font-weight: 700; font-size: 14px; margin-top: 10px; cursor: pointer; transition: background 0.2s; }
+        .btn-view-prog { width: 100%; background: #000052; color: white; border: none; padding: 12px; border-radius: 12px; font-weight: 700; font-size: 14px; cursor: pointer; transition: background 0.2s; }
         .btn-view-prog:hover { background: var(--orange-primary); }
 
-        /* LESSON READER MODAL (FULL CONTENT WITH 4+ PARAGRAPHS) */
+        /* LESSON MODAL READER */
         #lesson-modal { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.6); display: flex; justify-content: center; align-items: center; z-index: 1000; padding: 20px; }
         .modal-content { background: white; border-radius: 24px; max-width: 850px; width: 100%; max-height: 90vh; overflow-y: auto; padding: 40px; position: relative; }
         .close-modal { position: absolute; top: 20px; right: 25px; font-size: 28px; font-weight: 800; cursor: pointer; color: var(--text-muted); }
-        .lesson-nav { display: flex; gap: 10px; margin-bottom: 25px; border-bottom: 2px solid var(--border); padding-bottom: 10px; }
-        .lesson-tab { padding: 8px 16px; border-radius: 10px; font-size: 13px; font-weight: 700; cursor: pointer; background: #f1f5f9; color: var(--text-muted); }
+        .lesson-nav { display: flex; gap: 10px; margin-bottom: 25px; border-bottom: 2px solid var(--border); padding-bottom: 10px; flex-wrap: wrap; }
+        .lesson-tab { padding: 10px 18px; border-radius: 10px; font-size: 13px; font-weight: 700; cursor: pointer; background: #f1f5f9; color: var(--text-muted); }
         .lesson-tab.active { background: var(--orange-primary); color: white; }
 
-        .article-text p { font-size: 15px; color: #334155; line-height: 1.8; margin-bottom: 18px; }
+        .article-text p { font-size: 15px; color: #334155; line-height: 1.8; margin-bottom: 18px; text-align: justify; }
         .article-text h3 { font-size: 20px; font-weight: 800; color: var(--navy-dark); margin: 25px 0 12px; }
 
         .hidden { display: none !important; }
 
-        /* RESPONSIVE DESIGN FOR LAPTOP, ANDROID, IOS */
-        @media (max-width: 1024px) {
-            .modules-grid { grid-template-columns: repeat(2, 1fr); }
-        }
+        @media (max-width: 1024px) { .modules-grid { grid-template-columns: repeat(2, 1fr); } }
         @media (max-width: 768px) {
             .top-navbar { padding: 12px 20px; }
             .top-nav-links { display: none; }
@@ -108,27 +100,23 @@
             .auth-left, .auth-right { width: 100%; padding: 25px; }
             .sidebar { display: none; }
             .modules-grid { grid-template-columns: 1fr; }
-            .portal-main { padding: 20px; }
-            .modal-content { padding: 20px; }
+            .portal-main, .modal-content { padding: 20px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- TOP NAVBAR (Trade Insight Style) -->
     <nav class="top-navbar">
         <a href="#" class="nav-brand">
             <div class="brand-icon">A</div>
             <span>Apex Forex Academy</span>
         </a>
-
         <ul class="top-nav-links">
-            <li><a href="#" class="active" id="nav-home">Home</a></li>
-            <li><a href="#" id="nav-academy">Academy</a></li>
-            <li><a href="#" id="nav-challenges">Challenges</a></li>
-            <li><a href="#" id="nav-mentorship">Mentorship</a></li>
+            <li><a href="#" class="active">Home</a></li>
+            <li><a href="#">Academy</a></li>
+            <li><a href="#">Challenges</a></li>
+            <li><a href="#">Mentorship</a></li>
         </ul>
-
         <div style="display: flex; align-items: center; gap: 15px;">
             <div class="lang-switch">
                 <button class="lang-btn active" onclick="setLang('om')">OM</button>
@@ -139,49 +127,41 @@
         </div>
     </nav>
 
-    <!-- SCREEN 1: SIGN IN / REGISTRATION FLOW -->
     <div id="auth-screen">
         <div class="auth-left">
             <div>
                 <div class="founder-badge">👑 Founder: Gemechu Reta</div>
-                <h1 id="txt-auth-title">Baga nagaan dhuftan.</h1>
-                <p id="txt-auth-subtitle">Bakka leenjii keessan dhaabdaniitii itti fufa — moojuulonni 15, barnoonni fi sertifikeetiin keessan isan eegaa jira.</p>
-
+                <h1>Baga nagaan dhuftan.</h1>
+                <p>Bakka leenjii keessan dhaabdaniitii itti fufa — moojuulonni 15, barnoonni garaagaraa fi sertifikeetiin keessan isan eegaa jira.</p>
                 <ul class="auth-features">
-                    <li><span class="feature-check">✓</span> <span id="feat-1">Moojuulota 15 fi Barnoota 45+ guutuu</span></li>
-                    <li><span class="feature-check">✓</span> <span id="feat-2">Telegram Bot OTP Verification Nageenya Qabu</span></li>
-                    <li><span class="feature-check">✓</span> <span id="feat-3">Traaderoota muuxannoo qabaniin kan barsiisamu</span></li>
+                    <li><span class="feature-check">✓</span> <span>Moojuulota 15 fi Barnoota Addaddaa 45+</span></li>
+                    <li><span class="feature-check">✓</span> <span>Telegram Bot OTP Verification Nageenya Qabu</span></li>
+                    <li><span class="feature-check">✓</span> <span>SMC, Price Action fi Risk Management Guutuu</span></li>
                 </ul>
             </div>
-            <div style="font-size: 13px; color: #94a3b8;">
-                <b>1205+</b> <span id="txt-learners">barattoonni beekumsa isaani guddisaa jiru</span>
-            </div>
+            <div style="font-size: 13px; color: #94a3b8;"><b>1205+</b> barattoonni beekumsa isaani guddisaa jiru</div>
         </div>
 
         <div class="auth-right">
             <div class="login-card">
-                <h2 id="txt-signin-heading">Seensaa (Sign in)</h2>
-                
-                <div class="bot-notice" id="txt-bot-notice">
-                    ⚠️ <b>Tarkaanfii Dirqamaa:</b> Dursa Telegram irratti Bot keenya <b>@smcfxpro_bot</b> banaatii <b>/start</b> tuquun Email keessan galmeessaa! Sana booda Email sana asitti galchaa.
+                <h2>Seensaa (Sign in)</h2>
+                <div class="bot-notice">
+                    ⚠️ <b>Tarkaanfii Dirqamaa:</b> Dursa Telegram irratti Bot keenya <b>@apex_forex_assistant_bot</b> banaatii <b>/start</b> tuquun Email keessan galmeessaa! Sana booda Email sana asitti galchaa.
                 </div>
-
                 <div id="login-step-1">
-                    <label class="input-label" id="lbl-email">Teessoo Email (Bot irratti galmaa'e) *</label>
+                    <label class="input-label">Teessoo Email (Bot irratti galmaa'e) *</label>
                     <input type="email" id="email" class="input-field" placeholder="you@example.com">
-                    <button class="btn-continue" onclick="sendOTP()" id="btn-continue">Itti Fufi (Send OTP) →</button>
+                    <button class="btn-continue" onclick="sendOTP()">Itti Fufi (Send OTP) →</button>
                 </div>
-
                 <div id="login-step-2" class="hidden">
-                    <label class="input-label" id="lbl-otp">Koodii OTP dijiitii 6 (Bot irraa ergame) galchaa</label>
+                    <label class="input-label">Koodii OTP dijiitii 6 (Bot irraa ergame) galchaa</label>
                     <input type="text" id="otp" class="input-field" placeholder="123456" maxlength="6">
-                    <button class="btn-continue" onclick="verifyOTP()" id="btn-verify">Mirkaneessi & Seeni</button>
+                    <button class="btn-continue" onclick="verifyOTP()">Mirkaneessi & Seeni</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- SCREEN 2: STUDENT PORTAL (15 MODULES) -->
     <div id="portal-screen" class="hidden">
         <div class="sidebar">
             <ul class="sidebar-menu">
@@ -191,99 +171,539 @@
                 <li class="sidebar-item" onclick="signOut()"><a href="#"><span>🚪</span> <span>Ba'i (Sign out)</span></a></li>
             </ul>
         </div>
-
         <div class="portal-main">
             <div class="hero-banner">
-                <h3 id="txt-program-tag">THE PROGRAMMES</h3>
-                <h1 id="txt-hero-title">Structured, not scattered</h1>
-                <p id="txt-hero-desc">Every programme builds on the one before it, so nothing is learned out of order.</p>
+                <h3>THE PROGRAMMES</h3>
+                <h1>Structured, not scattered</h1>
+                <p>Every programme builds on the one before it, so nothing is learned out of order.</p>
             </div>
-
-            <!-- MODULES GRID CONTAINER (15 MODULES DYNAMICALLY LOADED) -->
-            <div class="modules-grid" id="modules-container">
-                <!-- Javascript will render 15 modules here -->
-            </div>
+            <div class="modules-grid" id="modules-container"></div>
         </div>
     </div>
 
-    <!-- LESSON READER MODAL -->
     <div id="lesson-modal" class="hidden">
         <div class="modal-content">
             <span class="close-modal" onclick="closeLesson()">&times;</span>
             <h2 id="modal-mod-title" style="color: var(--navy-dark); font-size: 24px; font-weight: 800; margin-bottom: 15px;">Module Reader</h2>
-            
-            <div class="lesson-nav" id="modal-lesson-tabs">
-                <!-- 3 Lessons Tabs -->
-            </div>
-
-            <div class="article-text" id="modal-article-body">
-                <!-- 4+ Paragraphs Content -->
-            </div>
+            <div class="lesson-nav" id="modal-lesson-tabs"></div>
+            <div class="article-text" id="modal-article-body"></div>
         </div>
     </div>
 
 <script>
-    // 📚 15 MODULES DATA (EACH HAS 3 LESSONS WITH 4+ DETAILED PARAGRAPHS)
-    const modulesData = Array.from({ length: 15 }, (_, i) => {
-        const modNum = String(i + 1).padStart(2, '0');
-        return {
-            id: i + 1,
-            num: modNum,
-            category: "INTRODUCTION TO TRADING",
-            title: `Module ${i + 1} - ${getModuleTitle(i + 1)}`,
-            desc: `How trading evolved, technical concepts, Smart Money SMC principles, risk management, and market execution strategies for Module ${i + 1}.`,
+    // 📚 15 UNIQUE MODULES WITH DIFFERENT LESSONS AND 4+ PARAGRAPHS EACH
+    const modulesData = [
+        {
+            id: 1, num: "01", category: "FOUNDATIONS",
+            title: "Module 1 - History of Trading & Foundational Terms",
+            desc: "Seenaa traadingii gabaa Forex, seera bu'uuraa, fi jechoota 50 traaderiin tokko beekuu qabu.",
             lessons: [
                 {
-                    title: `Lesson 1: Bu'uura fi Seenaa Moojuula ${i + 1}`,
+                    title: "Lesson 1: Jalqaba Gabaa Maallaqaa (History of Financial Markets)",
                     paragraphs: [
-                        `Keeyyata 1: Seenaan traadingii fi guddina meeshaalee maallaqaa addunyaa irratti teessuma dinagdee saayinsawaa ta'een kan ungameedha. Barnoonni moojuula kanaa bu'uura SMC fi Price Action irratti hundaa'a.`,
-                        `Keeyyata 2: Gabaan Forex sochii maallaqaa doolara triliyoona 7.5 ol guyyaatti sochoosuudhaan addunyaa irratti gabaa isa guddaadha. Sochiin kun fedhii fi dhiyeessaa (Demand and Supply) bankoota gurguddoon murtaa'a.`,
-                        `Keeyyata 3: Smart Money Concepts (SMC) gabaa kana keessatti bakka liquidity sweeps fi Order Blocks itti uumaman addaan baafachuuf nu gargaara.`,
-                        `Keeyyata 4: Traaderiin tokko odoo gabaa irratti capital isaa risk hin gochin dura bu'uuraalee kanneen sirriitti hubachuu fi sa'aatii gabaa (London & New York Sessions) beekuu qaba.`
+                        "Keeyyata 1: Gabaan Forex seenaa dheeraa kan sirna jijjiarraa meeshaatiin (Barter System) jalqabe ta'ee, yeroo booda gara maallaqa waraqaa fi warqiitti jijjiirame. Bara 1971 keessa sirni Bretton Woods yeroo diigamu, gabaan currency walaba ta'ee dorgommii fedhii fi dhiyeessaa irratti hundaa'e.",
+                        "Keeyyata 2: Teknoolojiin Intarneetii babal'achuu isaatiin walqabatee bara 1990 ta'eera irraa eegalee retail trader'oonni manarra taa'anii akka traad gochuu danda'an karaan baname. Kunis gabaa Forex gabaa ol'aanaa doolara triliyoona 7.5 guyyaatti sochoosu isa taasise.",
+                        "Keeyyata 3: Gabaa kana keessatti hirmaattonni gurguddoon Bankoota Maqaa Gurguddoo (Central Banks & Institutional Banks), Hedge Funds, Commercial Companies, fi Retail Traders jedhamanii qoodamu.",
+                        "Keeyyata 4: Traaderiin bu'uura beeku tokko gabaan maaliif akka socho'u, baankonni maaliif sa'aatii beellamaatti liquidity gabaa keessaa uumuuf akka socho'an hubachuun dirqama."
                     ]
                 },
                 {
-                    title: `Lesson 2: Taktika fi Toftaa Traadingii (Technical Execution)`,
+                    title: "Lesson 2: Jechoota Bu'uuraa (Foundational Vocabulary)",
                     paragraphs: [
-                        `Keeyyata 1: Technical Analysis yeroo goonu chart 4-Hour fi 15-Minute timeframe fayyadamna. Timeframe ol'aanaan direction gabaa nuuf kenna.`,
-                        `Keeyyata 2: Change of Character (CHoCH) fi Break of Structure (BOS) gabaan yeroo bifa isaa jijjiiratu mallattoo jalqabaa nuuf kennuudha.`,
-                        `Keeyyata 3: Fair Value Gap (FVG) fi Liquidity Void bakka gabaan saffisaan utaale fi deebi'ee duuchuu qabu addaan baasa. Entry keenya bakka kana irratti eegganna.`,
-                        `Keeyyata 4: Risk to Reward Ratio minimum 1:3 fayyadamuun yoo %40 qofa win rate qabaatellu profiti keessa turuuf nu dandeessisa.`
+                        "Keeyyata 1: Pip (Percentage in Point) safartuu unka gatii currency paayirii tokkoo ti. Fakkeenyaaf EUR/USD 1.0800 irraa gara 1.0801 yoo utaale, jijjiiramaan uumame pip 1 jedhama.",
+                        "Keeyyata 2: Lot Size hanga maallaqaa gabaa keessa galchitan safara. Standard Lot (1.0) $100,000, Mini Lot (0.1) $10,000, fi Micro Lot (0.01) $1,000 bakka bu'a.",
+                        "Keeyyata 3: Leverage dandeettii baankiin maallaqa keessan heddummeessee gabaa keessatti akka hirmaattan isiniif kennuudha. Leverage 1:100 jechuun maallaqa $100 qabdan maallaqa $10,000 fakkeessitee sochoosta.",
+                        "Keeyyata 4: Bid Price fi Ask Price garaagarummaa jiru Spread jedhama. Spread'n kun galii broker'a keetiitii fi gatii trading execution keetiif murteessaadha."
                     ]
                 },
                 {
-                    title: `Lesson 3: Saayikoloojii fi Risk Management`,
+                    title: "Lesson 3: Paayiroota Gabaa fi Amaloota Isaanii",
                     paragraphs: [
-                        `Keeyyata 1: Traadingii keessatti saayikoloojiin %80 qooda qaba. Sodaa (Fear) fi Arraamii (Greed) to'achuun kisaaraa irraa nu oolcha.`,
-                        `Keeyyata 2: Account keessan irraa trade tokkoon %1 ykn %0.5 qofa risk gochuun seera sibiilaa (iron rule) traaderii pro ta'eeti.`,
-                        `Keeyyata 3: Goat Funded Trader fi Prop Firm challenges darbuuf daily drawdown limit sirriitti eeggachuun dirqama.`,
-                        `Keeyyata 4: Journaling (Galmee Trade) guyyaa guyyaan barreessuudhaan dogoggora dabarsitan sirreessaa deemuun guddina keessan mirkaneessa.`
+                        "Keeyyata 1: Currency Pairs adda addaatti qoodamu: Major Pairs (US Dollar kan of keessaa qaban akka EUR/USD, GBP/USD), Minor Pairs, fi Exotic Pairs.",
+                        "Keeyyata 2: Gold (XAU/USD) amala addaa fi saffisa ol'aanaa (volatility) qaba. Gold irratti pip fi point safaruun paayiroota biroo irraa adda.",
+                        "Keeyyata 3: Paayiriin tokkoon tokkoon isaanii sa'aatii gabaa (Sessions) irratti hundaa'anii amala sochiisoo ta'e agarsiisu. London Session irratti EUR fi GBP saffisaan socho'u.",
+                        "Keeyyata 4: Traaderiin jalqabaa paayirii tokko ykn lama (Fakkeenyaaf Gold fi EUR/USD) qofa irratti xiyyeeffachuun beekumsa gadi fageenyaa argachuu qaba."
                     ]
                 }
             ]
-        };
-    });
-
-    function getModuleTitle(num) {
-        const titles = [
-            "History of Trading & Foundational Vocabulary",
-            "Business vs Trading Mindset & Capital",
-            "Trading Instruments (Gold & EUR/USD Focus)",
-            "Market Structure & Timeframe Alignment",
-            "Smart Money Concepts (SMC) & Order Blocks",
-            "Liquidity Sweeps & Fair Value Gaps (FVG)",
-            "Change of Character (CHoCH) & BOS Entries",
-            "Risk Management & Position Sizing Calculations",
-            "Trading Psychology & Emotional Control",
-            "Prop Firm Evaluation Rules (Goat Funded Trader)",
-            "London & New York Session Liquidity Models",
-            "Technical Chart Patterns & Price Action",
-            "Trade Journaling & Execution Checklist",
-            "Advanced Multi-Timeframe Analysis",
-            "Mastery, Graduation & Live Trading Plan"
-        ];
-        return titles[num - 1] || `Advanced Topic ${num}`;
-    }
+        },
+        {
+            id: 2, num: "02", category: "MINDSET",
+            title: "Module 2 - Business vs Trading Mindset",
+            desc: "Traadingii akka bisniisii pro'itti ilaaluu, kaapitaala to'achuu, fi eeggannoo kisaaraa.",
+            lessons: [
+                {
+                    title: "Lesson 1: Traadingii Akka Bisniisiitti Ilaaluu",
+                    paragraphs: [
+                        "Keeyyata 1: Namoonni hedduun traadingii akka laatorii ykn gambling'itti ilaalu; kunis sababa gabaa keessatti %90 ol kisaaraaf saaxilamaniif ta'a. Traaderiin pro ta'e traadingii akka bisniisii waggaa dheeraatti ilaala.",
+                        "Keeyyata 2: Bisniisii tokko keessatti kisaaraan (Loss) baasii hojiiti (Operating Expense). Trade kisaaraan xumuramu kisaaraa sirrii ta'uu hubachuun dhiibbaa sammuu irraa nama oolcha.",
+                        "Keeyyata 3: Business plan qabaachuun dirqama. Plan keessan keessatti rules of entry, exit, risk management, fi daily max loss poyintiiwwan sirriitti barreeffamuu qabu.",
+                        "Keeyyata 4: Galii fi kisaaraa guyyaa guyyaan Journaling gochuun sochii bisniisii keessanii ilaalcha data-n deeggarameen to'achuuf isin gargaara."
+                    ]
+                },
+                {
+                    title: "Lesson 2: Kaapitaala fi Risk Control",
+                    paragraphs: [
+                        "Keeyyata 1: Account keessan irraa trade tokkoon %1 ykn %0.5 qofa risk gochuun seera sibiilaa (iron rule) traaderii milkaa'aadha. Account $10,000 irraa trade tokko irratti $100 ol risk gochuun hin danda'amu.",
+                        "Keeyyata 2: Drawdown to'achuu jechuun kisaaraa walitti aansee dhufu akka account keessan hin barbarreessineef lot size xiqqeessuudha.",
+                        "Keeyyata 3: Risk to Reward Ratio (RRR) minimum 1:2 ykn 1:3 fayyadamuu. RRR 1:3 yoo fayyadamtani trade 10 keessaa 4 qofa yoo moottanillee profiti keessa turtu.",
+                        "Keeyyata 4: Risk control malee traad gochuun maallaqa keessan gabaaf kennuudha; akkasumas Over-leveraging irraa fagaachuun dirqama."
+                    ]
+                },
+                {
+                    title: "Lesson 3: Sammuu fi Eeggannoo Kisaaraa (Expectation Management)",
+                    paragraphs: [
+                        "Keeyyata 1: Gabaa irratti guyyaa hunda mo'achuun hin danda'amu. Kisaaraan qaama gabaa ta'uu amanuun stress fi anxiety hir'isa.",
+                        "Keeyyata 2: Eeggannoo maallaqaa hin taane (Unrealistic Profit Expectations) sammuu keessatti uumuun mo'amuu irratti Revenge Trading akka gochaniif nama dhiiba.",
+                        "Keeyyata 3: Traaderiin pro ta'e mo'icha fi kisaaraa kanaan emoshinii isaa hin jijjiiru; lamaan isaayyuu bu'aa madallii toftaa isaa godhee fudhata.",
+                        "Keeyyata 4: Consistency jechuun bu'aa baay'ee guyyaa tokkotti argachuu miti; seera keessan waggaa guutuu ginkaan hordofuu dha."
+                    ]
+                }
+            ]
+        },
+        {
+            id: 3, num: "03", category: "CHARTS & PRICE ACTION",
+            title: "Module 3 - Candlestick Anatomy & Price Action",
+            desc: "Dandeeqoowwan Candlestick, Wick Mapping, fi Toftaa Price Action.",
+            lessons: [
+                {
+                    title: "Lesson 1: Candlestick Anatomy & Market Story",
+                    paragraphs: [
+                        "Keeyyata 1: Japanese Candlestick gatii gabaa yeroo murtaa'e keessatti fuula 4 agarsiisa: Open, High, Low, fi Close (OHLC). Qaamni (Body) fi eegeen (Wick) gabaa sanaa ergaa gudaa qaba.",
+                        "Keeyyata 2: Bullish Candle irratti Close'n Open irra gubbaa jira; Bearish Candle irratti ammoo Close'n Open irraa gaditti argama.",
+                        "Keeyyata 3: Candlestick body'n baay'ina mo'icha buyer ykn seller agarsiisa. Fully formed Marubozu candle humna guddaa agarsiisa.",
+                        "Keeyyata 4: Candlesticks qofaa isaanii socho'an osoo hin taane, context fi location chart irratti qaban waliin dubbifamuu qabu."
+                    ]
+                },
+                {
+                    title: "Lesson 2: Wick Mapping & Liquidity Probing",
+                    paragraphs: [
+                        "Keeyyata 1: Candlestick Wick (eegee) bakka gatiin qorannoo (probing) godhee deebi'e agarsiisa. EEgeen dheeraan rejection ykn liquidity sweep uumamuu agarsiisa.",
+                        "Keeyyata 2: Top Wick rejection bakka supply jiruufi seller'oonni gabaa to'achaa jiran agarsiisa.",
+                        "Keeyyata 3: Bottom Wick rejection ammoo demand zone fi buyer'oonni gabaa ol dhiibaa jiraachuu mirkaneessa.",
+                        "Keeyyata 4: Wick gubbaa fi gaditti uumaman bakka Stop Loss retail trader'oota gabaa keessaa itti sweep ta'edha."
+                    ]
+                },
+                {
+                    title: "Lesson 3: Price Action Key Patterns",
+                    paragraphs: [
+                        "Keeyyata 1: Engulfing Pattern (Bullish & Bearish Engulfing) candle duraanii guutummaatti yeroo liqimsu uumama. Kunis shift of momentum agarsiisa.",
+                        "Keeyyata 2: Pin Bar ykn Doji candle rejection guddaa bakka Key Support/Resistance irratti uumuun reversal trend nutti agarsiisa.",
+                        "Keeyyata 3: Inside Bar Pattern consolidation fi compression gabaa agarsiisa; breakouts dhiyootti uumamuuf akka jiru mallattoo kenna.",
+                        "Keeyyata 4: Patterns kanneen fakkii qofaan utuu hin tain, bakka gabaa (Key Levels) irratti caasaa SMC waliin walitti hidhamuu qabu."
+                    ]
+                }
+            ]
+        },
+        {
+            id: 4, num: "04", category: "MARKET STRUCTURE",
+            title: "Module 4 - Market Structure & Trend Analysis",
+            desc: "Higher Highs, Higher Lows, Trendlines, Break of Structure (BOS), fi Change of Character (CHoCH).",
+            lessons: [
+                {
+                    title: "Lesson 1: Market Structure Bu'uuraa",
+                    paragraphs: [
+                        "Keeyyata 1: Gabaan toora sadiin socho'a: Uptrend, Downtrend, fi Ranging (Consolidation). Market Structure gabaa beekuun geggeessaa trading keenyaati.",
+                        "Keeyyata 2: Uptrend keessatti gabaan Higher Highs (HH) fi Higher Lows (HL) uumaa deema. Buyer'oonni gabaa to'atu.",
+                        "Keeyyata 3: Downtrend keessatti gabaan Lower Highs (LH) fi Lower Lows (LL) uumaa deema. Seller'oonni gabaa to'atu.",
+                        "Keeyyata 4: Ranging market keessatti gabaan bakka Support fi Resistance gidduutti squeeze ta'a; hanga breakout uumamutti entry fagaachuun gaariidha."
+                    ]
+                },
+                {
+                    title: "Lesson 2: Break of Structure (BOS)",
+                    paragraphs: [
+                        "Keeyyata 1: Break of Structure (BOS) yeroo gabaan trend jiraatu sana itti fufuun swing high ykn swing low duraanii candle body-n cabsu uumama.",
+                        "Keeyyata 2: Uptrend keessatti BOS uumamuun trend'ni bullish ta'uun itti fufuu isaa mirkaneessa.",
+                        "Keeyyata 3: Bearish BOS uumamuun seller'oonni gabaa keessatti humna itti fufiinsa qabu agarsiisa.",
+                        "Keeyyata 4: Fakeout (False Breakout) irraa fagaachuuf, BOS candle body-n cufamuu isaa (Body Close) mirkaneeffachuun dirqama."
+                    ]
+                },
+                {
+                    title: "Lesson 3: Change of Character (CHoCH)",
+                    paragraphs: [
+                        "Keeyyata 1: Change of Character (CHoCH) mallattoo jalqabaa trend jijjiiramuu (Trend Reversal) agarsiisudha.",
+                        "Keeyyata 2: Uptrend keessatti yeroo gabaan Higher Low (HL) isa dhumaa gara gadiitti cabsu, CHoCH Bearish uumama.",
+                        "Keeyyata 3: Bearish CHoCH uumamnaan buyer'oonni dadhabani seller'oonni gabaa to'achuu jalqabuu isaanii agarsiisa.",
+                        "Keeyyata 4: 15-Minute CHoCH fayyadamuun Higher Timeframe Order Block irratti confirmation entry fudhaachuu dandeessu."
+                    ]
+                }
+            ]
+        },
+        {
+            id: 5, num: "05", category: "SMC CORE",
+            title: "Module 5 - Smart Money Concepts & Order Blocks",
+            desc: "Institutional Order Blocks (OB), Refinement, OB Mitigation, fi Demand-Become-Supply Flips.",
+            lessons: [
+                {
+                    title: "Lesson 1: Institutional Order Blocks (OB)",
+                    paragraphs: [
+                        "Keeyyata 1: Order Block (OB) candle dhumaa kan imbalansii fi Break of Structure (BOS) uumuu danda'ee gabaa ol ykn gadi dhiibeedha.",
+                        "Keeyyata 2: Bullish Order Block candle Bearish isa dhumaa kan gabaan saasitti ol utaaluun dura uumamedha.",
+                        "Keeyyata 3: Bearish Order Block candle Bullish isa dhumaa kan gabaan gadi utaaluun dura uumamedha.",
+                        "Keeyyata 4: Smart Money (Baankonni) Order Block keessatti orders gurguddoo galchu; gatiin deebi'ee OB sana tuquu qaba."
+                    ]
+                },
+                {
+                    title: "Lesson 2: Order Block Refinement & Validation",
+                    paragraphs: [
+                        "Keeyyata 1: OB hundi valid miti. OB sirrii ta'e Liquidity Sweep gochuu, Imbalance (FVG) uumuu, fi BOS fiduu qaba.",
+                        "Keeyyata 2: High Timeframe (4H) OB irraa gara Low Timeframe (15M) OB'tti xiqqeessuun (Refinement) Risk to Reward Ratio arfata.",
+                        "Keeyyata 3: Order Block hin mitigation ta'in (Unmitigated OB) akka xiyyeeffannoo keenyaatti qabatama.",
+                        "Keeyyata 4: OB tuquu qofaan osoo hin tain, LTF CHoCH confirmation eeguun nagaa trade keenyaa eega."
+                    ]
+                },
+                {
+                    title: "Lesson 3: Demand-Become-Supply Flip Entries",
+                    paragraphs: [
+                        "Keeyyata 1: Flip Setup yeroo Zone Demand tokko gabaan cabsee gara Supply Zone'tti jijjiiru uumama.",
+                        "Keeyyata 2: Buyer'oonni Zone sana eegaa turan yeroo cabu, sell stop orders trigger ta'uudhaan flip uumu.",
+                        "Keeyyata 3: Gatii deebi'ee Flip Zone sana test yeroo godhu, High Probability Sell Entry nuuf kenna.",
+                        "Keeyyata 4: Flip Setups gabaa xiqqaatti (15M) yeroo London & New York session uumaman bu'aa guddaa qabu."
+                    ]
+                }
+            ]
+        },
+        {
+            id: 6, num: "06", category: "SMART MONEY",
+            title: "Module 6 - Fair Value Gaps (FVG) & Imbalance",
+            desc: "Fair Value Gaps (FVG), Inefficiency, Liquidity Voids, fi Fill Strategy.",
+            lessons: [
+                {
+                    title: "Lesson 1: Fair Value Gap (FVG) Bu'uuraa",
+                    paragraphs: [
+                        "Keeyyata 1: Fair Value Gap (FVG) dhiyeessaa fi fedhii madaallii hin qabne (Market Inefficiency) yeroo gabaan saffisa ol'aanaan utaalu uumama.",
+                        "Keeyyata 2: FVG Candlestick 3 gidduutti safarama: High candle 1ffaa fi Low candle 3ffaa gidduu bakka duwwaatu jiraa.",
+                        "Keeyyata 3: Gabaan madaallii isaa eeggachuuf gara FVG sanaatti deebi'ee duuchuuf (Mitigate/Fill) dhihaata.",
+                        "Keeyyata 4: Bullish FVG fi Bearish FVG entry zones barbaaduuf gargaarsa ol'aanaa ta'u."
+                    ]
+                },
+                {
+                    title: "Lesson 2: Liquidity Voids & Imbalance Fill",
+                    paragraphs: [
+                        "Keeyyata 1: Liquidity Void utaaliinsa gabaa baay'ee dheeraa fi saffisaa candle tokkoon uumamuudha.",
+                        "Keeyyata 2: Baankonni order fayyadaman duuchuuf gabaa deebisanii gara Void sanaatti dhiibu.",
+                        "Keeyyata 3: Consequent Encroachment (CE / 50%) FVG ykn Void sanaa bakka gatichi deebi'ee baounce godhudha.",
+                        "Keeyyata 4: FVG Order Block waliin overlap yeroo godhu (Confluence) Setup sana High Probability taasisa."
+                    ]
+                },
+                {
+                    title: "Lesson 3: FVG Trading Strategy & Management",
+                    paragraphs: [
+                        "Keeyyata 1: Trade entry FVG keessa galchuu: Limit order CE (50%) FVG irratti kaahuu dandeessu.",
+                        "Keeyyata 2: Stop Loss gadi ykn gubbaa Order Block FVG uume sanaa kaahama.",
+                        "Keeyyata 3: Target Profit (TP) liquidity sweep dhiyootti jiru ykn Opposing Supply/Demand Zone irratti godhama.",
+                        "Keeyyata 4: FVG disrespect yoo ta'e (gabaan cabsee darnan) Breaker Blocks ykn Inversion FVG uumama."
+                    ]
+                }
+            ]
+        },
+        {
+            id: 7, num: "07", category: "LIQUIDITY",
+            title: "Module 7 - Liquidity Concepts & Sweeps",
+            desc: "Equal Highs/Lows (EQH/EQL), BSL, SSL, Inducement, fi Liquidity Sweeps.",
+            lessons: [
+                {
+                    title: "Lesson 1: Liquidity Maali? (Buy-side & Sell-side Liquidity)",
+                    paragraphs: [
+                        "Keeyyata 1: Liquidity maallaqa stop loss retail trader'oota gabaa keessatti kuufamee jirudha. Smart Money Liquidity malee order galchuu hin danda'u.",
+                        "Keeyyata 2: Buy-side Liquidity (BSL) Stop Loss orders sell traders fi Buy Stop orders gubbaa Resistance/Highs jiruufi.",
+                        "Keeyyata 3: Sell-side Liquidity (SSL) Stop Loss orders buy traders fi Sell Stop orders gadi Support/Lows jiruufi.",
+                        "Keeyyata 4: Gabaan magnet ta'ee gara bakka Liquidity kuufamee jirutti socho'a."
+                    ]
+                },
+                {
+                    title: "Lesson 2: Equal Highs/Lows (EQH/EQL) & Inducement",
+                    paragraphs: [
+                        "Keeyyata 1: Equal Highs (EQH) fi Equal Lows (EQL) bakka gatiin yeroo lama ykn isaa ol tuqee deebi'e; retail'n Support/Resistance jedhu.",
+                        "Keeyyata 2: Baankonni EQH fi EQL akka kandoo (trap) uumuun stop loss baay'ee achi jalatti kuusu.",
+                        "Keeyyata 3: Inducement (IDL) liquidity xiqqaadha kan gabaan dursa sweep godhee eegasii gara POI/OB guddaatti deemu.",
+                        "Keeyyata 4: Inducement addaan baafachuun Trap galuu irraa traaderii oolcha."
+                    ]
+                },
+                {
+                    title: "Lesson 3: Liquidity Sweeps & Turtle Soup Strategy",
+                    paragraphs: [
+                        "Keeyyata 1: Liquidity Sweep gabaan wick dheeraan High/Low cabsee battalatti deebi'ee cufuudha.",
+                        "Keeyyata 2: Liquidity Sweep xumuramnaan Smart Money orders hunda fudhateera; reversing fast uumama.",
+                        "Keeyyata 3: Turtle Soup Strategy sweep EQL/EQH irratti uumamu fayyadamuun quick reversal trade fudhachuudha.",
+                        "Keeyyata 4: Stop loss wick sweep godhe sana gadi/gubbaa kaahamuun risk xiqqaa RRR guddaa fida."
+                    ]
+                }
+            ]
+        },
+        {
+            id: 8, num: "08", category: "TIMEFRAMES",
+            title: "Module 8 - Multi-Timeframe Analysis & Alignment",
+            desc: "Top-Down Analysis (Monthly gara 15M), Timeframe Alignment, Matrix.",
+            lessons: [
+                {
+                    title: "Lesson 1: Top-Down Analysis Process",
+                    paragraphs: [
+                        "Keeyyata 1: Top-Down Analysis gabaa High Timeframe (Monthly/Weekly/Daily) irraa eegalee gara Low Timeframe (15M/5M) deemuu dha.",
+                        "Keeyyata 2: Monthly & Weekly HTF Narrative fi Overall Direction gabaa nuuf kenna.",
+                        "Keeyyata 3: Daily & 4-Hour Timeframe Market Structure fi Key POIs (Order Blocks/FVG) addaan baasa.",
+                        "Keeyyata 4: 15-Minute & 5-Minute Execution Timeframe ta'ani CHoCH fi Entry Trigger nuuf kennu."
+                    ]
+                },
+                {
+                    title: "Lesson 2: Timeframe Alignment Rules",
+                    paragraphs: [
+                        "Keeyyata 1: Timeframe hundi walsimuu (Align ta'uu) qabu. HTF Bullish yoo ta'e, LTF Sell fudhaachuun Counter-Trend Risk guddaadha.",
+                        "Keeyyata 2: HTF POI/OB irratti yeroo gatiin gahu, LTF irratti structure reversal eegama.",
+                        "Keeyyata 3: Alignment uumamuun Win Rate trade keessanii %80 olitti fooyyessa.",
+                        "Keeyyata 4: Timeframe jahama fayyadamuu irraa 4H (HTF) fi 15M (LTF) qofaatti xiyyeeffachuun murteessaadha."
+                    ]
+                },
+                {
+                    title: "Lesson 3: Multi-Timeframe Execution Matrix",
+                    paragraphs: [
+                        "Keeyyata 1: Matrix 1: 4H POI -> 15M CHoCH -> 15M FVG Entry.",
+                        "Keeyyata 2: Matrix 2: Daily Liquidity Sweep -> 1H BOS -> 5M Refined OB Entry.",
+                        "Keeyyata 3: Target Profit eessatti kaahama? HTF Liquidity Pool ykn Opposing HTF OB irratti.",
+                        "Keeyyata 4: Trade hunda keessatti Timeframe Alignment Checklist mirkaneeffachuun execution raawwachuu."
+                    ]
+                }
+            ]
+        },
+        {
+            id: 9, num: "09", category: "SESSIONS",
+            title: "Module 9 - Trading Sessions & Timing Models",
+            desc: "Asian Range, London Open, New York Kill Zones, ICT Session Timing.",
+            lessons: [
+                {
+                    title: "Lesson 1: Session Maali? Asian Range Model",
+                    paragraphs: [
+                        "Keeyyata 1: Gabaan Forex sa'aatii 24 banaadha garuu sa'aatiin sochiin guddaan uumamu Kill Zones jedhamu.",
+                        "Keeyyata 2: Asian Session (00:00 - 08:00 UTC) gabaa consolidation fi range xiqqaadha. High fi Low Asian Range Liquidity mark godhama.",
+                        "Keeyyata 3: Asian Range liquidity London ykn New York Session irratti sweep ta'a.",
+                        "Keeyyata 4: Asian Session keessa trade galuu irraa fagaachuun judgemnet gaariidha."
+                    ]
+                },
+                {
+                    title: "Lesson 2: London Open & Judicial Swing (Judas Swing)",
+                    paragraphs: [
+                        "Keeyyata 1: London Session (07:00 - 10:00 UTC / 10:00 - 1:00 Local Time) volatiilii guddaa fida.",
+                        "Keeyyata 2: Judas Swing fake expansion kan London Open irratti Asian High/Low sweep godhee gara opposite direction'tti socho'udha.",
+                        "Keeyyata 3: Judas Swing xumurti irratti 15M CHoCH fayyadamuun True Trend London qabachuu.",
+                        "Keeyyata 4: EUR/USD fi GBP/USD London Session irratti High/Low of the Day uumu."
+                    ]
+                },
+                {
+                    title: "Lesson 3: New York Kill Zone & Overlap",
+                    paragraphs: [
+                        "Keeyyata 1: New York Session (12:00 - 15:00 UTC) sochii guddaa Gold fi USD pairs irratti fida.",
+                        "Keeyyata 2: London-NY Overlap time (12:00 - 14:00 UTC) volume fi volatility gabaa irratti ol'aanaadha.",
+                        "Keeyyata 3: NY Session yaa'a London Continuation gochuu ykn Reversal uumuu danda'a.",
+                        "Keeyyata 4: Sa'aatii Kill Zone qofa keessatti trade gochuun yeroo fi sammuu keenya qusata."
+                    ]
+                }
+            ]
+        },
+        {
+            id: 10, num: "10", category: "RISK & POSITION",
+            title: "Module 10 - Risk Management & Position Sizing",
+            desc: "Pip value, Lot Size Calculator, Stop Loss, Maximum Daily Drawdown.",
+            lessons: [
+                {
+                    title: "Lesson 1: Mathematics of Risk & Pip Values",
+                    paragraphs: [
+                        "Keeyyata 1: Risk Management herrega saayinsawaa irretti kan hundaa'edha. Pip value currency paayiriif adda.",
+                        "Keeyyata 2: EUR/USD irratti Lot 1.0 = $10 per pip; Gold irratti $0.10 movement = $10 per Lot 1.0.",
+                        "Keeyyata 3: Account size $10,000 kan qabu traaderiin %1 risk yoo godhe $100 qofa dhabuu danda'a.",
+                        "Keeyyata 4: Math of drawdown: Account %50 yoo kisaare deebi'ee break-even gochuuf %100 gain barbaachisa!"
+                    ]
+                },
+                {
+                    title: "Lesson 2: Position Sizing Formula & Calculator",
+                    paragraphs: [
+                        "Keeyyata 1: Lot Size Formula: Lot Size = (Account Balance * Risk %) / (Stop Loss in Pips * Pip Value).",
+                        "Keeyyata 2: Stop Loss pips 10 fi Stop Loss pips 30 yoo qabaattan, Lot size keessan akka pips sanaatti jijjiirama.",
+                        "Keeyyata 3: TradingView ykn Lot Calculator app fayyadamuun saandii fi saandii maallaqaa sakandii keessatti herregachuu.",
+                        "Keeyyata 4: Lot Size tilmaamaan galchuu irraa fagaachuun seera fi nidhii traadingii eega."
+                    ]
+                },
+                {
+                    title: "Lesson 3: Daily Drawdown & Equity Curve Management",
+                    paragraphs: [
+                        "Keeyyata 1: Max Daily Loss Limit kaachisuu. Fakkeenyaaf guyyaatti trade 2 kisaaraan xumurran trading dhaabuu.",
+                        "Keeyyata 2: Weekly Risk Limit: Account %5 yoo kisaare torban sanaaf trading dhaabuu fi chart irraa fagaachuu.",
+                        "Keeyyata 3: Equity Curve compounding plan fayyadamuun bu'aa argame suuta guddisaa deemu.",
+                        "Keeyyata 4: Drawdown keessa yeroo jirtan lot size %0.5'tti gadi buusuun saayikoloojii deebisanii ijaaruu."
+                    ]
+                }
+            ]
+        },
+        {
+            id: 11, num: "11", category: "PROP FIRMS",
+            title: "Module 11 - Prop Firm Evaluations (Goat Funded Trader)",
+            desc: "Evaluation Phase 1 & Phase 2, Trailing Drawdown, Consistency Rules, Disqualification.",
+            lessons: [
+                {
+                    title: "Lesson 1: Prop Firms Overview & Goat Funded Rules",
+                    paragraphs: [
+                        "Keeyyata 1: Proprietary Trading Firms (Prop Firms) kaapitaala $5,000 irraa eegalee hanga $200,000+ traaderoota muuxannoo qabaniif ni dhiyeessu.",
+                        "Keeyyata 2: Goat Funded Trader Evaluation Phase 1 (Profit Target %8-%10) fi Phase 2 (Profit Target %5) qaba.",
+                        "Keeyyata 3: Instant Funding accounts target malee drawdown rule qofa eeguun profit split %80-%90 ni kenna.",
+                        "Keeyyata 4: Rules prop firm addaan baasanii beekuun challenge darbuuf susundida jalqabaati."
+                    ]
+                },
+                {
+                    title: "Lesson 2: Trailing Drawdown vs Static Drawdown",
+                    paragraphs: [
+                        "Keeyyata 1: Daily Drawdown (%4 - %5) equity peak guyyaa sana irraa herregama.",
+                        "Keeyyata 2: Overall Max Drawdown (%8 - %10) Trailing ykn Static ta'uu danda'a.",
+                        "Keeyyata 3: Trailing Drawdown profit keessan waliin ol deema garuu yeroo kisaartan gadi hin deebi'u!",
+                        "Keeyyata 4: Floating profit keessan to'achuu; High Impact News irratti trade banuu irraa fagaachuu."
+                    ]
+                },
+                {
+                    title: "Lesson 3: Strategy to Pass Evaluation Challenges",
+                    paragraphs: [
+                        "Keeyyata 1: Consistency Rule eeguu: Trade tokkootiin profit %50 ol akka hin argamne gochuu.",
+                        "Keeyyata 2: Risk per trade %0.5 - %1 max fayyadamuun drawdown to'achuu.",
+                        "Keeyyata 3: Target Profit %8 gahuuf High Probability setups 4-5 RRR 1:3 qaban qofa fudhachuu.",
+                        "Keeyyata 4: Account funded ta'an booda dursa payout jalqabaa fiduu irratti xiyyeeffachuu."
+                    ]
+                }
+            ]
+        },
+        {
+            id: 12, num: "12", category: "PSYCHOLOGY",
+            title: "Module 12 - Trading Psychology & Emotional Control",
+            desc: "Fear of Missing Out (FOMO), Revenge Trading, Over-trading, Discipline.",
+            lessons: [
+                {
+                    title: "Lesson 1: FOMO & Revenge Trading Dissected",
+                    paragraphs: [
+                        "Keeyyata 1: Fear of Missing Out (FOMO) sodaa gabaan na utaala jedhanii confirmation malee candle saffisaan socho'u keessa galuudha.",
+                        "Keeyyata 2: Revenge Trading kisaaraa uumame battalatti deebisee fiduuf aariin gabaa waliin loluu fi lot guddaa galchuudha.",
+                        "Keeyyata 3: Lamaan isaaniyyuu kisaaraa guddaa fi account blow-out (burn) gochuutti nama geessu.",
+                        "Keeyyata 4: Checklist strict ta'e qabaachuun emoshinii to'achuuf furmaata qorsaati."
+                    ]
+                },
+                {
+                    title: "Lesson 2: Over-Trading & Greed Control",
+                    paragraphs: [
+                        "Keeyyata 1: Over-Trading guyyaatti trade baay'ee galchuudha. Gabaan yeroo hunda entry hin kennu.",
+                        "Keeyyata 2: Target profit guyyaa xumurtaniis deebitanii trade galuun arraamii (Greed) irraa kan ka'edha.",
+                        "Keeyyata 3: Rule: Guyyaatti Max 2 Trades qofa galuu. Moottanis kisaartanis skreenii cufuu.",
+                        "Keeyyata 4: Trading discipline mirkaneessuun sammuu qulqulluun gabaa ilaaluuf ni gargaara."
+                    ]
+                },
+                {
+                    title: "Lesson 3: Routine of a Professional Trader",
+                    paragraphs: [
+                        "Keeyyata 1: Pre-Market Routine: News Calendar check gochuu (Forex Factory), High Timeframe levels mark gochuu.",
+                        "Keeyyata 2: In-Session Execution: Sa'aatii Kill Zone qofa keessatti setup eeguu. Setup yoo hin jirre NO TRADE.",
+                        "Keeyyata 3: Post-Market Review: Trade kisaare fi mo'e hunda Journaling gochuun screenshot kaahuu.",
+                        "Keeyyata 4: Shaakala sochii qaamaa fi hirriba gahaa sleep habits qabaachuun sammuu sharpen godha."
+                    ]
+                }
+            ]
+        },
+        {
+            id: 13, num: "13", category: "JOURNALING",
+            title: "Module 13 - Trade Journaling & Execution Checklist",
+            desc: "Notion/Excel Journaling, Performance Metrics, Win Rate vs RRR, Confirmation Checklist.",
+            lessons: [
+                {
+                    title: "Lesson 1: Akkaataa Trade Journaling Ijaaran",
+                    paragraphs: [
+                        "Keeyyata 1: Trade Journaling galmee muuxannoo fi ragaa traaderii ti. Notion ykn Excel fayyadamuun ni danda'ama.",
+                        "Keeyyata 2: Journal keessattii: Date, Pair, Direction (Buy/Sell), Entry Price, SL, TP, Risk %, RRR, Result ($), fi Screenshot.",
+                        "Keeyyata 3: Sababa trade sana itti fudhattan (Confluences) barreesitanii kaahuu.",
+                        "Keeyyata 4: Journaling hin qabne taanaan traadingii keessan guddina fi fooyya'iinsa agarsiisuu hin danda'u."
+                    ]
+                },
+                {
+                    title: "Lesson 2: Performance Metrics Analysis",
+                    paragraphs: [
+                        "Keeyyata 1: Win Rate = (Trades Mo'ataman / Trades Guutuu) * 100.",
+                        "Keeyyata 2: Average Risk to Reward Ratio (RRR) herreguu.",
+                        "Keeyyata 3: Expectancy Formula: (Win Rate * Avg Win) - (Loss Rate * Avg Loss). Expectancy Positive ta'uu qaba.",
+                        "Keeyyata 4: Metric kanneen ji'atti marroo tokko evaluate gochuun setup kamtu akka bu'aa fidu addaan baasuu."
+                    ]
+                },
+                {
+                    title: "Lesson 3: Pre-Execution Confirmation Checklist",
+                    paragraphs: [
+                        "Keeyyata 1: Step 1: HTF Trend & POI Marked? (Yes/No).",
+                        "Keeyyata 2: Step 2: Liquidity Swept & FVG Present? (Yes/No).",
+                        "Keeyyata 3: Step 3: LTF CHoCH Confirmation & Kill Zone Timing? (Yes/No).",
+                        "Keeyyata 4: Step 4: Position Size Calculated & Risk <= 1%? Checklist 100% Yes ta'an qofa EXECUTE!"
+                    ]
+                }
+            ]
+        },
+        {
+            id: 14, num: "14", category: "ADVANCED SMC",
+            title: "Module 14 - Advanced SMC & Breaker Blocks",
+            desc: "Breaker Blocks, Mitigation Blocks, Inversion FVG, Inducement Traps.",
+            lessons: [
+                {
+                    title: "Lesson 1: Breaker Blocks Masterclass",
+                    paragraphs: [
+                        "Keeyyata 1: Breaker Block Order Block failed ta'eedha kan liquidity sweep godhee eegasii structure cabse.",
+                        "Keeyyata 2: Bullish Breaker Block: Bearish OB kan liquidity swept godhee gabaan ol utaaluun cabsee darbedha.",
+                        "Keeyyata 3: Gatii deebi'ee Breaker Block sana test yeroo godhu High Probability Buy Entry nuuf kenna.",
+                        "Keeyyata 4: Breaker Blocks Order Blocks caalaa saffisaan reaction fidu."
+                    ]
+                },
+                {
+                    title: "Lesson 2: Mitigation Blocks & Inversion FVG",
+                    paragraphs: [
+                        "Keeyyata 1: Mitigation Block Order Block kan liquidity sweep hin gochin garuu structure cabseedha.",
+                        "Keeyyata 2: Inversion FVG (IFVG): FVG gabaan disrespect godhee cabsee darbe, yeroo deebi'u akka support/resistance tajajila.",
+                        "Keeyyata 3: IFVG fayyadamuun gabaa trend cimaa qabu keessatti entry re-entry fudhachuu.",
+                        "Keeyyata 4: Confluence IFVG fi Breaker Block gidduu jiru setup elite ta'e fida."
+                    ]
+                },
+                {
+                    title: "Lesson 3: Advanced Liquidity Engineering",
+                    paragraphs: [
+                        "Keeyyata 1: Smart Money paaternota retail (Head & Shoulders, Double Top) akka inducement'tti injineering godhu.",
+                        "Keeyyata 2: Retail breakout traders traps keessa galchanii stop loss isaanii sweep gochuu.",
+                        "Keeyyata 3: Sweep booda confirmation LTF irra eegatanii gara true trend'tti galuu.",
+                        "Keeyyata 4: Thinking like Institutional Traders: Bakka namni hundi kisaaru ilaalani murtii faallaa fudhachuu."
+                    ]
+                }
+            ]
+        },
+        {
+            id: 15, num: "15", category: "MASTERY",
+            title: "Module 15 - Graduation & Live Trading Plan",
+            desc: "Trading Plan Guutuu, Live Account Rules, Apex Academy Mentorship & Graduation.",
+            lessons: [
+                {
+                    title: "Lesson 1: Complete Apex Trading Plan Blueprint",
+                    paragraphs: [
+                        "Keeyyata 1: Trading Plan keessan document seeraa keessani. Trading Model, Risk Rules, Pairs, Times, fi Execution Strategy hammata.",
+                        "Keeyyata 2: Strategy Definition: SMC 15M Entry Setup (Sweep + FVG + CHoCH).",
+                        "Keeyyata 3: Emergency Rules: Intarneetiin yoo cite ykn Spreads yoo bal'ate wet trade cufuu.",
+                        "Keeyyata 4: Plan kana osoo hin jijjiirin miee kudan 6f giinkan hordofuu."
+                    ]
+                },
+                {
+                    title: "Lesson 2: Transition from Demo to Live / Funded Account",
+                    paragraphs: [
+                        "Keeyyata 1: Demo account irratti miee 3 walitti aansudhaan profitabilty mirkaneessuu.",
+                        "Keeyyata 2: Live Account ykn Prop Firm Challenge jalqabaa irratti emoshinii mo'achuuf lot size xiqqoo irraa eegaluu.",
+                        "Keeyyata 3: Scale-up plan: Profit split jalqabaa eega fudhattani booda account size guddisaa deemu.",
+                        "Keeyyata 4: Long-term wealth creation: Bu'aa trading irraa argamu asset birootti re-invest gochuu."
+                    ]
+                },
+                {
+                    title: "Lesson 3: Graduation & Apex Forex Academy Mentorship",
+                    paragraphs: [
+                        "Keeyyata 1: Baga gamaddan! Moojuulota 15n Apex Forex Academy guutummaatti xumurtaniiltu.",
+                        "Keeyyata 2: Sertifikeeta eebba keessani Poortaala kana irraa Download godhachuun LinkedIn fi Social Media irratti share godhaa.",
+                        "Keeyyata 3: Apex Mentorship Group Discord/Telegram keessatti VIP Community waliin Live Analysis fi Weekly Webinars hordofaa.",
+                        "Keeyyata 4: Hundeessaa Gemechu Reta fi mentors keenya waliin adeemsa trading keessan gara Pro Level'tti ol guddisaa!"
+                    ]
+                }
+            ]
+        }
+    ];
 
     // RENDER 15 MODULES TO GRID
     function renderModules() {
@@ -298,17 +718,13 @@
                     <div class="module-category">${m.category}</div>
                     <div class="module-title">${m.title}</div>
                     <div class="module-desc">${m.desc}</div>
-                    <div class="module-footer">
-                        <span>👤 Gemechu Reta</span>
-                        <span>📚 3 Lessons</span>
-                    </div>
                     <button class="btn-view-prog" onclick="openModule(${m.id})">View programme →</button>
                 </div>
             </div>
         `).join('');
     }
 
-    // OPEN LESSON MODAL
+    // OPEN LESSON MODAL WITH 3 UNIQUE LESSONS AND 4+ PARAGRAPHS
     function openModule(modId) {
         const mod = modulesData.find(m => m.id === modId);
         document.getElementById('modal-mod-title').innerText = mod.title;
@@ -341,13 +757,10 @@
         document.getElementById('lesson-modal').classList.add('hidden');
     }
 
-    // OTP AUTHENTICATION FLOW
+    // AUTH FLOW
     async function sendOTP() {
         const email = document.getElementById('email').value;
-        if (!email) {
-            alert("Maaloo Email keessan galchaa!");
-            return;
-        }
+        if (!email) { alert("Maaloo Email keessan galchaa!"); return; }
 
         try {
             const res = await fetch('/api/send-otp', {
@@ -357,14 +770,14 @@
             });
             const data = await res.json();
             if (data.success) {
-                alert("Koodiin OTP 6-digit Telegram Bot (@smcfxpro_bot) keessaniif ergameera!");
+                alert("Koodiin OTP 6-digit Telegram Bot keessaniif ergameera!");
                 document.getElementById('login-step-1').classList.add('hidden');
                 document.getElementById('login-step-2').classList.remove('hidden');
             } else {
                 alert("Error: " + data.message);
             }
         } catch (err) {
-            alert("Server connection failed. Back-end Render irratti run gochaa jiraachuu mirkaneessaa!");
+            alert("Server connection failed. Backend Render irratti running ta'uu mirkaneessaa!");
         }
     }
 
@@ -405,10 +818,8 @@
         document.getElementById('auth-screen').classList.remove('hidden');
     }
 
-    // LANGUAGE SWITCHER
     function setLang(lang) {
         document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-        // Dynamic UI label updates can be hooked here
     }
 
     renderModules();

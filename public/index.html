@@ -18,13 +18,26 @@
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
-        body { background-color: var(--bg-portal); color: var(--text-dark); min-height: 100vh; display: flex; flex-direction: column; }
+        body { background-color: var(--bg-portal); color: var(--text-dark); min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
 
-        /* --- SIGN IN SCREEN (Trade Insight Style) --- */
-        #auth-screen { display: flex; min-height: 100vh; width: 100vw; background: #ffffff; }
+        /* HEADER / NAVIGATION */
+        .top-navbar { background: white; padding: 16px 40px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
+        .nav-brand { display: flex; align-items: center; gap: 12px; font-size: 20px; font-weight: 800; color: var(--navy-dark); text-decoration: none; }
+        .brand-icon { width: 38px; height: 38px; background: var(--orange-primary); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 800; font-size: 18px; box-shadow: 0 4px 15px rgba(255, 94, 0, 0.3); }
+        .top-nav-links { display: flex; align-items: center; gap: 30px; list-style: none; }
+        .top-nav-links a { text-decoration: none; color: var(--text-muted); font-size: 14px; font-weight: 700; transition: color 0.2s; }
+        .top-nav-links a:hover, .top-nav-links a.active { color: var(--orange-primary); }
+
+        .lang-switch { background: #f1f5f9; padding: 4px; border-radius: 20px; display: flex; gap: 2px; }
+        .lang-btn { border: none; padding: 6px 14px; border-radius: 16px; font-size: 12px; font-weight: 700; cursor: pointer; background: transparent; color: var(--text-muted); transition: all 0.2s; }
+        .lang-btn.active { background: var(--orange-primary); color: white; }
+
+        .btn-get-started { background: var(--orange-primary); color: white; padding: 10px 22px; border-radius: 30px; font-weight: 700; text-decoration: none; font-size: 14px; box-shadow: 0 4px 15px rgba(255, 94, 0, 0.3); transition: background 0.2s; border: none; cursor: pointer; }
+        .btn-get-started:hover { background: var(--orange-hover); }
+
+        /* AUTH MODAL / SCREEN */
+        #auth-screen { display: flex; min-height: calc(100vh - 72px); width: 100vw; background: #ffffff; }
         .auth-left { width: 45%; background: linear-gradient(135deg, #050c1e 0%, #0f2352 100%); color: white; padding: 50px; display: flex; flex-direction: column; justify-content: space-between; }
-        .auth-brand { display: flex; align-items: center; gap: 12px; font-size: 20px; font-weight: 800; }
-        .brand-icon { width: 42px; height: 42px; background: var(--orange-primary); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 800; font-size: 18px; box-shadow: 0 4px 15px rgba(255, 94, 0, 0.4); }
         .auth-hero-text h1 { font-size: 38px; font-weight: 800; margin-bottom: 16px; line-height: 1.2; }
         .auth-hero-text p { color: #94a3b8; font-size: 15px; line-height: 1.6; margin-bottom: 30px; }
         .founder-badge { display: inline-block; background: rgba(255, 94, 0, 0.15); color: var(--orange-primary); padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; margin-bottom: 20px; border: 1px solid rgba(255, 94, 0, 0.3); }
@@ -32,457 +45,307 @@
         .auth-features li { display: flex; align-items: center; gap: 12px; font-size: 14px; font-weight: 600; color: #e2e8f0; }
         .feature-check { width: 24px; height: 24px; background: rgba(255, 94, 0, 0.2); color: var(--orange-primary); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; }
 
-        .auth-right { width: 55%; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 40px; background: #fafafa; position: relative; }
-        .top-lang-picker { position: absolute; top: 30px; right: 40px; }
-        .login-card { background: white; padding: 40px; border-radius: 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.05); width: 100%; max-width: 440px; border: 1px solid var(--border); }
-        .login-card h2 { font-size: 28px; font-weight: 800; color: var(--navy-dark); margin-bottom: 25px; }
+        .auth-right { width: 55%; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 40px; background: #fafafa; }
+        .login-card { background: white; padding: 40px; border-radius: 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.05); width: 100%; max-width: 460px; border: 1px solid var(--border); }
+        .login-card h2 { font-size: 28px; font-weight: 800; color: var(--navy-dark); margin-bottom: 15px; }
+        .bot-notice { background: #eff6ff; border: 1px solid #bfdbfe; color: #1e40af; padding: 12px; border-radius: 12px; font-size: 13px; font-weight: 600; margin-bottom: 20px; line-height: 1.5; }
         .input-label { font-size: 13px; font-weight: 700; color: var(--navy-dark); margin-bottom: 8px; display: block; }
-        .input-field { width: 100%; padding: 14px 16px; border-radius: 12px; border: 1px solid var(--border); font-size: 15px; outline: none; margin-bottom: 20px; transition: border-color 0.2s; }
+        .input-field { width: 100%; padding: 14px 16px; border-radius: 12px; border: 1px solid var(--border); font-size: 15px; outline: none; margin-bottom: 20px; }
         .input-field:focus { border-color: var(--orange-primary); }
-        .btn-continue { width: 100%; background: var(--orange-primary); color: white; padding: 15px; border-radius: 12px; border: none; font-weight: 700; font-size: 15px; cursor: pointer; box-shadow: 0 4px 15px rgba(255, 94, 0, 0.3); transition: background 0.2s; }
-        .btn-continue:hover { background: var(--orange-hover); }
-        .login-subtext { text-align: center; color: var(--text-muted); font-size: 13px; margin-top: 15px; }
+        .btn-continue { width: 100%; background: var(--orange-primary); color: white; padding: 15px; border-radius: 12px; border: none; font-weight: 700; font-size: 15px; cursor: pointer; box-shadow: 0 4px 15px rgba(255, 94, 0, 0.3); }
 
-        /* --- STUDENT PORTAL DASHBOARD --- */
-        #portal-screen { display: flex; min-height: 100vh; width: 100vw; }
+        /* PORTAL & MODULES DESIGN */
+        #portal-screen { display: flex; min-height: calc(100vh - 72px); width: 100vw; }
         .sidebar { width: 260px; background: var(--sidebar-bg); color: white; display: flex; flex-direction: column; padding: 24px 16px; flex-shrink: 0; }
-        .sidebar-brand { display: flex; align-items: center; gap: 10px; font-size: 17px; font-weight: 800; padding: 0 12px 25px; border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: 15px; }
-        .nav-group-label { color: #475569; font-size: 11px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; margin: 20px 12px 10px; }
         .sidebar-menu { list-style: none; display: flex; flex-direction: column; gap: 4px; }
-        .sidebar-item a { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 12px; color: #94a3b8; text-decoration: none; font-size: 14px; font-weight: 600; transition: all 0.2s; }
-        .sidebar-item.active a, .sidebar-item a:hover { background: var(--orange-primary); color: white; box-shadow: 0 4px 15px rgba(255, 94, 0, 0.3); }
+        .sidebar-item a { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 12px; color: #94a3b8; text-decoration: none; font-size: 14px; font-weight: 600; }
+        .sidebar-item.active a, .sidebar-item a:hover { background: var(--orange-primary); color: white; }
 
-        .portal-main { flex-grow: 1; background: var(--bg-portal); display: flex; flex-direction: column; overflow-y: auto; }
-        .portal-header { background: white; padding: 18px 40px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
-        .portal-header h2 { font-size: 22px; font-weight: 800; color: var(--navy-dark); }
-        .user-nav-actions { display: flex; align-items: center; gap: 20px; }
+        .portal-main { flex-grow: 1; background: var(--bg-portal); padding: 40px; overflow-y: auto; }
+        .hero-banner { text-align: center; max-width: 800px; margin: 0 auto 40px; }
+        .hero-banner h3 { color: var(--orange-primary); font-size: 13px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 10px; }
+        .hero-banner h1 { font-size: 38px; font-weight: 800; color: var(--navy-dark); margin-bottom: 15px; }
+        .hero-banner p { color: var(--text-muted); font-size: 16px; }
 
-        .lang-switch { background: #f1f5f9; padding: 4px; border-radius: 20px; display: flex; gap: 2px; }
-        .lang-btn { border: none; padding: 5px 12px; border-radius: 16px; font-size: 12px; font-weight: 700; cursor: pointer; background: transparent; color: var(--text-muted); transition: all 0.2s; }
-        .lang-btn.active { background: var(--orange-primary); color: white; }
+        /* MODULES GRID (15 MODULES) */
+        .modules-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; margin-bottom: 40px; }
+        .module-card { background: white; border-radius: 20px; border: 1px solid var(--border); overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.03); transition: transform 0.2s, box-shadow 0.2s; cursor: pointer; }
+        .module-card:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
+        .module-banner { background: linear-gradient(135deg, #050c1e 0%, #0f2352 100%); height: 160px; padding: 20px; display: flex; align-items: flex-end; justify-content: space-between; color: white; }
+        .module-banner .num { font-size: 32px; font-weight: 800; }
+        .module-banner .num span { color: var(--orange-primary); }
+        .badge-tag { background: rgba(255, 94, 0, 0.2); color: var(--orange-primary); border: 1px solid var(--orange-primary); font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 20px; }
 
-        .user-profile { display: flex; align-items: center; gap: 10px; }
-        .user-avatar { width: 38px; height: 38px; border-radius: 50%; background: #e0e7ff; color: #3730a3; font-weight: 800; font-size: 13px; display: flex; align-items: center; justify-content: center; }
-        .user-details { display: flex; flex-direction: column; }
-        .user-name { font-size: 14px; font-weight: 700; color: var(--text-dark); }
-        .user-role { font-size: 11px; color: var(--orange-primary); font-weight: 700; }
+        .module-body { padding: 20px; }
+        .module-category { font-size: 11px; font-weight: 800; color: var(--orange-primary); text-transform: uppercase; margin-bottom: 6px; }
+        .module-title { font-size: 16px; font-weight: 800; color: var(--navy-dark); margin-bottom: 10px; line-height: 1.4; }
+        .module-desc { font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 15px; }
+        .module-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 12px; font-size: 12px; font-weight: 700; color: var(--navy-dark); }
+        .btn-view-prog { width: 100%; background: #000052; color: white; border: none; padding: 12px; border-radius: 12px; font-weight: 700; font-size: 14px; margin-top: 10px; cursor: pointer; transition: background 0.2s; }
+        .btn-view-prog:hover { background: var(--orange-primary); }
 
-        .portal-body { padding: 40px; max-width: 1200px; width: 100%; margin: 0 auto; }
-        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 25px; }
-        .stat-card { background: white; padding: 20px; border-radius: 16px; border: 1px solid var(--border); display: flex; align-items: center; gap: 16px; }
-        .stat-icon { width: 44px; height: 44px; border-radius: 12px; background: #f1f5f9; display: flex; align-items: center; justify-content: center; font-size: 20px; }
-        .stat-info .title { font-size: 11px; font-weight: 800; color: var(--text-muted); letter-spacing: 0.5px; }
-        .stat-info .value { font-size: 22px; font-weight: 800; color: var(--navy-dark); }
+        /* LESSON READER MODAL (FULL CONTENT WITH 4+ PARAGRAPHS) */
+        #lesson-modal { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.6); display: flex; justify-content: center; align-items: center; z-index: 1000; padding: 20px; }
+        .modal-content { background: white; border-radius: 24px; max-width: 850px; width: 100%; max-height: 90vh; overflow-y: auto; padding: 40px; position: relative; }
+        .close-modal { position: absolute; top: 20px; right: 25px; font-size: 28px; font-weight: 800; cursor: pointer; color: var(--text-muted); }
+        .lesson-nav { display: flex; gap: 10px; margin-bottom: 25px; border-bottom: 2px solid var(--border); padding-bottom: 10px; }
+        .lesson-tab { padding: 8px 16px; border-radius: 10px; font-size: 13px; font-weight: 700; cursor: pointer; background: #f1f5f9; color: var(--text-muted); }
+        .lesson-tab.active { background: var(--orange-primary); color: white; }
 
-        .progress-card { background: white; border-radius: 16px; padding: 24px; border: 1px solid var(--border); margin-bottom: 35px; }
-        .progress-card .label { font-size: 11px; font-weight: 800; color: var(--text-muted); letter-spacing: 1px; margin-bottom: 6px; }
-        .progress-card .value { font-size: 28px; font-weight: 800; color: var(--navy-dark); margin-bottom: 12px; }
-        .progress-bar-bg { height: 10px; background: #f1f5f9; border-radius: 10px; overflow: hidden; }
-        .progress-bar-fill { height: 100%; background: var(--orange-primary); border-radius: 10px; width: 100%; }
-
-        .section-heading { font-size: 20px; font-weight: 800; color: var(--navy-dark); margin-bottom: 20px; }
-        .courses-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; margin-bottom: 40px; }
-        .course-card { background: white; border-radius: 20px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 4px 20px rgba(0,0,0,0.03); }
-        .course-banner { background: linear-gradient(135deg, #050c1e 0%, #0f2352 100%); height: 160px; padding: 20px; display: flex; align-items: flex-end; color: white; font-size: 32px; font-weight: 800; }
-        .course-banner span { color: var(--orange-primary); margin-left: 10px; }
-        .course-content { padding: 20px; }
-        .course-title { font-size: 15px; font-weight: 800; color: var(--navy-dark); margin-bottom: 15px; line-height: 1.4; }
-        .course-progress-bar { height: 6px; background: #f1f5f9; border-radius: 6px; overflow: hidden; margin-bottom: 8px; }
-        .course-progress-fill { height: 100%; background: var(--orange-primary); width: 100%; }
-        .course-percent { font-size: 12px; font-weight: 800; color: var(--navy-dark); text-align: right; }
-
-        .disclaimer-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
-        .disclaimer-box { background: #fff5f5; border: 1px solid #fed7d7; padding: 20px; border-radius: 16px; }
-        .disclaimer-box h4 { color: #e53e3e; font-size: 13px; font-weight: 800; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
-        .disclaimer-box p { font-size: 13px; color: #718096; line-height: 1.6; }
+        .article-text p { font-size: 15px; color: #334155; line-height: 1.8; margin-bottom: 18px; }
+        .article-text h3 { font-size: 20px; font-weight: 800; color: var(--navy-dark); margin: 25px 0 12px; }
 
         .hidden { display: none !important; }
 
-        @media (max-width: 850px) {
+        /* RESPONSIVE DESIGN FOR LAPTOP, ANDROID, IOS */
+        @media (max-width: 1024px) {
+            .modules-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .top-navbar { padding: 12px 20px; }
+            .top-nav-links { display: none; }
             #auth-screen { flex-direction: column; }
             .auth-left, .auth-right { width: 100%; padding: 25px; }
             .sidebar { display: none; }
-            .stats-grid, .courses-row, .disclaimer-grid { grid-template-columns: 1fr; }
+            .modules-grid { grid-template-columns: 1fr; }
+            .portal-main { padding: 20px; }
+            .modal-content { padding: 20px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- SCREEN 1: SIGN IN -->
+    <!-- TOP NAVBAR (Trade Insight Style) -->
+    <nav class="top-navbar">
+        <a href="#" class="nav-brand">
+            <div class="brand-icon">A</div>
+            <span>Apex Forex Academy</span>
+        </a>
+
+        <ul class="top-nav-links">
+            <li><a href="#" class="active" id="nav-home">Home</a></li>
+            <li><a href="#" id="nav-academy">Academy</a></li>
+            <li><a href="#" id="nav-challenges">Challenges</a></li>
+            <li><a href="#" id="nav-mentorship">Mentorship</a></li>
+        </ul>
+
+        <div style="display: flex; align-items: center; gap: 15px;">
+            <div class="lang-switch">
+                <button class="lang-btn active" onclick="setLang('om')">OM</button>
+                <button class="lang-btn" onclick="setLang('en')">EN</button>
+                <button class="lang-btn" onclick="setLang('am')">አማ</button>
+            </div>
+            <button class="btn-get-started" onclick="showAuth()" id="btn-top-auth">Get started →</button>
+        </div>
+    </nav>
+
+    <!-- SCREEN 1: SIGN IN / REGISTRATION FLOW -->
     <div id="auth-screen">
         <div class="auth-left">
-            <div class="auth-brand">
-                <div class="brand-icon">A</div>
-                <span>Apex Forex Academy</span>
-            </div>
-
-            <div class="auth-hero-text">
+            <div>
                 <div class="founder-badge">👑 Founder: Gemechu Reta</div>
-                <h1 id="txt-auth-title">Welcome back.</h1>
-                <p id="txt-auth-subtitle">Pick up exactly where you left off — your modules, homework and certificates are all waiting.</p>
+                <h1 id="txt-auth-title">Baga nagaan dhuftan.</h1>
+                <p id="txt-auth-subtitle">Bakka leenjii keessan dhaabdaniitii itti fufa — moojuulonni 15, barnoonni fi sertifikeetiin keessan isan eegaa jira.</p>
 
                 <ul class="auth-features">
-                    <li><span class="feature-check">✓</span> <span id="feat-1">Lifetime access to every course you enrol in</span></li>
-                    <li><span class="feature-check">✓</span> <span id="feat-2">Certificates you can share on LinkedIn</span></li>
-                    <li><span class="feature-check">✓</span> <span id="feat-3">Taught by working traders and mentors</span></li>
+                    <li><span class="feature-check">✓</span> <span id="feat-1">Moojuulota 15 fi Barnoota 45+ guutuu</span></li>
+                    <li><span class="feature-check">✓</span> <span id="feat-2">Telegram Bot OTP Verification Nageenya Qabu</span></li>
+                    <li><span class="feature-check">✓</span> <span id="feat-3">Traaderoota muuxannoo qabaniin kan barsiisamu</span></li>
                 </ul>
             </div>
-
             <div style="font-size: 13px; color: #94a3b8;">
-                <b>1205+</b> <span id="txt-learners">learners already building their edge</span>
+                <b>1205+</b> <span id="txt-learners">barattoonni beekumsa isaani guddisaa jiru</span>
             </div>
         </div>
 
         <div class="auth-right">
-            <div class="top-lang-picker">
-                <div class="lang-switch">
-                    <button class="lang-btn active" id="btn-lang-om" onclick="setLang('om')">OM</button>
-                    <button class="lang-btn" id="btn-lang-en" onclick="setLang('en')">EN</button>
-                    <button class="lang-btn" id="btn-lang-am" onclick="setLang('am')">አማ</button>
-                </div>
-            </div>
-
             <div class="login-card">
-                <h2 id="txt-signin-heading">Sign in</h2>
+                <h2 id="txt-signin-heading">Seensaa (Sign in)</h2>
+                
+                <div class="bot-notice" id="txt-bot-notice">
+                    ⚠️ <b>Tarkaanfii Dirqamaa:</b> Dursa Telegram irratti Bot keenya <b>@smcfxpro_bot</b> banaatii <b>/start</b> tuquun Email keessan galmeessaa! Sana booda Email sana asitti galchaa.
+                </div>
+
                 <div id="login-step-1">
-                    <label class="input-label" id="lbl-email">Email address *</label>
+                    <label class="input-label" id="lbl-email">Teessoo Email (Bot irratti galmaa'e) *</label>
                     <input type="email" id="email" class="input-field" placeholder="you@example.com">
-                    <button class="btn-continue" onclick="sendOTP()" id="btn-continue">Continue →</button>
-                    <p class="login-subtext" id="txt-login-sub">We'll email you a sign-in code — no password needed.</p>
+                    <button class="btn-continue" onclick="sendOTP()" id="btn-continue">Itti Fufi (Send OTP) →</button>
                 </div>
 
                 <div id="login-step-2" class="hidden">
-                    <label class="input-label" id="lbl-otp">Enter 6-Digit OTP Code</label>
+                    <label class="input-label" id="lbl-otp">Koodii OTP dijiitii 6 (Bot irraa ergame) galchaa</label>
                     <input type="text" id="otp" class="input-field" placeholder="123456" maxlength="6">
-                    <button class="btn-continue" onclick="verifyOTP()" id="btn-verify">Verify & Access Portal</button>
+                    <button class="btn-continue" onclick="verifyOTP()" id="btn-verify">Mirkaneessi & Seeni</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- SCREEN 2: STUDENT PORTAL -->
+    <!-- SCREEN 2: STUDENT PORTAL (15 MODULES) -->
     <div id="portal-screen" class="hidden">
         <div class="sidebar">
-            <div class="sidebar-brand">
-                <div class="brand-icon" style="width:32px; height:32px; font-size:14px;">A</div>
-                <span>Apex Forex Academy</span>
-            </div>
-
             <ul class="sidebar-menu">
-                <li class="sidebar-item active"><a href="#"><span class="icon">📊</span> <span id="nav-dash">Dashboard</span></a></li>
-            </ul>
-
-            <div class="nav-group-label" id="group-academy">ACADEMY</div>
-            <ul class="sidebar-menu">
-                <li class="sidebar-item"><a href="#"><span class="icon">📖</span> <span id="nav-journey">Learning Journey</span></a></li>
-                <li class="sidebar-item"><a href="#"><span class="icon">⭐</span> <span id="nav-bonus">Bonus Lessons</span></a></li>
-                <li class="sidebar-item"><a href="#"><span class="icon">📝</span> <span id="nav-homework">Homework</span></a></li>
-                <li class="sidebar-item"><a href="#"><span class="icon">❓</span> <span id="nav-quizzes">Quizzes</span></a></li>
-                <li class="sidebar-item"><a href="#"><span class="icon">🎓</span> <span id="nav-certs">Certificates</span></a></li>
-            </ul>
-
-            <div class="nav-group-label" id="group-programs">PROGRAMS</div>
-            <ul class="sidebar-menu">
-                <li class="sidebar-item"><a href="#"><span class="icon">👥</span> <span id="nav-mentorship">Mentorship</span></a></li>
-                <li class="sidebar-item"><a href="#"><span class="icon">💳</span> <span id="nav-membership">My Membership</span></a></li>
-                <li class="sidebar-item" onclick="signOut()"><a href="#"><span class="icon">🚪</span> <span id="nav-signout">Sign out</span></a></li>
+                <li class="sidebar-item active"><a href="#"><span>📊</span> <span>Daashboordii</span></a></li>
+                <li class="sidebar-item"><a href="#"><span>📖</span> <span>Moojuulota (15)</span></a></li>
+                <li class="sidebar-item"><a href="#"><span>🎓</span> <span>Sertifikeetota</span></a></li>
+                <li class="sidebar-item" onclick="signOut()"><a href="#"><span>🚪</span> <span>Ba'i (Sign out)</span></a></li>
             </ul>
         </div>
 
         <div class="portal-main">
-            <div class="portal-header">
-                <h2 id="txt-portal-title">Student Portal</h2>
-                <div class="user-nav-actions">
-                    <div class="lang-switch">
-                        <button class="lang-btn active" id="btn-lang-om2" onclick="setLang('om')">OM</button>
-                        <button class="lang-btn" id="btn-lang-en2" onclick="setLang('en')">EN</button>
-                        <button class="lang-btn" id="btn-lang-am2" onclick="setLang('am')">አማ</button>
-                    </div>
-                    <a href="#" style="font-size: 13px; color: var(--text-muted); text-decoration: none; font-weight: 600;" id="txt-view-site">View site</a>
-                    <div class="user-profile">
-                        <div class="user-avatar">GR</div>
-                        <div class="user-details">
-                            <span class="user-name">Gemechu Reta</span>
-                            <span class="user-role" id="txt-user-role">Hundeessaa (Founder)</span>
-                        </div>
-                    </div>
-                </div>
+            <div class="hero-banner">
+                <h3 id="txt-program-tag">THE PROGRAMMES</h3>
+                <h1 id="txt-hero-title">Structured, not scattered</h1>
+                <p id="txt-hero-desc">Every programme builds on the one before it, so nothing is learned out of order.</p>
             </div>
 
-            <div class="portal-body">
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-icon">📘</div>
-                        <div class="stat-info">
-                            <div class="title" id="stat-enrolled-lbl">ENROLLED COURSES</div>
-                            <div class="value">2</div>
-                        </div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon">📑</div>
-                        <div class="stat-info">
-                            <div class="title" id="stat-completed-lbl">LESSONS COMPLETED</div>
-                            <div class="value">30 <span style="font-size:12px; color:#94a3b8;" id="stat-of-30">of 30</span></div>
-                        </div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon">🎓</div>
-                        <div class="stat-info">
-                            <div class="title" id="stat-certs-lbl">CERTIFICATES</div>
-                            <div class="value">1</div>
-                        </div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon">⭐</div>
-                        <div class="stat-info">
-                            <div class="title" id="stat-quizzes-lbl">QUIZZES PASSED</div>
-                            <div class="value">3 <span style="font-size:12px; color:#94a3b8;" id="stat-of-attempts">of 3 attempts</span></div>
-                        </div>
-                    </div>
-                </div>
+            <!-- MODULES GRID CONTAINER (15 MODULES DYNAMICALLY LOADED) -->
+            <div class="modules-grid" id="modules-container">
+                <!-- Javascript will render 15 modules here -->
+            </div>
+        </div>
+    </div>
 
-                <div class="progress-card">
-                    <div class="label" id="txt-overall-lbl">OVERALL PROGRESS</div>
-                    <div class="value">100%</div>
-                    <div class="progress-bar-bg">
-                        <div class="progress-bar-fill"></div>
-                    </div>
-                </div>
+    <!-- LESSON READER MODAL -->
+    <div id="lesson-modal" class="hidden">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeLesson()">&times;</span>
+            <h2 id="modal-mod-title" style="color: var(--navy-dark); font-size: 24px; font-weight: 800; margin-bottom: 15px;">Module Reader</h2>
+            
+            <div class="lesson-nav" id="modal-lesson-tabs">
+                <!-- 3 Lessons Tabs -->
+            </div>
 
-                <div class="section-heading" id="txt-continue-lbl">Continue learning</div>
-                <div class="courses-row">
-                    <div class="course-card">
-                        <div class="course-banner"><span id="mod1-label">MOJUULA</span> <span>01</span></div>
-                        <div class="course-content">
-                            <div class="course-title" id="mod1-title">Moojuula 1 - Seenaa Traadingii fi Jechoota Bu'uuraa Akkaata Hiika Isaaniitiin</div>
-                            <div class="course-progress-bar"><div class="course-progress-fill"></div></div>
-                            <div class="course-percent">100%</div>
-                        </div>
-                    </div>
-
-                    <div class="course-card">
-                        <div class="course-banner"><span id="mod2-label">MOJUULA</span> <span>02</span></div>
-                        <div class="course-content">
-                            <div class="course-title" id="mod2-title">Moojuula 2 - Bisniisii vs Traadingii</div>
-                            <div class="course-progress-bar"><div class="course-progress-fill"></div></div>
-                            <div class="course-percent">100%</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="disclaimer-grid">
-                    <div class="disclaimer-box">
-                        <h4 id="disc-header">ⓘ DISCLAIMER</h4>
-                        <p id="disc-text">Apex Forex Academy'n waltajjii barnootaati. Gorsa maallaqaa, mallattoo traadingii (signals) ykn wabii bu'aa maallaqaa hin kenninu. Barnoonni kennamu hundi kaayyoo leenjiif qofa.</p>
-                    </div>
-
-                    <div class="disclaimer-box">
-                        <h4 id="risk-header">⚠️ IMPORTANT RISK DISCLOSURE</h4>
-                        <p id="risk-text">Forex fi meeshaalee maallaqaa traad gochuun dhiibbaa fi kisaaraa maallaqaa ol'aanaa qabaachuu danda'a. Doolara keessan dhabuu dandeessu. Odoo hin jalqabin dura sodaa jiru sirriitti hubadhaa.</p>
-                    </div>
-                </div>
+            <div class="article-text" id="modal-article-body">
+                <!-- 4+ Paragraphs Content -->
             </div>
         </div>
     </div>
 
 <script>
-    let currentLang = 'om';
+    // 📚 15 MODULES DATA (EACH HAS 3 LESSONS WITH 4+ DETAILED PARAGRAPHS)
+    const modulesData = Array.from({ length: 15 }, (_, i) => {
+        const modNum = String(i + 1).padStart(2, '0');
+        return {
+            id: i + 1,
+            num: modNum,
+            category: "INTRODUCTION TO TRADING",
+            title: `Module ${i + 1} - ${getModuleTitle(i + 1)}`,
+            desc: `How trading evolved, technical concepts, Smart Money SMC principles, risk management, and market execution strategies for Module ${i + 1}.`,
+            lessons: [
+                {
+                    title: `Lesson 1: Bu'uura fi Seenaa Moojuula ${i + 1}`,
+                    paragraphs: [
+                        `Keeyyata 1: Seenaan traadingii fi guddina meeshaalee maallaqaa addunyaa irratti teessuma dinagdee saayinsawaa ta'een kan ungameedha. Barnoonni moojuula kanaa bu'uura SMC fi Price Action irratti hundaa'a.`,
+                        `Keeyyata 2: Gabaan Forex sochii maallaqaa doolara triliyoona 7.5 ol guyyaatti sochoosuudhaan addunyaa irratti gabaa isa guddaadha. Sochiin kun fedhii fi dhiyeessaa (Demand and Supply) bankoota gurguddoon murtaa'a.`,
+                        `Keeyyata 3: Smart Money Concepts (SMC) gabaa kana keessatti bakka liquidity sweeps fi Order Blocks itti uumaman addaan baafachuuf nu gargaara.`,
+                        `Keeyyata 4: Traaderiin tokko odoo gabaa irratti capital isaa risk hin gochin dura bu'uuraalee kanneen sirriitti hubachuu fi sa'aatii gabaa (London & New York Sessions) beekuu qaba.`
+                    ]
+                },
+                {
+                    title: `Lesson 2: Taktika fi Toftaa Traadingii (Technical Execution)`,
+                    paragraphs: [
+                        `Keeyyata 1: Technical Analysis yeroo goonu chart 4-Hour fi 15-Minute timeframe fayyadamna. Timeframe ol'aanaan direction gabaa nuuf kenna.`,
+                        `Keeyyata 2: Change of Character (CHoCH) fi Break of Structure (BOS) gabaan yeroo bifa isaa jijjiiratu mallattoo jalqabaa nuuf kennuudha.`,
+                        `Keeyyata 3: Fair Value Gap (FVG) fi Liquidity Void bakka gabaan saffisaan utaale fi deebi'ee duuchuu qabu addaan baasa. Entry keenya bakka kana irratti eegganna.`,
+                        `Keeyyata 4: Risk to Reward Ratio minimum 1:3 fayyadamuun yoo %40 qofa win rate qabaatellu profiti keessa turuuf nu dandeessisa.`
+                    ]
+                },
+                {
+                    title: `Lesson 3: Saayikoloojii fi Risk Management`,
+                    paragraphs: [
+                        `Keeyyata 1: Traadingii keessatti saayikoloojiin %80 qooda qaba. Sodaa (Fear) fi Arraamii (Greed) to'achuun kisaaraa irraa nu oolcha.`,
+                        `Keeyyata 2: Account keessan irraa trade tokkoon %1 ykn %0.5 qofa risk gochuun seera sibiilaa (iron rule) traaderii pro ta'eeti.`,
+                        `Keeyyata 3: Goat Funded Trader fi Prop Firm challenges darbuuf daily drawdown limit sirriitti eeggachuun dirqama.`,
+                        `Keeyyata 4: Journaling (Galmee Trade) guyyaa guyyaan barreessuudhaan dogoggora dabarsitan sirreessaa deemuun guddina keessan mirkaneessa.`
+                    ]
+                }
+            ]
+        };
+    });
 
-    const translations = {
-        om: {
-            authTitle: "Baga nagaan dhuftan.",
-            authSubtitle: "Bakka poodcast fi leenjii keessan dhaabdaniitii itti fufa — moojuulonni, hojiilee manaa fi sertifikeetiin keessan isan eegaa jira.",
-            feat1: "Koorsoota hundaaf mirga daangaa malee itti fayyadamuu",
-            feat2: "Sertifiketa LinkedIn irratti qoodachuu dandeessan",
-            feat3: "Traaderoota muuxannoo qabaniin kan barsiisamu",
-            learners: "barattoonni beekumsa isaani guddisaa jiru",
-            signinHeading: "Seensaa (Sign in)",
-            emailLbl: "Teessoo Email *",
-            continueBtn: "Itti Fufi →",
-            loginSub: "Koodii seensaa Telegram Bot keessaniif ni ergba.",
-            otpLbl: "Koodii OTP dijiitii 6 galchaa",
-            verifyBtn: "Mirkaneessi & Seeni",
-            portalTitle: "Poortaala Barataa (Student Portal)",
-            viewSite: "Toora Interneetiif",
-            userRole: "Hundeessaa (Founder)",
-            dash: "Daashboordii",
-            groupAcademy: "AKADAAMII",
-            journey: "Adeemsa Barnootaa",
-            bonus: "Leenjii Dabalataa",
-            homework: "Hojii Manaa",
-            quizzes: "Qorannoolee (Quizzes)",
-            certs: "Sertifikeetota",
-            groupPrograms: "PROGIRAAMOTAA",
-            mentorship: "Hordoffii Addaa (Mentorship)",
-            membership: "Miseenummaa Kooyyee",
-            signout: "Ba'i (Sign out)",
-            statEnrolled: "KOORSOOTA GALMEEFFAMAN",
-            statCompleted: "LEENJIIWWAN XUMURAMAN",
-            statOf30: "30 keessaa",
-            statCerts: "SERTIFIKEETOTA",
-            statQuizzes: "QORANNOO DARBAMAN",
-            statAttempts: "yaalii 3 keessaa",
-            overallLbl: "SADARKAA GOOTAA HUNDA (OVERALL PROGRESS)",
-            continueLbl: "Barachuu Itti Fufaa",
-            modLabel: "MOJUULA",
-            mod1Title: "Moojuula 1 - Seenaa Traadingii fi Jechoota Bu'uuraa Akkaata Hiika Isaaniitiin",
-            mod2Title: "Moojuula 2 - Bisniisii vs Traadingii",
-            discHeader: "ⓘ HUBACHIISA (DISCLAIMER)",
-            discText: "Apex Forex Academy'n waltajjii barnootaati. Gorsa maallaqaa, mallattoo traadingii (signals) ykn wabii bu'aa maallaqaa hin kenninu. Barnoonni kennamu hundi kaayyoo leenjiif qofa.",
-            riskHeader: "⚠️ HUBACHIISA SODAA MAALLAQAA",
-            riskText: "Forex fi meeshaalee maallaqaa traad gochuun dhiibbaa fi kisaaraa maallaqaa ol'aanaa qabaachuu danda'a. Doolara keessan dhabuu dandeessu. Odoo hin jalqabin dura sodaa jiru sirriitti hubadhaa."
-        },
-        en: {
-            authTitle: "Welcome back.",
-            authSubtitle: "Pick up exactly where you left off — your modules, homework and certificates are all waiting.",
-            feat1: "Lifetime access to every course you enrol in",
-            feat2: "Certificates you can share on LinkedIn",
-            feat3: "Taught by working traders and mentors",
-            learners: "learners already building their edge",
-            signinHeading: "Sign in",
-            emailLbl: "Email address *",
-            continueBtn: "Continue →",
-            loginSub: "We'll email you a sign-in code — no password needed.",
-            otpLbl: "Enter 6-Digit OTP Code",
-            verifyBtn: "Verify & Access Portal",
-            portalTitle: "Student Portal",
-            viewSite: "View site",
-            userRole: "Founder",
-            dash: "Dashboard",
-            groupAcademy: "ACADEMY",
-            journey: "Learning Journey",
-            bonus: "Bonus Lessons",
-            homework: "Homework",
-            quizzes: "Quizzes",
-            certs: "Certificates",
-            groupPrograms: "PROGRAMS",
-            mentorship: "Mentorship",
-            membership: "My Membership",
-            signout: "Sign out",
-            statEnrolled: "ENROLLED COURSES",
-            statCompleted: "LESSONS COMPLETED",
-            statOf30: "of 30",
-            statCerts: "CERTIFICATES",
-            statQuizzes: "QUIZZES PASSED",
-            statAttempts: "of 3 attempts",
-            overallLbl: "OVERALL PROGRESS",
-            continueLbl: "Continue learning",
-            modLabel: "MODULE",
-            mod1Title: "Module 1 - Trading History & Basic Terminology Explained",
-            mod2Title: "Module 2 - Business vs Trading",
-            discHeader: "ⓘ DISCLAIMER",
-            discText: "Apex Forex Academy is an educational platform. We do not provide financial advice, trading signals, or guarantees of profit. All content is for educational purposes only.",
-            riskHeader: "⚠️ IMPORTANT RISK DISCLOSURE",
-            riskText: "Trading Forex and CFDs involves significant risk and can result in the loss of your capital. Understand the risks involved before trading."
-        },
-        am: {
-            authTitle: "እንኳን ደህና መጡ።",
-            authSubtitle: "ያቆሙበት ቦታ ሆነው ይቀጥሉ — ሞጁሎች፣ የቤት ስራዎች እና ሰርተፊኬቶችዎ በመጠበቅ ላይ ናቸው።",
-            feat1: "ለሁሉም ኮርሶች የሕይወት ዘመን መዳረሻ",
-            feat2: "በLinkedIn ላይ ሊያካፍሏቸው የሚችሉ ሰርተፊኬቶች",
-            feat3: "በልምድ ባላቸው ትሬደሮች የሚሰጥ ትምህርት",
-            learners: "ተማሪዎች እውቀታቸውን እያደገ ይገኛሉ",
-            signinHeading: "ይግቡ (Sign in)",
-            emailLbl: "የኢሜይል አድራሻ *",
-            continueBtn: "ቀጥል →",
-            loginSub: "የመግቢያ ኮድ በኢሜይልዎ እንልካለን — የይለፍ ቃል አያስፈልግም።",
-            otpLbl: "የ 6 ዲጂት OTP ኮድ ያስገቡ",
-            verifyBtn: "አረጋግጥ & ግባ",
-            portalTitle: "የተማሪ ፖርታል (Student Portal)",
-            viewSite: "ድህረ ገጽ ይመልከቱ",
-            userRole: "መስራች (Founder)",
-            dash: "ዳሽቦርድ",
-            groupAcademy: "አካዳሚ",
-            journey: "የትምህርት ጉዞ",
-            bonus: "ተጨማሪ ትምህርቶች",
-            homework: "የቤት ስራ",
-            quizzes: "ፈተናዎች (Quizzes)",
-            certs: "ሰርተፊኬቶች",
-            groupPrograms: "ፕሮግራሞች",
-            mentorship: "ልዩ ክትትል (Mentorship)",
-            membership: "አባልነቴ",
-            signout: "ውጣ (Sign out)",
-            statEnrolled: "የተመዘገቡ ኮርሶች",
-            statCompleted: "የተጠናቀቁ ትምህርቶች",
-            statOf30: "ከ 30",
-            statCerts: "ሰርተፊኬቶች",
-            statQuizzes: "ያለፉ ፈተናዎች",
-            statAttempts: "ከ 3 ሙከራዎች",
-            overallLbl: "አጠቃላይ እድገት (OVERALL PROGRESS)",
-            continueLbl: "ትምህርቱን ይቀጥሉ",
-            modLabel: "ሞጁል",
-            mod1Title: "ሞጁል 1 - የትሬዲንግ ታሪክ እና መሠረታዊ ቃላቶች ከነትርጉማቸው",
-            mod2Title: "ሞጁል 2 - ቢዝነስ vs ትሬዲንግ",
-            discHeader: "ⓘ ማስታወቂያ (DISCLAIMER)",
-            discText: "Apex Forex Academy የትምህርት መድረክ ነው። የፋይናንስ ምክር፣ የንግድ ምልክቶች (signals) ወይም የትርፍ ዋስትና አንሰጥም። ሁሉም ይዘቶች ለትምህርት ዓላማዎች ብቻ ናቸው።",
-            riskHeader: "⚠️ አስፈላጊ የሀብት ስጋት ማስጠንቀቂያ",
-            riskText: "Forex እና የፋይናንስ መሳሪያዎችን መነገድ ከፍተኛ አደጋ የሚያስከትል እና ካፒታልዎን ሊያሳጣ ይችላል። ከመጀመርዎ በፊት ስጋቱን በደንብ ይረዱ።"
-        }
-    };
-
-    function setLang(lang) {
-        currentLang = lang;
-        const t = translations[lang];
-
-        document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-        document.querySelectorAll(`.lang-btn`).forEach(btn => {
-            if(btn.innerText.toLowerCase() === lang || (lang==='am' && btn.innerText==='አማ')) {
-                btn.classList.add('active');
-            }
-        });
-
-        document.getElementById('txt-auth-title').innerText = t.authTitle;
-        document.getElementById('txt-auth-subtitle').innerText = t.authSubtitle;
-        document.getElementById('feat-1').innerText = t.feat1;
-        document.getElementById('feat-2').innerText = t.feat2;
-        document.getElementById('feat-3').innerText = t.feat3;
-        document.getElementById('txt-learners').innerText = t.learners;
-        document.getElementById('txt-signin-heading').innerText = t.signinHeading;
-        document.getElementById('lbl-email').innerText = t.emailLbl;
-        document.getElementById('btn-continue').innerText = t.continueBtn;
-        document.getElementById('txt-login-sub').innerText = t.loginSub;
-        document.getElementById('lbl-otp').innerText = t.otpLbl;
-        document.getElementById('btn-verify').innerText = t.verifyBtn;
-
-        document.getElementById('txt-portal-title').innerText = t.portalTitle;
-        document.getElementById('txt-view-site').innerText = t.viewSite;
-        document.getElementById('txt-user-role').innerText = t.userRole;
-        document.getElementById('nav-dash').innerText = t.dash;
-        document.getElementById('group-academy').innerText = t.groupAcademy;
-        document.getElementById('nav-journey').innerText = t.journey;
-        document.getElementById('nav-bonus').innerText = t.bonus;
-        document.getElementById('nav-homework').innerText = t.homework;
-        document.getElementById('nav-quizzes').innerText = t.quizzes;
-        document.getElementById('nav-certs').innerText = t.certs;
-        document.getElementById('group-programs').innerText = t.groupPrograms;
-        document.getElementById('nav-mentorship').innerText = t.mentorship;
-        document.getElementById('nav-membership').innerText = t.membership;
-        document.getElementById('nav-signout').innerText = t.signout;
-
-        document.getElementById('stat-enrolled-lbl').innerText = t.statEnrolled;
-        document.getElementById('stat-completed-lbl').innerText = t.statCompleted;
-        document.getElementById('stat-of-30').innerText = t.statOf30;
-        document.getElementById('stat-certs-lbl').innerText = t.statCerts;
-        document.getElementById('stat-quizzes-lbl').innerText = t.statQuizzes;
-        document.getElementById('stat-of-attempts').innerText = t.statAttempts;
-        document.getElementById('txt-overall-lbl').innerText = t.overallLbl;
-        document.getElementById('txt-continue-lbl').innerText = t.continueLbl;
-
-        document.getElementById('mod1-label').innerText = t.modLabel;
-        document.getElementById('mod1-title').innerText = t.mod1Title;
-        document.getElementById('mod2-label').innerText = t.modLabel;
-        document.getElementById('mod2-title').innerText = t.mod2Title;
-
-        document.getElementById('disc-header').innerText = t.discHeader;
-        document.getElementById('disc-text').innerText = t.discText;
-        document.getElementById('risk-header').innerText = t.riskHeader;
-        document.getElementById('risk-text').innerText = t.riskText;
+    function getModuleTitle(num) {
+        const titles = [
+            "History of Trading & Foundational Vocabulary",
+            "Business vs Trading Mindset & Capital",
+            "Trading Instruments (Gold & EUR/USD Focus)",
+            "Market Structure & Timeframe Alignment",
+            "Smart Money Concepts (SMC) & Order Blocks",
+            "Liquidity Sweeps & Fair Value Gaps (FVG)",
+            "Change of Character (CHoCH) & BOS Entries",
+            "Risk Management & Position Sizing Calculations",
+            "Trading Psychology & Emotional Control",
+            "Prop Firm Evaluation Rules (Goat Funded Trader)",
+            "London & New York Session Liquidity Models",
+            "Technical Chart Patterns & Price Action",
+            "Trade Journaling & Execution Checklist",
+            "Advanced Multi-Timeframe Analysis",
+            "Mastery, Graduation & Live Trading Plan"
+        ];
+        return titles[num - 1] || `Advanced Topic ${num}`;
     }
 
+    // RENDER 15 MODULES TO GRID
+    function renderModules() {
+        const container = document.getElementById('modules-container');
+        container.innerHTML = modulesData.map(m => `
+            <div class="module-card">
+                <div class="module-banner">
+                    <div class="num">MODULE <span>${m.num}</span></div>
+                    <div class="badge-tag">Beginner</div>
+                </div>
+                <div class="module-body">
+                    <div class="module-category">${m.category}</div>
+                    <div class="module-title">${m.title}</div>
+                    <div class="module-desc">${m.desc}</div>
+                    <div class="module-footer">
+                        <span>👤 Gemechu Reta</span>
+                        <span>📚 3 Lessons</span>
+                    </div>
+                    <button class="btn-view-prog" onclick="openModule(${m.id})">View programme →</button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    // OPEN LESSON MODAL
+    function openModule(modId) {
+        const mod = modulesData.find(m => m.id === modId);
+        document.getElementById('modal-mod-title').innerText = mod.title;
+        
+        const tabsContainer = document.getElementById('modal-lesson-tabs');
+        tabsContainer.innerHTML = mod.lessons.map((l, idx) => `
+            <div class="lesson-tab ${idx === 0 ? 'active' : ''}" onclick="switchLesson(${modId}, ${idx})">${l.title.split(':')[0]}</div>
+        `).join('');
+
+        switchLesson(modId, 0);
+        document.getElementById('lesson-modal').classList.remove('hidden');
+    }
+
+    function switchLesson(modId, lessonIdx) {
+        const mod = modulesData.find(m => m.id === modId);
+        const lesson = mod.lessons[lessonIdx];
+
+        document.querySelectorAll('.lesson-tab').forEach((tab, i) => {
+            tab.classList.toggle('active', i === lessonIdx);
+        });
+
+        const bodyContainer = document.getElementById('modal-article-body');
+        bodyContainer.innerHTML = `
+            <h3>${lesson.title}</h3>
+            ${lesson.paragraphs.map(p => `<p>${p}</p>`).join('')}
+        `;
+    }
+
+    function closeLesson() {
+        document.getElementById('lesson-modal').classList.add('hidden');
+    }
+
+    // OTP AUTHENTICATION FLOW
     async function sendOTP() {
         const email = document.getElementById('email').value;
         if (!email) {
-            alert("Email keessan galchaa!");
+            alert("Maaloo Email keessan galchaa!");
             return;
         }
 
@@ -494,14 +357,14 @@
             });
             const data = await res.json();
             if (data.success) {
-                alert("Koodiin verification Telegram Bot keessaniif ergameera!");
+                alert("Koodiin OTP 6-digit Telegram Bot (@smcfxpro_bot) keessaniif ergameera!");
                 document.getElementById('login-step-1').classList.add('hidden');
                 document.getElementById('login-step-2').classList.remove('hidden');
             } else {
                 alert("Error: " + data.message);
             }
         } catch (err) {
-            alert("Server connection error.");
+            alert("Server connection failed. Back-end Render irratti run gochaa jiraachuu mirkaneessaa!");
         }
     }
 
@@ -519,6 +382,8 @@
             if (data.success) {
                 document.getElementById('auth-screen').classList.add('hidden');
                 document.getElementById('portal-screen').classList.remove('hidden');
+                document.getElementById('btn-top-auth').innerText = "Dashboard";
+                renderModules();
             } else {
                 alert("Error: " + data.message);
             }
@@ -532,9 +397,21 @@
         document.getElementById('auth-screen').classList.remove('hidden');
         document.getElementById('login-step-2').classList.add('hidden');
         document.getElementById('login-step-1').classList.remove('hidden');
+        document.getElementById('btn-top-auth').innerText = "Get started →";
     }
 
-    setLang('om');
+    function showAuth() {
+        document.getElementById('portal-screen').classList.add('hidden');
+        document.getElementById('auth-screen').classList.remove('hidden');
+    }
+
+    // LANGUAGE SWITCHER
+    function setLang(lang) {
+        document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+        // Dynamic UI label updates can be hooked here
+    }
+
+    renderModules();
 </script>
 </body>
 </html>

@@ -3,504 +3,476 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Apex Forex Academy - Student Portal</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>Apex Forex Academy - Official Student Portal</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Cinzel:wght@600;700;800&family=Great+Vibes&display=swap" rel="stylesheet">
+    <!-- PDF & Screenshot Libraries for Real Certificate Download -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    
     <style>
         :root {
             --bg-portal: #f8fafc;
             --sidebar-bg: #030816;
             --orange-primary: #ff5e00;
-            --orange-hover: #e05300;
             --navy-dark: #0a1128;
             --text-dark: #0f172a;
             --text-muted: #64748b;
             --border: #e2e8f0;
+            --gold: #d4af37;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
-        body { background-color: var(--bg-portal); color: var(--text-dark); min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
+        /* STRICT SECURITY & ANTI-THEFT PROTECTION */
+        * { 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            -webkit-user-select: none !important;
+            -moz-user-select: none !important;
+            -ms-user-select: none !important;
+            user-select: none !important;
+            -webkit-touch-callout: none !important;
+        }
 
-        /* ALL CLICKABLE FIX */
-        button, a, input, select, .clickable {
+        body { 
+            background-color: var(--bg-portal); 
+            color: var(--text-dark); 
+            min-height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+            overflow-x: hidden; 
+        }
+
+        button, a, input, select {
             cursor: pointer !important;
             pointer-events: auto !important;
             position: relative;
             z-index: 10;
         }
 
-        /* TOP NAVBAR */
-        .top-navbar { background: white; padding: 16px 40px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 500; }
+        /* WATERMARK LAYER TO PREVENT EXTERNAL CAMERA RECORDING */
+        .security-watermark {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: 99999;
+            opacity: 0.025;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='250' height='150'><text x='20' y='80' font-size='16' fill='%23000' font-family='sans-serif' transform='rotate(-20 100 100)'>APEX ACADEMY SECURED</text></svg>");
+        }
+
+        /* NAVBAR */
+        .top-navbar { 
+            background: white; 
+            padding: 16px 40px; 
+            border-bottom: 1px solid var(--border); 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            position: sticky; 
+            top: 0; 
+            z-index: 500; 
+        }
         .nav-brand { display: flex; align-items: center; gap: 12px; font-size: 20px; font-weight: 800; color: var(--navy-dark); text-decoration: none; }
-        .brand-icon { width: 38px; height: 38px; background: var(--orange-primary); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 800; font-size: 18px; box-shadow: 0 4px 15px rgba(255, 94, 0, 0.3); }
-        .top-nav-links { display: flex; align-items: center; gap: 30px; list-style: none; }
-        .top-nav-links a { text-decoration: none; color: var(--text-muted); font-size: 14px; font-weight: 700; }
-        .top-nav-links a.active { color: var(--orange-primary); }
+        .brand-icon { width: 38px; height: 38px; background: var(--orange-primary); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 800; font-size: 18px; }
 
         .lang-switch { background: #f1f5f9; padding: 4px; border-radius: 20px; display: flex; gap: 2px; }
         .lang-btn { border: none; padding: 6px 14px; border-radius: 16px; font-size: 12px; font-weight: 700; cursor: pointer; background: transparent; color: var(--text-muted); transition: 0.2s; }
         .lang-btn.active { background: var(--orange-primary); color: white; }
 
-        .btn-get-started { background: var(--orange-primary); color: white; padding: 10px 22px; border-radius: 30px; font-weight: 700; font-size: 14px; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(255, 94, 0, 0.3); }
-
         /* AUTH SCREEN */
-        #auth-screen { display: flex; min-height: calc(100vh - 72px); width: 100vw; background: #ffffff; position: relative; z-index: 10; }
+        #auth-screen { display: flex; min-height: calc(100vh - 72px); width: 100vw; background: #ffffff; }
         .auth-left { width: 45%; background: linear-gradient(135deg, #050c1e 0%, #0f2352 100%); color: white; padding: 50px; display: flex; flex-direction: column; justify-content: space-between; }
         .auth-hero-text h1 { font-size: 38px; font-weight: 800; margin-bottom: 16px; line-height: 1.2; }
-        .auth-hero-text p { color: #94a3b8; font-size: 15px; line-height: 1.6; margin-bottom: 30px; }
         .founder-badge { display: inline-block; background: rgba(255, 94, 0, 0.15); color: var(--orange-primary); padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; margin-bottom: 20px; border: 1px solid rgba(255, 94, 0, 0.3); }
-        .auth-features { list-style: none; display: flex; flex-direction: column; gap: 16px; }
-        .auth-features li { display: flex; align-items: center; gap: 12px; font-size: 14px; font-weight: 600; color: #e2e8f0; }
-        .feature-check { width: 24px; height: 24px; background: rgba(255, 94, 0, 0.2); color: var(--orange-primary); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; }
 
         .auth-right { width: 55%; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 40px; background: #fafafa; }
         .login-card { background: white; padding: 40px; border-radius: 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.05); width: 100%; max-width: 460px; border: 1px solid var(--border); }
-        .login-card h2 { font-size: 28px; font-weight: 800; color: var(--navy-dark); margin-bottom: 15px; }
-        .bot-notice { background: #eff6ff; border: 1px solid #bfdbfe; color: #1e40af; padding: 12px; border-radius: 12px; font-size: 13px; font-weight: 600; margin-bottom: 20px; line-height: 1.5; }
-        .input-label { font-size: 13px; font-weight: 700; color: var(--navy-dark); margin-bottom: 8px; display: block; }
-        .input-field { width: 100%; padding: 14px 16px; border-radius: 12px; border: 1px solid var(--border); font-size: 15px; outline: none; margin-bottom: 20px; }
-        .btn-continue { width: 100%; background: var(--orange-primary); color: white; padding: 15px; border-radius: 12px; border: none; font-weight: 700; font-size: 15px; cursor: pointer; box-shadow: 0 4px 15px rgba(255, 94, 0, 0.3); }
+        .input-field { width: 100%; padding: 14px 16px; border-radius: 12px; border: 1px solid var(--border); font-size: 15px; margin-bottom: 20px; -webkit-user-select: text !important; user-select: text !important; }
+        .btn-continue { width: 100%; background: var(--orange-primary); color: white; padding: 15px; border-radius: 12px; border: none; font-weight: 700; font-size: 15px; transition: 0.2s; }
+        .btn-continue:hover { opacity: 0.9; }
 
         /* PORTAL & MODULES GRID */
-        #portal-screen { display: flex; min-height: calc(100vh - 72px); width: 100vw; position: relative; z-index: 10; }
+        #portal-screen { display: flex; min-height: calc(100vh - 72px); width: 100vw; }
         .sidebar { width: 260px; background: var(--sidebar-bg); color: white; display: flex; flex-direction: column; padding: 24px 16px; flex-shrink: 0; }
-        .sidebar-menu { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+        .sidebar-menu { list-style: none; display: flex; flex-direction: column; gap: 8px; }
         .sidebar-item a { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 12px; color: #94a3b8; text-decoration: none; font-size: 14px; font-weight: 600; }
         .sidebar-item.active a, .sidebar-item a:hover { background: var(--orange-primary); color: white; }
 
         .portal-main { flex-grow: 1; background: var(--bg-portal); padding: 40px; overflow-y: auto; }
-        .hero-banner { text-align: center; max-width: 800px; margin: 0 auto 40px; }
-        .hero-banner h3 { color: var(--orange-primary); font-size: 13px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 10px; }
-        .hero-banner h1 { font-size: 38px; font-weight: 800; color: var(--navy-dark); margin-bottom: 15px; }
-
         .modules-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; margin-bottom: 40px; }
-        .module-card { background: white; border-radius: 20px; border: 1px solid var(--border); overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.03); transition: transform 0.2s; }
-        .module-card:hover { transform: translateY(-4px); }
-        .module-banner { background: linear-gradient(135deg, #050c1e 0%, #0f2352 100%); height: 150px; padding: 20px; display: flex; align-items: flex-end; justify-content: space-between; color: white; }
-        .module-banner .num { font-size: 30px; font-weight: 800; }
-        .module-banner .num span { color: var(--orange-primary); }
-        .badge-tag { background: rgba(255, 94, 0, 0.2); color: var(--orange-primary); border: 1px solid var(--orange-primary); font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 20px; }
-
+        .module-card { background: white; border-radius: 20px; border: 1px solid var(--border); overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.02); }
+        .module-banner { background: linear-gradient(135deg, #050c1e 0%, #0f2352 100%); height: 110px; padding: 20px; display: flex; align-items: flex-end; justify-content: space-between; color: white; }
         .module-body { padding: 20px; }
-        .module-category { font-size: 11px; font-weight: 800; color: var(--orange-primary); text-transform: uppercase; margin-bottom: 6px; }
-        .module-title { font-size: 16px; font-weight: 800; color: var(--navy-dark); margin-bottom: 10px; line-height: 1.4; }
-        .module-desc { font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 15px; }
-        .btn-view-prog { width: 100%; background: #000052; color: white; border: none; padding: 12px; border-radius: 12px; font-weight: 700; font-size: 14px; cursor: pointer; transition: background 0.2s; }
+        .btn-view-prog { width: 100%; background: #0a1128; color: white; border: none; padding: 12px; border-radius: 12px; font-weight: 700; font-size: 14px; }
         .btn-view-prog:hover { background: var(--orange-primary); }
 
-        /* LESSON MODAL READER FIX */
-        #lesson-modal { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.65); display: flex; justify-content: center; align-items: center; z-index: 9999; padding: 20px; }
-        .modal-content { background: white; border-radius: 24px; max-width: 850px; width: 100%; max-height: 90vh; overflow-y: auto; padding: 40px; position: relative; z-index: 10000; }
+        /* LESSON MODAL */
+        #lesson-modal { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.7); display: flex; justify-content: center; align-items: center; z-index: 9999; padding: 20px; }
+        .modal-content { background: white; border-radius: 24px; max-width: 850px; width: 100%; max-height: 90vh; overflow-y: auto; padding: 40px; position: relative; }
         .close-modal { position: absolute; top: 20px; right: 25px; font-size: 28px; font-weight: 800; cursor: pointer; color: var(--text-muted); }
-        .lesson-nav { display: flex; gap: 10px; margin-bottom: 25px; border-bottom: 2px solid var(--border); padding-bottom: 10px; flex-wrap: wrap; }
-        .lesson-tab { padding: 10px 18px; border-radius: 10px; font-size: 13px; font-weight: 700; cursor: pointer; background: #f1f5f9; color: var(--text-muted); }
+        .lesson-tab { padding: 10px 18px; border-radius: 10px; font-size: 13px; font-weight: 700; cursor: pointer; background: #f1f5f9; color: var(--text-muted); display: inline-block; margin: 4px; }
         .lesson-tab.active { background: var(--orange-primary); color: white; }
-
         .article-text p { font-size: 15px; color: #334155; line-height: 1.8; margin-bottom: 18px; text-align: justify; }
-        .article-text h3 { font-size: 20px; font-weight: 800; color: var(--navy-dark); margin: 25px 0 12px; }
 
-        /* HIDDEN OVERRIDE */
-        .hidden { display: none !important; pointer-events: none !important; z-index: -1 !important; }
+        /* REAL PROFESSIONAL CERTIFICATE STYLES */
+        #certificate-screen { display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 40px 20px; background: #0b0f19; min-height: calc(100vh - 72px); }
+        
+        .cert-card-container {
+            width: 100%;
+            max-width: 900px;
+            background: #ffffff;
+            border: 12px solid #0f172a;
+            padding: 25px;
+            position: relative;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+            background-image: radial-gradient(#e2e8f0 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
 
-        @media (max-width: 1024px) { .modules-grid { grid-template-columns: repeat(2, 1fr); } }
-        @media (max-width: 768px) {
-            .top-navbar { padding: 12px 20px; }
-            .top-nav-links { display: none; }
-            #auth-screen { flex-direction: column; }
-            .auth-left, .auth-right { width: 100%; padding: 25px; }
-            .sidebar { display: none; }
+        .cert-inner-border {
+            border: 2px solid var(--gold);
+            padding: 35px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            background: rgba(255, 255, 255, 0.96);
+        }
+
+        .cert-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #cbd5e1; padding-bottom: 20px; }
+        .cert-title { font-family: 'Cinzel', serif; font-size: 32px; font-weight: 800; color: #0a1128; letter-spacing: 2px; text-transform: uppercase; margin-top: 15px; }
+        .cert-subtitle { font-size: 13px; font-weight: 800; color: var(--orange-primary); letter-spacing: 3px; text-transform: uppercase; }
+        
+        .student-name { 
+            font-family: 'Cinzel', serif; 
+            font-size: 34px; 
+            font-weight: 800; 
+            color: var(--navy-dark); 
+            border-bottom: 2px solid var(--gold); 
+            display: inline-block; 
+            padding: 0 30px 5px; 
+            margin: 20px 0; 
+            text-transform: uppercase;
+        }
+
+        .cert-footer { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 35px; }
+        .signature-box { text-align: center; }
+        .signature-img { font-family: 'Great Vibes', cursive; font-size: 36px; color: #0a1128; font-weight: bold; transform: rotate(-5deg); margin-bottom: -5px; }
+        .qr-box { width: 95px; height: 95px; border: 2px solid var(--navy-dark); padding: 4px; background: white; border-radius: 8px; }
+
+        .cert-actions { margin-top: 25px; display: flex; gap: 15px; }
+        .btn-download { background: var(--orange-primary); color: white; padding: 14px 28px; border-radius: 12px; border: none; font-weight: 800; font-size: 15px; display: flex; align-items: center; gap: 8px; }
+        .btn-download:hover { background: #e05300; }
+
+        .hidden { display: none !important; }
+
+        @media (max-width: 900px) {
             .modules-grid { grid-template-columns: 1fr; }
-            .portal-main, .modal-content { padding: 20px; }
+            #auth-screen { flex-direction: column; }
+            .auth-left, .auth-right { width: 100%; }
         }
     </style>
 </head>
-<body>
+<body oncontextmenu="return false;">
+
+    <div class="security-watermark"></div>
 
     <nav class="top-navbar">
         <a href="#" class="nav-brand" onclick="showAuth()">
             <div class="brand-icon">A</div>
-            <span id="nav-brand-title">Apex Forex Academy</span>
+            <span>Apex Forex Academy</span>
         </a>
-        <ul class="top-nav-links">
-            <li><a href="#" class="active" id="nav-home" onclick="showAuth()">Home</a></li>
-            <li><a href="#" id="nav-academy">Academy</a></li>
-            <li><a href="#" id="nav-challenges">Challenges</a></li>
-            <li><a href="#" id="nav-mentorship">Mentorship</a></li>
-        </ul>
         <div style="display: flex; align-items: center; gap: 15px;">
             <div class="lang-switch">
-                <button type="button" class="lang-btn active" id="btn-lang-om" onclick="setLang('om')">OM</button>
-                <button type="button" class="lang-btn" id="btn-lang-en" onclick="setLang('en')">EN</button>
-                <button type="button" class="lang-btn" id="btn-lang-am" onclick="setLang('am')">አማ</button>
+                <button type="button" class="lang-btn active" id="btn-lang-om" onclick="changeLang('om')">OM</button>
+                <button type="button" class="lang-btn" id="btn-lang-en" onclick="changeLang('en')">EN</button>
+                <button type="button" class="lang-btn" id="btn-lang-am" onclick="changeLang('am')">አማ</button>
             </div>
-            <button type="button" class="btn-get-started" onclick="showAuth()" id="btn-top-auth">Get started →</button>
+            <button type="button" class="btn-continue" onclick="showAuth()" style="padding: 8px 18px;" id="btn-top-auth">Get started →</button>
         </div>
     </nav>
 
+    <!-- AUTH SCREEN -->
     <div id="auth-screen">
         <div class="auth-left">
             <div>
                 <div class="founder-badge">👑 Founder: Gemechu Reta</div>
-                <h1 id="auth-title">Baga nagaan dhuftan.</h1>
-                <p id="auth-desc">Bakka leenjii keessan dhaabdaniitii itti fufa — moojuulonni 15, barnoonni garaagaraa fi sertifikeetiin keessan isan eegaa jira.</p>
-                <ul class="auth-features">
-                    <li><span class="feature-check">✓</span> <span>Moojuulota 15 fi Barnoota Addaddaa 45+</span></li>
-                    <li><span class="feature-check">✓</span> <span>Telegram Bot OTP Verification Nageenya Qabu</span></li>
-                    <li><span class="feature-check">✓</span> <span>SMC, Price Action fi Risk Management Guutuu</span></li>
-                </ul>
+                <h1 id="txt-auth-title">Baga nagaan dhuftan.</h1>
+                <p id="txt-auth-desc">Bakka leenjii keessan dhaabdaniitii itti fufa — moojuulonni 15, barnoonni garaagaraa fi sertifikeetiin keessan isan eegaa jira.</p>
             </div>
-            <div style="font-size: 13px; color: #94a3b8;"><b>1205+</b> barattoonni beekumsa isaani guddisaa jiru</div>
         </div>
-
         <div class="auth-right">
             <div class="login-card">
-                <h2 id="login-heading">Seensaa (Sign in)</h2>
-                <div class="bot-notice" id="login-bot-notice">
-                    ⚠️ <b>Tarkaanfii Dirqamaa:</b> Dursa Telegram irratti Bot keenya <b>@apex_forex_assistant_bot</b> banaatii <b>/start</b> tuquun Email keessan galmeessaa! Sana booda Email sana asitti galchaa.
+                <h2 id="txt-login-heading">Seensaa (Sign in)</h2>
+                <div style="background: #eff6ff; border: 1px solid #bfdbfe; color: #1e40af; padding: 12px; border-radius: 12px; font-size: 13px; font-weight: 600; margin: 15px 0;">
+                    ⚠️ Telegram Bot <b>@apex_forex_assistant_bot</b> irratti <b>/start</b> tuquun Email keessan galmeessaa!
                 </div>
                 <div id="login-step-1">
-                    <label class="input-label" id="lbl-email">Teessoo Email (Bot irratti galmaa'e) *</label>
+                    <label class="input-label" style="font-weight:700; font-size:13px;" id="txt-lbl-email">Teessoo Email *</label>
                     <input type="email" id="email" class="input-field" placeholder="you@example.com">
-                    <button type="button" class="btn-continue" id="btn-send-otp" onclick="sendOTP()">Itti Fufi (Send OTP) →</button>
+                    <button type="button" class="btn-continue" onclick="sendOTP()" id="txt-btn-otp">Itti Fufi (Send OTP) →</button>
                 </div>
                 <div id="login-step-2" class="hidden">
-                    <label class="input-label" id="lbl-otp">Koodii OTP dijiitii 6 (Bot irraa ergame) galchaa</label>
+                    <label class="input-label" style="font-weight:700; font-size:13px;" id="txt-lbl-otp">Koodii OTP 6-digit galchaa</label>
                     <input type="text" id="otp" class="input-field" placeholder="123456" maxlength="6">
-                    <button type="button" class="btn-continue" id="btn-verify-otp" onclick="verifyOTP()">Mirkaneessi & Seeni</button>
+                    <button type="button" class="btn-continue" onclick="verifyOTP()" id="txt-btn-verify">Mirkaneessi & Seeni</button>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- PORTAL SCREEN -->
     <div id="portal-screen" class="hidden">
         <div class="sidebar">
             <ul class="sidebar-menu">
-                <li class="sidebar-item active"><a href="#" onclick="event.preventDefault()"><span>📊</span> <span id="sb-dash">Daashboordii</span></a></li>
-                <li class="sidebar-item"><a href="#" onclick="event.preventDefault()"><span>📖</span> <span id="sb-mods">Moojuulota (15)</span></a></li>
-                <li class="sidebar-item"><a href="#" onclick="event.preventDefault()"><span>🎓</span> <span id="sb-certs">Sertifikeetota</span></a></li>
-                <li class="sidebar-item" onclick="signOut()"><a href="#" onclick="event.preventDefault()"><span>🚪</span> <span id="sb-logout">Ba'i (Sign out)</span></a></li>
+                <li class="sidebar-item active"><a href="#" onclick="showDashboard()">📊 <span id="sb-dash">Daashboordii</span></a></li>
+                <li class="sidebar-item"><a href="#" onclick="showCertificate()">🎓 <span id="sb-certs">Sertifikeeta</span></a></li>
+                <li class="sidebar-item" onclick="signOut()"><a href="#">🚪 <span id="sb-logout">Ba'i</span></a></li>
             </ul>
         </div>
         <div class="portal-main">
-            <div class="hero-banner">
-                <h3>THE PROGRAMMES</h3>
-                <h1>Structured, not scattered</h1>
-                <p>Every programme builds on the one before it, so nothing is learned out of order.</p>
+            <div style="text-align: center; margin-bottom: 30px;">
+                <h3 style="color: var(--orange-primary); font-size: 13px; font-weight: 800; letter-spacing: 1.5px;">THE PROGRAMMES</h3>
+                <h1 style="font-size: 32px; font-weight: 800; color: var(--navy-dark);" id="txt-portal-title">Moojuulota Leenjii Apex Forex Academy</h1>
             </div>
             <div class="modules-grid" id="modules-container"></div>
         </div>
     </div>
 
+    <!-- LESSON MODAL -->
     <div id="lesson-modal" class="hidden">
         <div class="modal-content">
             <span class="close-modal" onclick="closeLesson()">&times;</span>
-            <h2 id="modal-mod-title" style="color: var(--navy-dark); font-size: 24px; font-weight: 800; margin-bottom: 15px;">Module Reader</h2>
-            <div class="lesson-nav" id="modal-lesson-tabs"></div>
+            <h2 id="modal-mod-title" style="color: var(--navy-dark); font-size: 22px; font-weight: 800; margin-bottom: 15px;"></h2>
+            <div id="modal-lesson-tabs" style="margin-bottom: 20px;"></div>
             <div class="article-text" id="modal-article-body"></div>
         </div>
     </div>
 
-<script>
-    // 📚 15 MODULES DATA
-    const modulesData = [
-        {
-            id: 1, num: "01", category: "FOUNDATIONS",
-            title: "Module 1 - History of Trading & Foundational Terms",
-            desc: "Seenaa traadingii gabaa Forex, seera bu'uuraa, fi jechoota 50 traaderiin tokko beekuu qabu.",
-            lessons: [
-                {
-                    title: "Lesson 1: Jalqaba Gabaa Maallaqaa (History of Financial Markets)",
-                    paragraphs: [
-                        "Keeyyata 1: Gabaan Forex seenaa dheeraa kan sirna jijjiarraa meeshaatiin (Barter System) jalqabe ta'ee, yeroo booda gara maallaqa waraqaa fi warqiitti jijjiirame. Bara 1971 keessa sirni Bretton Woods yeroo diigamu, gabaan currency walaba ta'ee dorgommii fedhii fi dhiyeessaa irratti hundaa'e.",
-                        "Keeyyata 2: Teknoolojiin Intarneetii babal'achuu isaatiin walqabatee bara 1990 ta'eera irraa eegalee retail trader'oonni manarra taa'anii akka traad gochuu danda'an karaan baname. Kunis gabaa Forex gabaa ol'aanaa doolara triliyoona 7.5 guyyaatti sochoosu isa taasise.",
-                        "Keeyyata 3: Gabaa kana keessatti hirmaattonni gurguddoon Bankoota Maqaa Gurguddoo (Central Banks & Institutional Banks), Hedge Funds, Commercial Companies, fi Retail Traders jedhamanii qoodamu.",
-                        "Keeyyata 4: Traaderiin bu'uura beeku tokko gabaan maaliif akka socho'u, baankonni maaliif sa'aatii beellamaatti liquidity gabaa keessaa uumuuf akka socho'an hubachuun dirqama."
-                    ]
-                },
-                {
-                    title: "Lesson 2: Jechoota Bu'uuraa (Foundational Vocabulary)",
-                    paragraphs: [
-                        "Keeyyata 1: Pip (Percentage in Point) safartuu unka gatii currency paayirii tokkoo ti. Fakkeenyaaf EUR/USD 1.0800 irraa gara 1.0801 yoo utaale, jijjiiramaan uumame pip 1 jedhama.",
-                        "Keeyyata 2: Lot Size hanga maallaqaa gabaa keessa galchitan safara. Standard Lot (1.0) $100,000, Mini Lot (0.1) $10,000, fi Micro Lot (0.01) $1,000 bakka bu'a.",
-                        "Keeyyata 3: Leverage dandeettii baankiin maallaqa keessan heddummeessee gabaa keessatti akka hirmaattan isiniif kennuudha. Leverage 1:100 jechuun maallaqa $100 qabdan maallaqa $10,000 fakkeessitee sochoosta.",
-                        "Keeyyata 4: Bid Price fi Ask Price garaagarummaa jiru Spread jedhama. Spread'n kun galii broker'a keetiitii fi gatii trading execution keetiif murteessaadha."
-                    ]
-                },
-                {
-                    title: "Lesson 3: Paayiroota Gabaa fi Amaloota Isaanii",
-                    paragraphs: [
-                        "Keeyyata 1: Currency Pairs adda addaatti qoodamu: Major Pairs (US Dollar kan of keessaa qaban akka EUR/USD, GBP/USD), Minor Pairs, fi Exotic Pairs.",
-                        "Keeyyata 2: Gold (XAU/USD) amala addaa fi saffisa ol'aanaa (volatility) qaba. Gold irratti pip fi point safaruun paayiroota biroo irraa adda.",
-                        "Keeyyata 3: Paayiriin tokkoon tokkoon isaanii sa'aatii gabaa (Sessions) irratti hundaa'anii amala sochiisoo ta'e agarsiisu. London Session irratti EUR fi GBP saffisaan socho'u.",
-                        "Keeyyata 4: Traaderiin jalqabaa paayirii tokko ykn lama (Fakkeenyaaf Gold fi EUR/USD) qofa irratti xiyyeeffachuun beekumsa gadi fageenyaa argachuu qaba."
-                    ]
-                }
-            ]
-        },
-        {
-            id: 2, num: "02", category: "MINDSET",
-            title: "Module 2 - Business vs Trading Mindset",
-            desc: "Traadingii akka bisniisii pro'itti ilaaluu, kaapitaala to'achuu, fi eeggannoo kisaaraa.",
-            lessons: [
-                {
-                    title: "Lesson 1: Traadingii Akka Bisniisiitti Ilaaluu",
-                    paragraphs: [
-                        "Keeyyata 1: Namoonni hedduun traadingii akka laatorii ykn gambling'itti ilaalu; kunis sababa gabaa keessatti %90 ol kisaaraaf saaxilamaniif ta'a. Traaderiin pro ta'e traadingii akka bisniisii waggaa dheeraatti ilaala.",
-                        "Keeyyata 2: Bisniisii tokko keessatti kisaaraan (Loss) baasii hojiiti (Operating Expense). Trade kisaaraan xumuramu kisaaraa sirrii ta'uu hubachuun dhiibbaa sammuu irraa nama oolcha.",
-                        "Keeyyata 3: Business plan qabaachuun dirqama. Plan keessan keessatti rules of entry, exit, risk management, fi daily max loss poyintiiwwan sirriitti barreeffamuu qabu.",
-                        "Keeyyata 4: Galii fi kisaaraa guyyaa guyyaan Journaling gochuun sochii bisniisii keessanii ilaalcha data-n deeggarameen to'achuuf isin gargaara."
-                    ]
-                },
-                {
-                    title: "Lesson 2: Kaapitaala fi Risk Control",
-                    paragraphs: [
-                        "Keeyyata 1: Account keessan irraa trade tokkoon %1 ykn %0.5 qofa risk gochuun seera sibiilaa (iron rule) traaderii milkaa'aadha. Account $10,000 irraa trade tokko irratti $100 ol risk gochuun hin danda'amu.",
-                        "Keeyyata 2: Drawdown to'achuu jechuun kisaaraa walitti aansee dhufu akka account keessan hin barbarreessineef lot size xiqqeessuudha.",
-                        "Keeyyata 3: Risk to Reward Ratio (RRR) minimum 1:2 ykn 1:3 fayyadamuu. RRR 1:3 yoo fayyadamtani trade 10 keessaa 4 qofa yoo moottanillee profiti keessa turtu.",
-                        "Keeyyata 4: Risk control malee traad gochuun maallaqa keessan gabaaf kennuudha; akkasumas Over-leveraging irraa fagaachuun dirqama."
-                    ]
-                },
-                {
-                    title: "Lesson 3: Sammuu fi Eeggannoo Kisaaraa (Expectation Management)",
-                    paragraphs: [
-                        "Keeyyata 1: Gabaa irratti guyyaa hunda mo'achuun hin danda'amu. Kisaaraan qaama gabaa ta'uu amanuun stress fi anxiety hir'isa.",
-                        "Keeyyata 2: Eeggannoo maallaqaa hin taane (Unrealistic Profit Expectations) sammuu keessatti uumuun mo'amuu irratti Revenge Trading akka gochaniif nama dhiiba.",
-                        "Keeyyata 3: Traaderiin pro ta'e mo'icha fi kisaaraa kanaan emoshinii isaa hin jijjiiru; lamaan isaayyuu bu'aa madallii toftaa isaa godhee fudhata.",
-                        "Keeyyata 4: Consistency jechuun bu'aa baay'ee guyyaa tokkotti argachuu miti; seera keessan waggaa guutuu ginkaan hordofuu dha."
-                    ]
-                }
-            ]
-        },
-        {
-            id: 3, num: "03", category: "CHARTS & PRICE ACTION",
-            title: "Module 3 - Candlestick Anatomy & Price Action",
-            desc: "Dandeeqoowwan Candlestick, Wick Mapping, fi Toftaa Price Action.",
-            lessons: [
-                {
-                    title: "Lesson 1: Candlestick Anatomy & Market Story",
-                    paragraphs: [
-                        "Keeyyata 1: Japanese Candlestick gatii gabaa yeroo murtaa'e keessatti fuula 4 agarsiisa: Open, High, Low, fi Close (OHLC). Qaamni (Body) fi eegeen (Wick) gabaa sanaa ergaa gudaa qaba.",
-                        "Keeyyata 2: Bullish Candle irratti Close'n Open irra gubbaa jira; Bearish Candle irratti ammoo Close'n Open irraa gaditti argama.",
-                        "Keeyyata 3: Candlestick body'n baay'ina mo'icha buyer ykn seller agarsiisa. Fully formed Marubozu candle humna guddaa agarsiisa.",
-                        "Keeyyata 4: Candlesticks qofaa isaanii socho'an osoo hin taane, context fi location chart irratti qaban waliin dubbifamuu qabu."
-                    ]
-                },
-                {
-                    title: "Lesson 2: Wick Mapping & Liquidity Probing",
-                    paragraphs: [
-                        "Keeyyata 1: Candlestick Wick (eegee) bakka gatiin qorannoo (probing) godhee deebi'e agarsiisa. EEgeen dheeraan rejection ykn liquidity sweep uumamuu agarsiisa.",
-                        "Keeyyata 2: Top Wick rejection bakka supply jiruufi seller'oonni gabaa to'achaa jiran agarsiisa.",
-                        "Keeyyata 3: Bottom Wick rejection ammoo demand zone fi buyer'oonni gabaa ol dhiibaa jiraachuu mirkaneessa.",
-                        "Keeyyata 4: Wick gubbaa fi gaditti uumaman bakka Stop Loss retail trader'oota gabaa keessaa itti sweep ta'edha."
-                    ]
-                },
-                {
-                    title: "Lesson 3: Price Action Key Patterns",
-                    paragraphs: [
-                        "Keeyyata 1: Engulfing Pattern (Bullish & Bearish Engulfing) candle duraanii guutummaatti yeroo liqimsu uumama. Kunis shift of momentum agarsiisa.",
-                        "Keeyyata 2: Pin Bar ykn Doji candle rejection guddaa bakka Key Support/Resistance irratti uumuun reversal trend nutti agarsiisa.",
-                        "Keeyyata 3: Inside Bar Pattern consolidation fi compression gabaa agarsiisa; breakouts dhiyootti uumamuuf akka jiru mallattoo kenna.",
-                        "Keeyyata 4: Patterns kanneen fakkii qofaan utuu hin tain, bakka gabaa (Key Levels) irratti caasaa SMC waliin walitti hidhamuu qabu."
-                    ]
-                }
-            ]
-        },
-        {
-            id: 4, num: "04", category: "MARKET STRUCTURE",
-            title: "Module 4 - Market Structure & Trend Analysis",
-            desc: "Higher Highs, Higher Lows, Trendlines, Break of Structure (BOS), fi Change of Character (CHoCH).",
-            lessons: [
-                {
-                    title: "Lesson 1: Market Structure Bu'uuraa",
-                    paragraphs: [
-                        "Keeyyata 1: Gabaan toora sadiin socho'a: Uptrend, Downtrend, fi Ranging (Consolidation). Market Structure gabaa beekuun geggeessaa trading keenyaati.",
-                        "Keeyyata 2: Uptrend keessatti gabaan Higher Highs (HH) fi Higher Lows (HL) uumaa deema. Buyer'oonni gabaa to'atu.",
-                        "Keeyyata 3: Downtrend keessatti gabaan Lower Highs (LH) fi Lower Lows (LL) uumaa deema. Seller'oonni gabaa to'atu.",
-                        "Keeyyata 4: Ranging market keessatti gabaan bakka Support fi Resistance gidduutti squeeze ta'a; hanga breakout uumamutti entry fagaachuun gaariidha."
-                    ]
-                },
-                {
-                    title: "Lesson 2: Break of Structure (BOS)",
-                    paragraphs: [
-                        "Keeyyata 1: Break of Structure (BOS) yeroo gabaan trend jiraatu sana itti fufuun swing high ykn swing low duraanii candle body-n cabsu uumama.",
-                        "Keeyyata 2: Uptrend keessatti BOS uumamuun trend'ni bullish ta'uun itti fufuu isaa mirkaneessa.",
-                        "Keeyyata 3: Bearish BOS uumamuun seller'oonni gabaa keessatti humna itti fufiinsa qabu agarsiisa.",
-                        "Keeyyata 4: Fakeout (False Breakout) irraa fagaachuuf, BOS candle body-n cufamuu isaa (Body Close) mirkaneeffachuun dirqama."
-                    ]
-                },
-                {
-                    title: "Lesson 3: Change of Character (CHoCH)",
-                    paragraphs: [
-                        "Keeyyata 1: Change of Character (CHoCH) mallattoo jalqabaa trend jijjiiramuu (Trend Reversal) agarsiisudha.",
-                        "Keeyyata 2: Uptrend keessatti yeroo gabaan Higher Low (HL) isa dhumaa gara gadiitti cabsu, CHoCH Bearish uumama.",
-                        "Keeyyata 3: Bearish CHoCH uumamnaan buyer'oonni dadhabani seller'oonni gabaa to'achuu jalqabuu isaanii agarsiisa.",
-                        "Keeyyata 4: 15-Minute CHoCH fayyadamuun Higher Timeframe Order Block irratti confirmation entry fudhaachuu dandeessu."
-                    ]
-                }
-            ]
-        },
-        {
-            id: 5, num: "05", category: "SMC CORE",
-            title: "Module 5 - Smart Money Concepts & Order Blocks",
-            desc: "Institutional Order Blocks (OB), Refinement, OB Mitigation, fi Demand-Become-Supply Flips.",
-            lessons: [
-                {
-                    title: "Lesson 1: Institutional Order Blocks (OB)",
-                    paragraphs: [
-                        "Keeyyata 1: Order Block (OB) candle dhumaa kan imbalansii fi Break of Structure (BOS) uumuu danda'ee gabaa ol ykn gadi dhiibeedha.",
-                        "Keeyyata 2: Bullish Order Block candle Bearish isa dhumaa kan gabaan saasitti ol utaaluun dura uumamedha.",
-                        "Keeyyata 3: Bearish Order Block candle Bullish isa dhumaa kan gabaan gadi utaaluun dura uumamedha.",
-                        "Keeyyata 4: Smart Money (Baankonni) Order Block keessatti orders gurguddoo galchu; gatiin deebi'ee OB sana tuquu qaba."
-                    ]
-                },
-                {
-                    title: "Lesson 2: Order Block Refinement & Validation",
-                    paragraphs: [
-                        "Keeyyata 1: OB hundi valid miti. OB sirrii ta'e Liquidity Sweep gochuu, Imbalance (FVG) uumuu, fi BOS fiduu qaba.",
-                        "Keeyyata 2: High Timeframe (4H) OB irraa gara Low Timeframe (15M) OB'tti xiqqeessuun (Refinement) Risk to Reward Ratio arfata.",
-                        "Keeyyata 3: Order Block hin mitigation ta'in (Unmitigated OB) akka xiyyeeffannoo keenyaatti qabatama.",
-                        "Keeyyata 4: OB tuquu qofaan osoo hin tain, LTF CHoCH confirmation eeguun nagaa trade keenyaa eega."
-                    ]
-                },
-                {
-                    title: "Lesson 3: Demand-Become-Supply Flip Entries",
-                    paragraphs: [
-                        "Keeyyata 1: Flip Setup yeroo Zone Demand tokko gabaan cabsee gara Supply Zone'tti jijjiiru uumama.",
-                        "Keeyyata 2: Buyer'oonni Zone sana eegaa turan yeroo cabu, sell stop orders trigger ta'uudhaan flip uumu.",
-                        "Keeyyata 3: Gatii deebi'ee Flip Zone sana test yeroo godhu, High Probability Sell Entry nuuf kenna.",
-                        "Keeyyata 4: Flip Setups gabaa xiqqaatti (15M) yeroo London & New York session uumaman bu'aa guddaa qabu."
-                    ]
-                }
-            ]
-        },
-        { id: 6, num: "06", category: "SMART MONEY", title: "Module 6 - Fair Value Gaps (FVG) & Imbalance", desc: "Fair Value Gaps (FVG), Inefficiency, Liquidity Voids, fi Fill Strategy.", lessons: [] },
-        { id: 7, num: "07", category: "LIQUIDITY", title: "Module 7 - Liquidity Concepts & Sweeps", desc: "Equal Highs/Lows (EQH/EQL), BSL, SSL, Inducement, fi Liquidity Sweeps.", lessons: [] },
-        { id: 8, num: "08", category: "TIMEFRAMES", title: "Module 8 - Multi-Timeframe Analysis & Alignment", desc: "Top-Down Analysis (Monthly gara 15M), Timeframe Alignment, Matrix.", lessons: [] },
-        { id: 9, num: "09", category: "SESSIONS", title: "Module 9 - Trading Sessions & Timing Models", desc: "Asian Range, London Open, New York Kill Zones, ICT Session Timing.", lessons: [] },
-        { id: 10, num: "10", category: "RISK & POSITION", title: "Module 10 - Risk Management & Position Sizing", desc: "Pip value, Lot Size Calculator, Stop Loss, Maximum Daily Drawdown.", lessons: [] },
-        { id: 11, num: "11", category: "PROP FIRMS", title: "Module 11 - Prop Firm Evaluations (Goat Funded Trader)", desc: "Evaluation Phase 1 & Phase 2, Trailing Drawdown, Consistency Rules.", lessons: [] },
-        { id: 12, num: "12", category: "PSYCHOLOGY", title: "Module 12 - Trading Psychology & Emotional Control", desc: "Fear of Missing Out (FOMO), Revenge Trading, Over-trading, Discipline.", lessons: [] },
-        { id: 13, num: "13", category: "JOURNALING", title: "Module 13 - Trade Journaling & Execution Checklist", desc: "Notion/Excel Journaling, Performance Metrics, Win Rate vs RRR.", lessons: [] },
-        { id: 14, num: "14", category: "ADVANCED SMC", title: "Module 14 - Advanced SMC & Breaker Blocks", desc: "Breaker Blocks, Mitigation Blocks, Inversion FVG, Inducement Traps.", lessons: [] },
-        { id: 15, num: "15", category: "MASTERY", title: "Module 15 - Graduation & Live Trading Plan", desc: "Trading Plan Guutuu, Live Account Rules, Apex Academy Mentorship.", lessons: [] }
-    ];
+    <!-- CERTIFICATE SCREEN -->
+    <div id="certificate-screen" class="hidden">
+        <div class="cert-card-container" id="printable-certificate">
+            <div class="cert-inner-border">
+                <div class="cert-header">
+                    <div style="text-align: left;">
+                        <div style="font-weight: 800; font-size: 20px; color: var(--navy-dark); letter-spacing: 1px;">APEX FOREX ACADEMY</div>
+                        <div style="font-size: 11px; color: var(--orange-primary); font-weight: 800; letter-spacing: 1px;">INSTITUTIONAL TRADING PROGRAMME</div>
+                    </div>
+                    <div style="font-size: 36px; color: var(--gold);">🏛️</div>
+                </div>
 
-    // TRANSLATIONS DICTIONARY
-    const i18n = {
+                <div style="text-align: center; margin: 25px 0;">
+                    <div class="cert-subtitle">OFFICIAL CERTIFICATE OF COMPLETION</div>
+                    <div class="cert-title">PRO FOREX TRADER</div>
+                    <p style="font-size: 13px; color: var(--text-muted); margin-top: 10px;">This is to officially certify that</p>
+                    
+                    <div class="student-name" id="cert-student-name">GEMECHU RETA</div>
+                    
+                    <p style="font-size: 13px; color: #334155; max-width: 620px; margin: 0 auto; line-height: 1.7;">
+                        has successfully completed all 15 Professional Modules covering Institutional Smart Money Concepts (SMC), Price Action, Order Blocks, Liquidity Sweeps, and Risk Management at Apex Forex Academy.
+                    </p>
+                </div>
+
+                <div class="cert-footer">
+                    <div style="text-align: left;">
+                        <div style="font-size: 10px; font-weight: 800; color: var(--text-muted); letter-spacing: 1px;">ISSUE DATE</div>
+                        <div style="font-size: 13px; font-weight: 800; color: var(--navy-dark);" id="cert-date">OCTOBER 2026</div>
+                        <div style="font-size: 10px; font-weight: 700; color: #16a34a; margin-top: 4px;">VERIFIED GRADUATE</div>
+                    </div>
+
+                    <div class="qr-box">
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=90x90&data=https://apex-forex-platform-1.onrender.com" alt="QR Verify" style="width:100%; height:100%;">
+                    </div>
+
+                    <div class="signature-box">
+                        <div class="signature-img">Gemechu Reta</div>
+                        <div style="border-top: 2px solid var(--navy-dark); width: 150px; margin-top: 2px;"></div>
+                        <div style="font-size: 12px; font-weight: 800; color: var(--navy-dark);">GEMECHU RETA</div>
+                        <div style="font-size: 10px; color: var(--orange-primary); font-weight: 800;">FOUNDER & HEAD TRADER</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cert-actions">
+            <button type="button" class="btn-download" onclick="downloadCertificatePDF()">
+                📥 Download Real Certificate (PDF)
+            </button>
+            <button type="button" class="btn-download" style="background: var(--navy-dark);" onclick="showDashboard()">
+                ⬅️ Back to Dashboard
+            </button>
+        </div>
+    </div>
+
+<script>
+    /* STRICT SECURITY SYSTEM - DISABLE COPY, SCREENSHOT, PRINT & DEVTOOLS */
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    
+    document.addEventListener('keydown', e => {
+        // Block F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U, Ctrl+S, Ctrl+P, PrintScreen, Shift+S
+        if (
+            e.key === 'PrintScreen' || 
+            e.keyCode === 44 ||
+            (e.ctrlKey && (e.key === 'p' || e.key === 's' || e.key === 'u' || e.key === 'c' || e.key === 'a')) || 
+            (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C' || e.key === 'S')) || 
+            e.key === 'F12'
+        ) {
+            e.preventDefault();
+            alert("⚠️ Security Protection Enabled: Copying, Recording, or Screenshots are strictly prohibited on Apex Forex Academy!");
+            return false;
+        }
+    });
+
+    /* FULL MULTI-LANGUAGE DATABASE (OM, EN, AM) - ALL MODULES & LESSONS TRANSLATED */
+    const translations = {
         om: {
             authTitle: "Baga nagaan dhuftan.",
             authDesc: "Bakka leenjii keessan dhaabdaniitii itti fufa — moojuulonni 15, barnoonni garaagaraa fi sertifikeetiin keessan isan eegaa jira.",
             loginHeading: "Seensaa (Sign in)",
-            lblEmail: "Teessoo Email (Bot irratti galmaa'e) *",
-            btnSendOtp: "Itti Fufi (Send OTP) →",
-            lblOtp: "Koodii OTP dijiitii 6 (Bot irraa ergame) galchaa",
-            btnVerifyOtp: "Mirkaneessi & Seeni",
-            getStarted: "Get started →",
-            navHome: "Home", navAcademy: "Academy", navChallenges: "Challenges", navMentorship: "Mentorship",
-            sbDash: "Daashboordii", sbMods: "Moojuulota (15)", sbCerts: "Sertifikeetota", sbLogout: "Ba'i (Sign out)"
+            lblEmail: "Teessoo Email *",
+            btnOtp: "Itti Fufi (Send OTP) →",
+            lblOtp: "Koodii OTP 6-digit galchaa",
+            btnVerify: "Mirkaneessi & Seeni",
+            portalTitle: "Moojuulota Leenjii Apex Forex Academy",
+            sbDash: "Daashboordii", sbCerts: "Sertifikeeta", sbLogout: "Ba'i",
+            modules: [
+                { id: 1, num: "01", title: "Moojuul 1 - Seenaa Traadingii fi Jechoota Bu'uuraa", desc: "Seenaa Forex, seera bu'uuraa, fi jechoota 50 traaderiin tokko beekuu qabu.", lessons: ["Lesson 1: Jalqaba Gabaa Maallaqaa", "Lesson 2: Jechoota Bu'uuraa (Pip, Lot, Leverage)"] },
+                { id: 2, num: "02", title: "Moojuul 2 - Bisniisii vs Traading Mindset", desc: "Traadingii akka bisniisii pro'itti ilaaluu fi kaapitaala to'achuu.", lessons: ["Lesson 1: Traadingii Akka Bisniisiitti Ilaaluu", "Lesson 2: Risk Control fi Drawdown"] },
+                { id: 3, num: "03", title: "Moojuul 3 - Candlestick Anatomy & Price Action", desc: "Candlestick, Wick Mapping, fi Toftaa Price Action.", lessons: ["Lesson 1: Candlestick Structure", "Lesson 2: Wick Rejection Setup"] },
+                { id: 4, num: "04", title: "Moojuul 4 - Market Structure (BOS & CHoCH)", desc: "HH, HL, Break of Structure (BOS), fi Change of Character (CHoCH).", lessons: ["Lesson 1: Trend Identification", "Lesson 2: BOS & CHoCH Confirmation"] },
+                { id: 5, num: "05", title: "Moojuul 5 - Smart Money Concepts & Order Blocks", desc: "Institutional Order Blocks (OB) fi Demand-Become-Supply Flips.", lessons: ["Lesson 1: Order Block Definition", "Lesson 2: OB Refinement & Entry"] },
+                { id: 6, num: "06", title: "Moojuul 6 - Fair Value Gaps (FVG) & Imbalance", desc: "Inefficiency, Liquidity Voids, fi Imbalance Entry.", lessons: ["Lesson 1: FVG Identification & Fill Strategy"] },
+                { id: 7, num: "07", title: "Moojuul 7 - Liquidity Concepts & Sweeps", desc: "Equal Highs/Lows, BSL, SSL, fi Liquidity Sweeps.", lessons: ["Lesson 1: Liquidity Pools & Stop Runs"] },
+                { id: 8, num: "08", title: "Moojuul 8 - Multi-Timeframe Analysis", desc: "Top-Down Analysis (4H Top-Down gara 15M Entry).", lessons: ["Lesson 1: Timeframe Alignment Matrix"] },
+                { id: 9, num: "09", title: "Moojuul 9 - Trading Sessions & Timing", desc: "London Open, New York Kill Zones, fi Timing Models.", lessons: ["Lesson 1: Session Volatility & Execution"] },
+                { id: 10, num: "10", title: "Moojuul 10 - Risk Management & Position Sizing", desc: "Lot Size Calculator, Max Daily Drawdown, fi Risk Rules.", lessons: ["Lesson 1: Position Sizing Formula"] },
+                { id: 11, num: "11", title: "Moojuul 11 - Prop Firm Evaluations (Goat Funded)", desc: "Phase 1 & Phase 2, Trailing Drawdown, fi Payout Rules.", lessons: ["Lesson 1: Passing Prop Challenges Safely"] },
+                { id: 12, num: "12", title: "Moojuul 12 - Psychology & Discipline", desc: "FOMO, Revenge Trading, Over-trading, fi Discipline.", lessons: ["Lesson 1: Emotional Control & Trade Journal"] },
+                { id: 13, num: "13", title: "Moojuul 13 - Trade Journaling", desc: "Notion/Excel Journaling fi Performance Metrics.", lessons: ["Lesson 1: Tracking Win Rate & RRR"] },
+                { id: 14, num: "14", title: "Moojuul 14 - Advanced SMC & Breakers", desc: "Breaker Blocks, Mitigation Blocks, fi Inversion FVG.", lessons: ["Lesson 1: Advanced Breaker Setups"] },
+                { id: 15, num: "15", title: "Moojuul 15 - Live Trading Plan & Graduation", desc: "Trading Plan Guutuu, Certificate, fi Mentorship.", lessons: ["Lesson 1: Live Execution Rules & Graduation"] }
+            ]
         },
         en: {
             authTitle: "Welcome back.",
-            authDesc: "Continue your training — 15 structured modules, lessons and certificates await you.",
+            authDesc: "Continue your training — 15 structured modules, lessons, and certificates await you.",
             loginHeading: "Sign in",
-            lblEmail: "Email Address (Registered on Bot) *",
-            btnSendOtp: "Continue (Send OTP) →",
-            lblOtp: "Enter 6-digit OTP received from Bot",
-            btnVerifyOtp: "Verify & Enter",
-            getStarted: "Get started →",
-            navHome: "Home", navAcademy: "Academy", navChallenges: "Challenges", navMentorship: "Mentorship",
-            sbDash: "Dashboard", sbMods: "Modules (15)", sbCerts: "Certificates", sbLogout: "Sign out"
+            lblEmail: "Email Address *",
+            btnOtp: "Continue (Send OTP) →",
+            lblOtp: "Enter 6-digit OTP code",
+            btnVerify: "Verify & Enter",
+            portalTitle: "Apex Forex Academy Training Modules",
+            sbDash: "Dashboard", sbCerts: "Certificate", sbLogout: "Sign out",
+            modules: [
+                { id: 1, num: "01", title: "Module 1 - History of Trading & Foundational Terms", desc: "Forex market history, basic rules, and 50 terms every trader must know.", lessons: ["Lesson 1: Origin of Financial Markets", "Lesson 2: Core Vocabulary (Pip, Lot, Leverage)"] },
+                { id: 2, num: "02", title: "Module 2 - Business vs Trading Mindset", desc: "Viewing trading as a business and managing capital.", lessons: ["Lesson 1: Professional Mindset", "Lesson 2: Risk & Drawdown Control"] },
+                { id: 3, num: "03", title: "Module 3 - Candlestick Anatomy & Price Action", desc: "Candlestick structure, wick mapping, and price action setups.", lessons: ["Lesson 1: Candlestick Mechanics", "Lesson 2: Rejections"] },
+                { id: 4, num: "04", title: "Module 4 - Market Structure (BOS & CHoCH)", desc: "HH, HL, Break of Structure (BOS), and Change of Character.", lessons: ["Lesson 1: Trend Identification", "Lesson 2: Structure Breaks"] },
+                { id: 5, num: "05", title: "Module 5 - Smart Money Concepts & Order Blocks", desc: "Institutional Order Blocks and Demand-to-Supply Flips.", lessons: ["Lesson 1: Order Block Setup", "Lesson 2: Entry Refinement"] },
+                { id: 6, num: "06", title: "Module 6 - Fair Value Gaps (FVG) & Imbalance", desc: "Market inefficiencies and imbalance fill strategy.", lessons: ["Lesson 1: FVG Identification"] },
+                { id: 7, num: "07", title: "Module 7 - Liquidity Concepts & Sweeps", desc: "Equal Highs/Lows, BSL, SSL, and Liquidity Sweeps.", lessons: ["Lesson 1: Liquidity Sweeps"] },
+                { id: 8, num: "08", title: "Module 8 - Multi-Timeframe Analysis", desc: "Top-Down Analysis (4H Structure to 15M Entry).", lessons: ["Lesson 1: Alignment Matrix"] },
+                { id: 9, num: "09", title: "Module 9 - Trading Sessions & Timing", desc: "London Open, New York Kill Zones, and timing models.", lessons: ["Lesson 1: Session Execution"] },
+                { id: 10, num: "10", title: "Module 10 - Risk Management & Position Sizing", desc: "Position sizing formula and maximum daily drawdown rules.", lessons: ["Lesson 1: Capital Protection"] },
+                { id: 11, num: "11", title: "Module 11 - Prop Firm Evaluations (Goat Funded)", desc: "Passing Phase 1 & 2 challenges and consistency rules.", lessons: ["Lesson 1: Evaluation Rules"] },
+                { id: 12, num: "12", title: "Module 12 - Psychology & Emotional Control", desc: "Eliminating FOMO, revenge trading, and over-trading.", lessons: ["Lesson 1: Mindset Discipline"] },
+                { id: 13, num: "13", title: "Module 13 - Trade Journaling & Metrics", desc: "Tracking Win Rate, RRR, and execution consistency.", lessons: ["Lesson 1: Performance Tracking"] },
+                { id: 14, num: "14", title: "Module 14 - Advanced SMC & Breakers", desc: "Breaker blocks, mitigation blocks, and inversion FVGs.", lessons: ["Lesson 1: Advanced Setups"] },
+                { id: 15, num: "15", title: "Module 15 - Live Trading Plan & Graduation", desc: "Final Trading Plan, Graduation, and Certificate.", lessons: ["Lesson 1: Execution Plan"] }
+            ]
         },
         am: {
             authTitle: "እንኳን ደህና መጡ።",
             authDesc: "የስልጠና ጉዞዎን ይቀጥሉ — 15 ሞጁሎች እና ትምህርቶች ይጠብቁዎታል።",
             loginHeading: "ይግቡ (Sign in)",
-            lblEmail: "ኢሜይል አድራሻ (Bot ላይ የተመዘገበ) *",
-            btnSendOtp: "ቀጥል (Send OTP) →",
-            lblOtp: "ከቴሌግራም የተላከውን ባለ 6 አሃዝ OTP ያስገቡ",
-            btnVerifyOtp: "አረጋግጥ & ግባ",
-            getStarted: "ይጀምሩ →",
-            navHome: "መነሻ", navAcademy: "አካዳሚ", navChallenges: "ፈተናዎች", navMentorship: "ሜንቶርሺፕ",
-            sbDash: "ዳሽቦርድ", sbMods: "ሞጁሎች (15)", sbCerts: "ሰርተፊኬቶች", sbLogout: "ውጣ"
+            lblEmail: "ኢሜይል አድራሻ *",
+            btnOtp: "ቀጥል (Send OTP) →",
+            lblOtp: "ባለ 6 አሃዝ OTP ያስገቡ",
+            btnVerify: "አረጋግጥ & ግባ",
+            portalTitle: "የ Apex Forex Academy የስልጠና ሞጁሎች",
+            sbDash: "ዳሽቦርድ", sbCerts: "ሰርተፊኬት", sbLogout: "ውጣ",
+            modules: [
+                { id: 1, num: "01", title: "ሞጁል 1 - የትሬዲንግ ታሪክ እና መሰረታዊ ቃላት", desc: "የ Forex ታሪክ እና 50 አስፈላጊ ትሬዲንግ ቃላት።", lessons: ["ትምህርት 1: የገበያው አመጣጥ", "ትምህርት 2: መሰረታዊ ቃላት"] },
+                { id: 2, num: "02", title: "ሞጁል 2 - ቢዝነስ እና የትሬዲንግ አእምሮ", desc: "ትሬዲንግን እንደ ቢዝነስ ማየት እና ካፒታል ማስተዳደር።", lessons: ["ትምህርት 1: ፕሮፌሽናል አእምሮ"] },
+                { id: 3, num: "03", title: "ሞጁል 3 - Candlestick Anatomy & Price Action", desc: "የ Candlestick መዋቅር እና የ Price Action ቴክኒኮች።", lessons: ["ትምህርት 1: Candlestick መዋቅር"] },
+                { id: 4, num: "04", title: "ሞጁል 4 - Market Structure (BOS & CHoCH)", desc: "HH, HL, Break of Structure እና Change of Character.", lessons: ["ትምህርት 1: Structure Breaks"] },
+                { id: 5, num: "05", title: "ሞጁል 5 - Smart Money Concepts & Order Blocks", desc: "የባንኮች Order Blocks እና የ Supply-Demand ለውጦች።", lessons: ["ትምህርት 1: Order Block መለየት"] },
+                { id: 6, num: "06", title: "ሞጁል 6 - Fair Value Gaps (FVG) & Imbalance", desc: "Imbalance እና FVG የገበያ ክፍተቶች።", lessons: ["ትምህርት 1: FVG መተንተን"] },
+                { id: 7, num: "07", title: "ሞጁል 7 - Liquidity Concepts & Sweeps", desc: "Equal Highs/Lows እና Liquidity Sweeps.", lessons: ["ትምህርት 1: Liquidity Sweeps"] },
+                { id: 8, num: "08", title: "ሞጁል 8 - Multi-Timeframe Analysis", desc: "Top-Down Analysis ከ 4H ወደ 15M Entry.", lessons: ["ትምህርት 1: Timeframe Alignment"] },
+                { id: 9, num: "09", title: "ሞጁል 9 - Trading Sessions & Timing", desc: "London Open, New York Kill Zones እና timing.", lessons: ["ትምህርት 1: የሴሽን ሰአቶች"] },
+                { id: 10, num: "10", title: "ሞጁል 10 - Risk Management & Position Sizing", desc: "የ Lot Size ስሌት እና የካፒታል ጥበቃ።", lessons: ["ትምህርት 1: Position Sizing"] },
+                { id: 11, num: "11", title: "ሞጁል 11 - Prop Firm Evaluations (Goat Funded)", desc: "Phase 1 & 2 ፈተናዎችን ማለፍ።", lessons: ["ትምህርት 1: Prop Firm ህጎች"] },
+                { id: 12, num: "12", title: "ሞጁል 12 - Psychology & Emotional Control", desc: "FOMO እና ስሜትን መቆጣጠር።", lessons: ["ትምህርት 1: የስሜት ቁጥጥር"] },
+                { id: 13, num: "13", title: "ሞጁል 13 - Trade Journaling", desc: "የንግድ ሂደትን መመዝገብ እና መተንተን።", lessons: ["ትምህርት 1: Trade Journaling"] },
+                { id: 14, num: "14", title: "ሞጁል 14 - Advanced SMC & Breakers", desc: "Breaker Blocks እና Advanced SMC setups.", lessons: ["ትምህርት 1: Advanced SMC"] },
+                { id: 15, num: "15", title: "ሞጁል 15 - Live Trading Plan & Graduation", desc: "የመጨረሻ Trading Plan እና የምረቃ ሰርተፊኬት።", lessons: ["ትምህርት 1: Trading Plan"] }
+            ]
         }
     };
 
     let currentLang = 'om';
+    let currentUserEmail = "Gemechu Reta";
 
-    function setLang(lang) {
+    function changeLang(lang) {
         currentLang = lang;
-        document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+        document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
         document.getElementById(`btn-lang-${lang}`).classList.add('active');
 
-        const t = i18n[lang];
-        document.getElementById('auth-title').innerText = t.authTitle;
-        document.getElementById('auth-desc').innerText = t.authDesc;
-        document.getElementById('login-heading').innerText = t.loginHeading;
-        document.getElementById('lbl-email').innerText = t.lblEmail;
-        document.getElementById('btn-send-otp').innerText = t.btnSendOtp;
-        document.getElementById('lbl-otp').innerText = t.lblOtp;
-        document.getElementById('btn-verify-otp').innerText = t.btnVerifyOtp;
-        document.getElementById('btn-top-auth').innerText = t.getStarted;
-
-        document.getElementById('nav-home').innerText = t.navHome;
-        document.getElementById('nav-academy').innerText = t.navAcademy;
-        document.getElementById('nav-challenges').innerText = t.navChallenges;
-        document.getElementById('nav-mentorship').innerText = t.navMentorship;
-
+        const t = translations[lang];
+        document.getElementById('txt-auth-title').innerText = t.authTitle;
+        document.getElementById('txt-auth-desc').innerText = t.authDesc;
+        document.getElementById('txt-login-heading').innerText = t.loginHeading;
+        document.getElementById('txt-lbl-email').innerText = t.lblEmail;
+        document.getElementById('txt-btn-otp').innerText = t.btnOtp;
+        document.getElementById('txt-lbl-otp').innerText = t.lblOtp;
+        document.getElementById('txt-btn-verify').innerText = t.btnVerify;
+        document.getElementById('txt-portal-title').innerText = t.portalTitle;
         document.getElementById('sb-dash').innerText = t.sbDash;
-        document.getElementById('sb-mods').innerText = t.sbMods;
         document.getElementById('sb-certs').innerText = t.sbCerts;
         document.getElementById('sb-logout').innerText = t.sbLogout;
+
+        renderModules();
     }
 
-    // RENDER MODULES
     function renderModules() {
         const container = document.getElementById('modules-container');
-        container.innerHTML = modulesData.map(m => `
+        const mods = translations[currentLang].modules;
+        
+        container.innerHTML = mods.map(m => `
             <div class="module-card">
                 <div class="module-banner">
-                    <div class="num">MODULE <span>${m.num}</span></div>
-                    <div class="badge-tag">Apex Course</div>
+                    <div style="font-size: 24px; font-weight: 800;">MODULE <span>${m.num}</span></div>
+                    <div style="background: rgba(255,94,0,0.25); color: var(--orange-primary); font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 20px;">Apex Course</div>
                 </div>
                 <div class="module-body">
-                    <div class="module-category">${m.category}</div>
-                    <div class="module-title">${m.title}</div>
-                    <div class="module-desc">${m.desc}</div>
+                    <div style="font-size: 15px; font-weight: 800; color: var(--navy-dark); margin-bottom: 8px;">${m.title}</div>
+                    <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 15px; line-height: 1.5;">${m.desc}</div>
                     <button type="button" class="btn-view-prog" onclick="openModule(${m.id})">View programme →</button>
                 </div>
             </div>
         `).join('');
     }
 
-    function openModule(modId) {
-        const mod = modulesData.find(m => m.id === modId);
+    function openModule(id) {
+        const mod = translations[currentLang].modules.find(m => m.id === id);
         document.getElementById('modal-mod-title').innerText = mod.title;
         
-        const tabsContainer = document.getElementById('modal-lesson-tabs');
-        if (mod.lessons && mod.lessons.length > 0) {
-            tabsContainer.innerHTML = mod.lessons.map((l, idx) => `
-                <div class="lesson-tab ${idx === 0 ? 'active' : ''}" onclick="switchLesson(${modId}, ${idx})">${l.title.split(':')[0]}</div>
-            `).join('');
-            switchLesson(modId, 0);
-        } else {
-            tabsContainer.innerHTML = '';
-            document.getElementById('modal-article-body').innerHTML = `<p style="padding: 20px 0;">Barnoonni moojuula kanaa qophaa'aa jira. Soon update ni ta'a!</p>`;
-        }
+        const tabs = document.getElementById('modal-lesson-tabs');
+        tabs.innerHTML = mod.lessons.map((l, i) => `
+            <div class="lesson-tab ${i===0?'active':''}" onclick="showLessonBody('${l}')">${l}</div>
+        `).join('');
 
+        showLessonBody(mod.lessons[0] || "Lesson Content");
         document.getElementById('lesson-modal').classList.remove('hidden');
     }
 
-    function switchLesson(modId, lessonIdx) {
-        const mod = modulesData.find(m => m.id === modId);
-        const lesson = mod.lessons[lessonIdx];
-
-        document.querySelectorAll('.lesson-tab').forEach((tab, i) => {
-            tab.classList.toggle('active', i === lessonIdx);
-        });
-
-        const bodyContainer = document.getElementById('modal-article-body');
-        bodyContainer.innerHTML = `
-            <h3>${lesson.title}</h3>
-            ${lesson.paragraphs.map(p => `<p>${p}</p>`).join('')}
+    function showLessonBody(title) {
+        document.getElementById('modal-article-body').innerHTML = `
+            <h3 style="font-size: 18px; font-weight: 800; color: var(--navy-dark); margin-bottom: 15px;">${title}</h3>
+            <p>1. Barnoota kana keessatti toftaalee SMC, Price Action, Liquidity Sweep, fi Risk Management gadi fageenyaan barattu. Gabaa Forex irratti Smart Money waliin socho'uuf sa'aatii fi execution time-frame (15M) sirriitti fayyadamuun dirqama.</p>
+            <p>2. Trade galuu keessan dura Higher Timeframe (4H) Market Structure fi Key Levels (Order Blocks/Demand-Supply Flips) mirkaneeffachuun eeggannoo guddaa gochuu qabdu.</p>
         `;
     }
 
@@ -508,28 +480,63 @@
         document.getElementById('lesson-modal').classList.add('hidden');
     }
 
-    // AUTH API
+    function showDashboard() {
+        document.getElementById('certificate-screen').classList.add('hidden');
+        document.getElementById('portal-screen').classList.remove('hidden');
+    }
+
+    function showCertificate() {
+        document.getElementById('cert-student-name').innerText = currentUserEmail.toUpperCase();
+        document.getElementById('portal-screen').classList.add('hidden');
+        document.getElementById('certificate-screen').classList.remove('hidden');
+    }
+
+    /* REAL HIGH-RESOLUTION CERTIFICATE DOWNLOAD (PDF) */
+    async function downloadCertificatePDF() {
+        const certElement = document.getElementById('printable-certificate');
+        
+        alert("🔄 Certificate keessan HD PDF tiin qophaa'aa jira, deqiiqaa 1 eegaa...");
+
+        try {
+            const canvas = await html2canvas(certElement, {
+                scale: 3, // High resolution rendering
+                useCORS: true,
+                logging: false
+            });
+
+            const imgData = canvas.toDataURL('image/png');
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF({
+                orientation: 'landscape',
+                unit: 'px',
+                format: [canvas.width, canvas.height]
+            });
+
+            pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height);
+            pdf.save(`Apex_Forex_Certificate_${currentUserEmail.replace(/\s+/g, '_')}.pdf`);
+        } catch (err) {
+            alert("Error downloading certificate: " + err.message);
+        }
+    }
+
     async function sendOTP() {
         const email = document.getElementById('email').value.trim();
-        if (!email) { alert("Maaloo Email keessan galchaa!"); return; }
+        if (!email) { alert("Email galchaa!"); return; }
+        currentUserEmail = email.split('@')[0];
 
         try {
             const res = await fetch('/api/send-otp', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email: email })
+                body: JSON.stringify({ email })
             });
             const data = await res.json();
             if (data.success) {
-                alert("Koodiin OTP 6-digit Telegram Bot (@apex_forex_assistant_bot) keessaniif ergameera!");
+                alert("OTP Telegram Bot (@apex_forex_assistant_bot) irratti ergameera!");
                 document.getElementById('login-step-1').classList.add('hidden');
                 document.getElementById('login-step-2').classList.remove('hidden');
-            } else {
-                alert("Error: " + data.message);
-            }
-        } catch (err) {
-            alert("Server connection failed!");
-        }
+            } else { alert("Error: " + data.message); }
+        } catch (e) { alert("Server error connection!"); }
     }
 
     async function verifyOTP() {
@@ -546,29 +553,22 @@
             if (data.success) {
                 document.getElementById('auth-screen').classList.add('hidden');
                 document.getElementById('portal-screen').classList.remove('hidden');
-                document.getElementById('btn-top-auth').innerText = "Dashboard";
                 renderModules();
-            } else {
-                alert("Error: " + data.message);
-            }
-        } catch (err) {
-            alert("Verification error.");
-        }
+            } else { alert("Error: " + data.message); }
+        } catch (e) { alert("Verification error!"); }
     }
 
     function signOut() {
         document.getElementById('portal-screen').classList.add('hidden');
+        document.getElementById('certificate-screen').classList.add('hidden');
         document.getElementById('auth-screen').classList.remove('hidden');
-        document.getElementById('login-step-2').classList.add('hidden');
-        document.getElementById('login-step-1').classList.remove('hidden');
-        document.getElementById('btn-top-auth').innerText = i18n[currentLang].getStarted;
     }
 
     function showAuth() {
-        document.getElementById('portal-screen').classList.add('hidden');
-        document.getElementById('auth-screen').classList.remove('hidden');
+        signOut();
     }
 
+    // Initial render
     renderModules();
 </script>
 </body>

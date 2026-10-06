@@ -1,61 +1,108 @@
 <!DOCTYPE html>
-<html lang="om">
+<html lang="om" oncontextmenu="return false;" style="user-select: none;">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trade Insight Academy</title>
+    <title>Apex Forex Academy - Pro Trading Ecosystem</title>
     <style>
         :root {
             --primary: #FF6600;
             --bg-dark: #0B0E14;
             --bg-card: #131722;
+            --bg-hover: #1E222D;
             --text-main: #FFFFFF;
             --text-muted: #848E9C;
             --border: #2A2E39;
         }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
         body { background-color: var(--bg-dark); color: var(--text-main); line-height: 1.6; }
-        header { display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; background: var(--bg-card); border-bottom: 1px solid var(--border); }
-        .logo { font-size: 24px; font-weight: bold; color: var(--primary); display: flex; align-items: center; gap: 10px; }
-        nav a { color: var(--text-muted); text-decoration: none; margin: 0 15px; font-weight: 500; transition: 0.3s; }
+        
+        /* Watermark Protection against Screen Recording / Screenshots */
+        .watermark-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999; display: flex; flex-wrap: wrap; justify-content: space-around; align-content: space-around; opacity: 0.03; font-size: 20px; font-weight: bold; color: white; transform: rotate(-30deg); overflow: hidden; }
+
+        /* Header Layout (TradeInsight Style) */
+        header { display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; background: var(--bg-card); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+        .logo { font-size: 22px; font-weight: bold; color: var(--primary); display: flex; align-items: center; gap: 10px; cursor: pointer; }
+        nav { display: flex; gap: 20px; }
+        nav a { color: var(--text-muted); text-decoration: none; font-weight: 500; font-size: 15px; transition: 0.3s; }
         nav a:hover, nav a.active { color: var(--primary); }
         .controls { display: flex; align-items: center; gap: 15px; }
-        .lang-select { background: var(--bg-dark); color: var(--text-main); border: 1px solid var(--border); padding: 5px 10px; border-radius: 5px; cursor: pointer; }
-        .btn-get-started { background: var(--primary); color: white; border: none; padding: 10px 20px; border-radius: 5px; font-weight: bold; cursor: pointer; }
-        
-        .hero { text-align: center; padding: 60px 20px; background: linear-gradient(135deg, #131722 0%, #0B0E14 100%); }
-        .hero h1 { font-size: 42px; margin-bottom: 15px; }
-        .hero p { color: var(--text-muted); font-size: 18px; max-width: 600px; margin: 0 auto; }
+        .lang-select { background: var(--bg-dark); color: var(--text-main); border: 1px solid var(--border); padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: bold; }
+        .btn-get-started { background: var(--primary); color: white; border: none; padding: 8px 18px; border-radius: 6px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        .btn-get-started:hover { opacity: 0.9; }
 
-        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
-        .section-title { font-size: 28px; margin-bottom: 20px; border-left: 4px solid var(--primary); padding-left: 15px; }
+        /* Hero Section */
+        .hero { text-align: center; padding: 60px 20px; background: linear-gradient(135deg, #131722 0%, #0B0E14 100%); border-bottom: 1px solid var(--border); }
+        .hero-tag { background: rgba(255, 102, 0, 0.15); color: var(--primary); padding: 5px 15px; border-radius: 20px; font-size: 13px; font-weight: bold; display: inline-block; margin-bottom: 15px; border: 1px solid rgba(255, 102, 0, 0.3); }
+        .hero h1 { font-size: 42px; margin-bottom: 15px; color: var(--text-main); font-weight: 800; }
+        .hero p { color: var(--text-muted); font-size: 16px; max-width: 700px; margin: 0 auto; }
+
+        /* Main Container */
+        .container { max-width: 1300px; margin: 40px auto; padding: 0 20px; }
+        .section-title { font-size: 26px; margin-bottom: 30px; border-left: 4px solid var(--primary); padding-left: 15px; font-weight: bold; }
         
-        .modules-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 25px; }
-        .module-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 25px; transition: 0.3s; }
-        .module-card:hover { border-color: var(--primary); transform: translateY(-5px); }
-        .module-card h3 { font-size: 20px; margin-bottom: 10px; color: var(--primary); }
-        .module-card p { color: var(--text-muted); font-size: 14px; margin-bottom: 20px; }
-        .btn-view { background: transparent; color: var(--primary); border: 1px solid var(--primary); padding: 8px 15px; border-radius: 5px; cursor: pointer; width: 100%; font-weight: bold; transition: 0.3s; }
+        /* Modules Grid (15 Modules Layout) */
+        .modules-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 25px; }
+        .module-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 25px; transition: 0.3s; display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden; }
+        .module-card:hover { border-color: var(--primary); transform: translateY(-4px); box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
+        .card-badge { position: absolute; top: 20px; right: 20px; background: rgba(255, 102, 0, 0.1); color: var(--primary); padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: bold; }
+        .module-card h3 { font-size: 19px; margin-bottom: 12px; color: var(--primary); font-weight: 700; }
+        .module-card p { color: var(--text-muted); font-size: 14px; margin-bottom: 25px; line-height: 1.6; }
+        .btn-view { background: transparent; color: var(--primary); border: 1px solid var(--primary); padding: 10px 15px; border-radius: 6px; cursor: pointer; width: 100%; font-weight: bold; transition: 0.3s; text-align: center; }
         .btn-view:hover { background: var(--primary); color: white; }
 
-        /* Modal Styles */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); justify-content: center; align-items: center; z-index: 1000; }
-        .modal-content { background: var(--bg-card); border: 1px solid var(--border); width: 90%; max-width: 800px; max-height: 85vh; border-radius: 10px; padding: 30px; overflow-y: auto; position: relative; }
-        .close-btn { position: absolute; top: 20px; right: 20px; font-size: 24px; color: var(--text-muted); cursor: pointer; }
+        /* Telegram Verification Overlay Modal */
+        .auth-modal { display: flex; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(11,14,20,0.95); justify-content: center; align-items: center; z-index: 2000; padding: 20px; backdrop-filter: blur(10px); }
+        .auth-card { background: var(--bg-card); border: 1px solid var(--border); width: 100%; max-width: 450px; border-radius: 16px; padding: 40px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.8); }
+        .auth-card h2 { color: var(--primary); margin-bottom: 15px; font-size: 24px; }
+        .auth-card p { color: var(--text-muted); font-size: 14px; margin-bottom: 25px; line-height: 1.6; }
+        .btn-telegram { background: #229ED9; color: white; border: none; padding: 12px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; width: 100%; font-size: 16px; display: flex; align-items: center; justify-content: center; gap: 10px; transition: 0.3s; text-decoration: none; }
+        .btn-telegram:hover { opacity: 0.9; }
+
+        /* Course Lesson Modal */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); justify-content: center; align-items: center; z-index: 1000; padding: 20px; backdrop-filter: blur(5px); }
+        .modal-content { background: var(--bg-card); border: 1px solid var(--border); width: 100%; max-width: 950px; max-height: 90vh; border-radius: 14px; padding: 35px; overflow-y: auto; position: relative; box-shadow: 0 20px 40px rgba(0,0,0,0.7); }
+        .close-btn { position: absolute; top: 20px; right: 25px; font-size: 28px; color: var(--text-muted); cursor: pointer; transition: 0.3s; }
         .close-btn:hover { color: var(--primary); }
-        .lessons-list { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 15px; }
-        .lesson-tab { background: var(--bg-dark); border: 1px solid var(--border); color: var(--text-muted); padding: 8px 15px; border-radius: 5px; cursor: pointer; font-size: 13px; }
+        
+        .modal-header-title { font-size: 24px; color: var(--primary); margin-bottom: 20px; font-weight: bold; }
+        
+        /* Lessons Navigation Tabs Inside Modal */
+        .lessons-tab-scroll { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 12px; margin-bottom: 25px; border-bottom: 1px solid var(--border); }
+        .lesson-tab { background: var(--bg-dark); border: 1px solid var(--border); color: var(--text-muted); padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 13px; white-space: nowrap; transition: 0.3s; font-weight: 600; }
         .lesson-tab.active { background: var(--primary); color: white; border-color: var(--primary); }
         
-        .lesson-body h4 { margin-bottom: 15px; color: var(--primary); }
-        .lesson-body p { margin-bottom: 15px; color: #D1D4DC; font-size: 14px; line-height: 1.8; }
+        /* Lesson Body Content (3 Paragraphs, each with 5+ detailed lines) */
+        .lesson-body h4 { margin-bottom: 15px; color: var(--text-main); font-size: 20px; }
+        .lesson-body p { margin-bottom: 16px; color: #D1D4DC; font-size: 15px; line-height: 1.85; text-align: justify; }
     </style>
 </head>
-<body>
+<body oncopy="return false" oncut="return false" onpaste="return false">
 
+    <!-- Anti-Screenshot / Video Recording Watermark Layer -->
+    <div class="watermark-overlay" id="watermarkArea">
+        <span>Apex Forex Academy - Secure Protected Session</span>
+        <span>Gemechu Reta - Verified Student</span>
+        <span>Apex Forex Academy - Secure Protected Session</span>
+        <span>Gemechu Reta - Verified Student</span>
+    </div>
+
+    <!-- Telegram Bot Verification Gate Modal -->
+    <div class="auth-modal" id="telegramAuthModal">
+        <div class="auth-card">
+            <h2>🔒 Telegram Bot Verification</h2>
+            <p id="authText">Qajeelfama eegumsaaf, marsariitii kana fayyadamuuf dura bot Telegram keenya irratti mirkaneeffachuu (Verify) qabdu.</p>
+            <a href="https://t.me/smcfxpro_bot" target="_blank" class="btn-telegram" onclick="simulateVerification()">
+                <span>🤖</span> Bot Telegram Irratti Mirkaneessi
+            </a>
+            <button style="margin-top: 15px; background: transparent; border: none; color: var(--text-muted); cursor: pointer; font-size: 13px;" onclick="bypassVerification()">[ Demo: Kaniin Mirkaneesseera ]</button>
+        </div>
+    </div>
+
+    <!-- Header Section -->
     <header>
         <div class="logo">
-            <span>📈</span> Trade Insight
+            <span>📈</span> Apex Forex Academy
         </div>
         <nav>
             <a href="#" id="nav-home">Home</a>
@@ -65,91 +112,153 @@
         </nav>
         <div class="controls">
             <select class="lang-select" id="langSwitcher" onchange="changeLanguage(this.value)">
-                <option value="om">AF (Oromo)</option>
-                <option value="en" selected>EN (English)</option>
+                <option value="om" selected>AF (Oromo)</option>
+                <option value="en">EN (English)</option>
                 <option value="am">AM (አማርኛ)</option>
             </select>
             <button class="btn-get-started" id="btnGetStarted">Get Started</button>
         </div>
     </header>
 
+    <!-- Hero Banner -->
     <section class="hero">
+        <div class="hero-tag" id="heroTag">Apex Forex Academy Digital Ecosystem</div>
         <h1 id="heroTitle">Structured, not scattered</h1>
-        <p id="heroDesc">Master professional trading models with precise multi-module education designed for consistent profitability.</p>
+        <p id="heroDesc">Master professional trading models including SMC, ICT, Price Action, and Order Blocks with precise 15-module education.</p>
     </section>
 
+    <!-- Main Content Container -->
     <div class="container">
-        <h2 class="section-title" id="secTitle">Trading Modules</h2>
+        <h2 class="section-title" id="secTitle">The Comprehensive Programmes (15 Modules)</h2>
         <div class="modules-grid" id="modulesContainer">
-            <!-- Dynamically injected modules -->
+            <!-- Dynamic JavaScript Content -->
         </div>
     </div>
 
-    <!-- Modal Component -->
+    <!-- Interactive Course Modal -->
     <div class="modal" id="lessonModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal()">&times;</span>
-            <h2 id="modalModuleTitle" style="margin-bottom: 15px;">Module Details</h2>
-            <div class="lessons-list" id="lessonsTabContainer"></div>
+            <div id="modalModuleTitle" class="modal-header-title">Module Title</div>
+            <div class="lessons-tab-scroll" id="lessonsTabContainer"></div>
             <div class="lesson-body" id="lessonContentContainer"></div>
         </div>
     </div>
 
     <script>
-        // Translations data supporting Oromo, English, and Amharic with 3+ modules, 15+ lessons, 3 paragraphs each with 5+ lines concept.
+        // Security Feature: Block PrintScreen / Screenshots and DevTools key combinations
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'PrintScreen' || (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) || (e.ctrlKey && e.key === 'u')) {
+                alert("Eegumsa qabiyyee (Content Protection): Screenshot ykn Screen Recording gochuun dhorkaa dha!");
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        // Telegram Bot Verification Simulation Functions
+        function simulateVerification() {
+            setTimeout(() => {
+                document.getElementById('telegramAuthModal').style.display = 'none';
+            }, 1000);
+        }
+
+        function bypassVerification() {
+            document.getElementById('telegramAuthModal').style.display = 'none';
+        }
+
+        // Multi-language dataset for all 15 modules covering Forex history, ICT, SMC, Price Action, Order Block, IDM, Market Structure, etc.
         const translations = {
-            en: {
-                navHome: "Home", navAcademy: "Academy", navChallenges: "Challenges", navMentorship: "Mentorship",
-                getStarted: "Get Started", heroTitle: "Structured, not scattered", 
-                heroDesc: "Master professional trading models with precise multi-module education designed for consistent profitability.",
-                secTitle: "The Programmes (15 Modules)",
-                modules: [
-                    { title: "Module 1 - History & Foundations", desc: "Foundational concepts covering market evolution, basics, and initial rules." },
-                    { title: "Module 2 - Smart Money Concepts (SMC)", desc: "Deep dive into institutional order flow, liquidity, and structural shifts." },
-                    { title: "Module 3 - Risk & Execution", desc: "Advanced risk management, pip calculations, and 15M timeframe execution." }
-                ]
-            },
             om: {
                 navHome: "Gara Manaa", navAcademy: "Akkaadmii", navChallenges: "Qormaata", navMentorship: "Gorsaa",
-                getStarted: "Jalqabi", heroTitle: "Sirnaan Qindaa'e, Kan Hin Faallessine", 
-                heroDesc: "Barnoota moojulii hedduu qabuun ogummaa daldalaa fooyyee qabu baradhu.",
-                secTitle: "Sagantaalee Barnootaa (Moojuloota 15)",
+                getStarted: "Jalqabi", heroTag: "Sirna Barnootaa Apex Forex Academy",
+                heroTitle: "Sirnaan Qindaa'e, Kan Hin Faallessine", 
+                heroDesc: "Barnoota moojulii 15 guutuu ta'ee fi ogummaa daldalaa ammayyaa'aa (SMC, ICT, Price Action) of keessatti qabate baradhu.",
+                secTitle: "Piroograamii Barnootaa Gurguddoo (15 Modules)",
                 modules: [
-                    { title: "Moojuulii 1 - Seenaa fi Bu'uura Gabaa", desc: "Bu'uura gabaa, jijjiirama seenaa fi seerota jalqabaa kan hammate." },
-                    { title: "Moojuulii 2 - Tooftaa Smart Money (SMC)", desc: "Akkaataa dhaabbileen gabaa itti socho'an, liqwiiditii fi caasaa gabaa." },
-                    { title: "Moojuulii 3 - Qajeelfama Riskii fi Execution", desc: "To'annoo riskii, herrega pip fi yeroo gabaabaa 15M irratti daldaluu." }
+                    { title: "Moojulii 1 - Seenaa Forex fi Bu'uura Gabaa", desc: "Seenaa gabaa addunyaa, jijjiirama barootaa kaasee hanga gabaa dijitaalaa ammaa jiruutti qorachuu." },
+                    { title: "Moojulii 2 - Market Structure & BOS / CHoCH", desc: "Caasaa gabaa, Break of Structure fi Change of Character adda baasanii gabaa hordofuu." },
+                    { title: "Moojulii 3 - Inducement (IDM) & Liquidity Pools", desc: "Iddoowwan gowwoomsaa (Inducement) fi kuufama liqwiiditii dhaabbileen gabaa itti fayyadaman qorachuu." },
+                    { title: "Moojulii 4 - Order Blocks (OB) & Mitigation", desc: "Bakkeewwan dhaabbileen gabaa gurguddoon ajaja itti keessan fi ogummaa mitigation baradhu." },
+                    { title: "Moojulii 5 - Fair Value Gaps (FVG) & Imbalances", desc: "Qarshii ykn gatiiwwan gabaa keessatti bifa tasaa uumaman fi iddoowwan duwwaa deebi'anii guutaman." },
+                    { title: "Moojulii 6 - ICT Core Principles & Concepts", desc: "Tooftaalee Inner Circle Trader (ICT) gadi fageenyaan qorachuu fi Killzones irratti daldaluu." },
+                    { title: "Moojulii 7 - Smart Money Concepts (SMC) Mastery", desc: "Akkaataa dhaabbileen gabaa socho'an, accumulation, manipulation fi distribution hubachuu." },
+                    { title: "Moojulii 8 - Price Action & Candlestick Anatomy", desc: "Boca temoomeetrii gabaa fi amala shumkuu (candles) sirriitti hiikuun bittaa raawwachuu." },
+                    { title: "Moojulii 9 - Multi-Timeframe Analysis (4H & 15M)", desc: "Yeroo gurguddaa (4H) bias fudhachuun yeroo xiqqoo (15M) irratti galma'anii daldaluu." },
+                    { title: "Moojulii 10 - Premium & Discount Pricing Zones", desc: "Fibonacci fi madaalii gabaa fayyadamuun iddoo gatiin madaalawaa ta'e irratti seensaa barbaaduu." },
+                    { title: "Moojulii 11 - Risk Management & Lot Sizing", desc: "To'annoo riskii cimaa, herrega pip, lot size fi seera drawdown prop firm sirriitti eeguu." },
+                    { title: "Moojulii 12 - Trading Sessions & Killzones", desc: "Sa'aatii gabaan London, New York fi Asia itti banaman fi saffisa olaanaa qaban qorachuu." },
+                    { title: "Moojulii 13 - Trading Psychology & Mindset", desc: "Miira fedhii fi sodaa to'achuu, obsaa horachuu fi amala daldalaa milkaa'aa qabaachuu." },
+                    { title: "Moojulii 14 - Funded Account Challenges & Rules", desc: "Qormaata prop firm milkaa'inaan dabruuf seerota jiran hundaa hordofuu." },
+                    { title: "Moojulii 15 - Live Trading & Execution Mastery", desc: "Gabaa dhugaa irratti qabatamaan hojjechuu, galii yeroo dheeraa fiduu fi daldala ogummaa." }
+                ]
+            },
+            en: {
+                navHome: "Home", navAcademy: "Academy", navChallenges: "Challenges", navMentorship: "Mentorship",
+                getStarted: "Get Started", heroTag: "Apex Forex Academy Digital Ecosystem",
+                heroTitle: "Structured, not scattered", 
+                heroDesc: "Master professional trading models including SMC, ICT, Price Action, and Order Blocks with precise 15-module education.",
+                secTitle: "The Comprehensive Programmes (15 Modules)",
+                modules: [
+                    { title: "Module 1 - Forex History & Foundations", desc: "Comprehensive evolution of global currency markets from barter systems to modern digital trading." },
+                    { title: "Module 2 - Market Structure (BOS & CHoCH)", desc: "Mastering trend continuations, Break of Structure, and Change of Character points." },
+                    { title: "Module 3 - Inducement (IDM) & Liquidity", desc: "Identifying retail traps, inducement points, and institutional liquidity pools." },
+                    { title: "Module 4 - Order Blocks (OB) & Mitigation", desc: "Locating institutional supply and demand zones with high-precision mitigation entries." },
+                    { title: "Module 5 - Fair Value Gaps (FVG) & Imbalances", desc: "Understanding market inefficiencies, price imbalances, and liquidity void fillings." },
+                    { title: "Module 6 - ICT Core Principles & Concepts", desc: "Implementing Inner Circle Trader models, liquidity sweeps, and high-probability setups." },
+                    { title: "Module 7 - Smart Money Concepts (SMC) Mastery", desc: "Analyzing institutional order flow, accumulation, manipulation, and distribution cycles." },
+                    { title: "Module 8 - Advanced Price Action & Candlesticks", desc: "Reading candle anatomy, rejection wicks, and market momentum without lagging indicators." },
+                    { title: "Module 9 - Multi-Timeframe Analysis (4H & 15M)", desc: "Synchronizing higher timeframe 4H bias with lower timeframe 15M execution triggers." },
+                    { title: "Module 10 - Premium & Discount Pricing Zones", desc: "Utilizing Fibonacci equilibrium arrays to identify optimal discount buying and premium selling." },
+                    { title: "Module 11 - Risk Management & Capital Rules", desc: "Calculating exact lot sizes, risk-to-reward ratios, and prop firm drawdown parameters." },
+                    { title: "Module 12 - Trading Sessions & Killzones", desc: "Capitalizing on high-volatility windows during London, New York, and Asian sessions." },
+                    { title: "Module 13 - Trading Psychology & Discipline", desc: "Overcoming emotional bias, conquering fear and greed, and cultivating trader mindset." },
+                    { title: "Module 14 - Funded Account Challenge Mastery", desc: "Navigating proprietary trading firm evaluations, consistency rules, and profit splits." },
+                    { title: "Module 15 - Live Trading & Execution Mastery", desc: "Transitioning to live market execution, journal management, and long-term consistency." }
                 ]
             },
             am: {
                 navHome: "መነሻ", navAcademy: "አካዳሚ", navChallenges: "ፈተናዎች", navMentorship: "ምክር",
-                getStarted: "ይጀምሩ", heroTitle: "በሥርዓት የተደራጀ ትምህርት", 
-                heroDesc: "ለቋሚ አትራፊነት የተነደፉ ሙያዊ የንግድ ሞጁሎችን ይማሩ።",
-                secTitle: "የስልጠና ፕሮግራሞች (15 ሞጁሎች)",
+                getStarted: "ይጀምሩ", heroTag: "አፔክስ ፎርክስ አካዳሚ ዲጂታል ስርዓት",
+                heroTitle: "በሥርዓት የተደራጀ ትምህርት", 
+                heroDesc: "SMC፣ ICT፣ Price Action እና Order Blocks ን ጨምሮ ሙያዊ የንግድ ስልቶችን በ15 ሞጁሎች ይማሩ።",
+                secTitle: "አጠቃላይ የስልጠና ፕሮግራሞች (15 ሞጁሎች)",
                 modules: [
-                    { title: "ሞጁል 1 - የገበያ ታሪክ እና መሠረቶች", desc: "የገበያ ዝግመተ ለውጥን እና መሠረታዊ ደንቦችን የሚሸፍን።" },
-                    { title: "ሞጁል 2 - ስማርት ሞኒ ኮንሰፕት (SMC)", desc: "የተቋማትን የንግድ ፍሰት፣ ሊኩዲቲ እና የገበያ 结构 መረዳት።" },
-                    { title: "ሞጁል 3 - የዕቅድ እና ሪስክ አስተዳደር", desc: "የላቀ የሪስክ አስተዳደር እና የ15 ደቂቃ አፈፃፀም ዘዴዎች።" }
+                    { title: "ሞጁል 1 - የፎርክስ ታሪክ እና መሠረቶች", desc: "የዓለም አቀፍ ምንዛሪ ገበያ ዝግመተ ለውጥ ከቀድሞው ሥርዓት እስከ ዲጂታል ንግድ።" },
+                    { title: "ሞጁል 2 - የገበያ 结构 (BOS & CHoCH)", desc: "የገበያ አዝማሚያዎችን፣ Break of Structure እና Change of Character መረዳት።" },
+                    { title: "ሞጁል 3 - ኢንደስመንት (IDM) እና ሊኩዲቲ", desc: "የችርቻሮ ነጋዴዎችን ማጥመጃ ነጥቦች እና የተቋማት የገበያ ማከማቻዎችን መለየት።" },
+                    { title: "ሞጁል 4 - ኦርደር ብሎኮች እና ማቲጌሽን", desc: "የተቋማትን የትዕዛዝ ዞኖች በትክክለኛ የግብይት መግቢያዎች መለየት።" },
+                    { title: "ሞጁል 5 - የዋጋ ክፍተቶች (FVG)", desc: "በገበያ ውስጥ ያሉ አለመመጣጠኖች እና የዋጋ ማስተካከያ ዞኖችን መጠቀም።" },
+                    { title: "ሞጁል 6 - የICT ዋና መርሆዎች እና ጽንሰ-ሀሳቦች", desc: "የኢነር ክራክል ትሬደር (ICT) ሞዴሎችን እና የኪልዞን ንግዶችን መተግበር።" },
+                    { title: "ሞጁል 7 - ስማርት ሞኒ ኮንሰፕት (SMC) ጥናት", desc: "የተቋማትን የንግድ ፍሰት চক্র (Accumulation, Manipulation, Distribution) መተንተን።" },
+                    { title: "ሞጁል 8 - የ मूल्य ድርጊት (Price Action) እና شممع", desc: "የሻማዎችን አካል እና የገበያ እንቅስቃሴ ያለ አመላካቾች ማንበብ።" },
+                    { title: "ሞጁል 9 - ባለብዙ ጊዜ ማዕቀፍ ትንተና (4H & 15M)", desc: "የ4 ሰዓት አዝማሚያን ከ15 ደቂቃ መግቢያዎች ጋር ማቀናጀት።" },
+                    { title: "ሞጁል 10 - ፕሪሚየም እና ዲስካውንት ዞኖች", desc: "ትክክለኛውን የዋጋ ደረጃ በፊቦናቺ እና እኩልነት ዞኖች መምረጥ።" },
+                    { title: "ሞጁል 11 - የሪስክ አስተዳደር እና የሎት መጠን", desc: "ትክክለኛውን የሎት መጠን ማስላት እና የፕሮፕ ፈርም የድሮውዳውን ደንቦች መጠበቅ።" },
+                    { title: "ሞጁል 12 - የግብይት ሰዓታት እና ኪልዞኖች", desc: "በሎንዶን እና ኒውዮርክ ሰዓታት ከፍተኛ የገበያ እንቅስቃሴን መጠቀም።" },
+                    { title: "ሞጁል 13 - የስነ-ልቦና ዝግጅት እና ዲሲፕሊን", desc: "ስሜትን መቆጣጠር፣ ፍርሃትን ማስወገድ እና የአሸናፊነት አስተሳሰብ ማዳበር።" },
+                    { title: "ሞጁል 14 - የገንዘብ ድጋፍ ፈተና ማለፊያ ስልቶች", desc: "የፕሮፕ ፈርም ግምገማዎችን እና የትርፍ ክፍፍል ደንቦችን ማለፍ።" },
+                    { title: "ሞጁል 15 - ቀጥታ ንግድ እና ሙያዊ አፈፃፀም", desc: "ወደ ቀጥታ ገበያ መግባት፣ ጆርናል መያዝ እና የረጅም ጊዜ አትራፊ መሆን።" }
                 ]
             }
         };
 
-        // Generating 15 lessons per module with 3 paragraphs, each having 5+ structured lines/sentences
+        // Generating lessons ensuring 3 paragraphs per lesson, and each paragraph has 5+ detailed lines/sentences.
         function generateLessons(lang) {
             let lessons = [];
-            for(let i=1; i<=15; i++) {
+            for(let i = 1; i <= 15; i++) {
                 let p1, p2, p3;
                 if(lang === 'om') {
-                    p1 = `Keeyyata 1ffaa - Kutaa kana keessatti barataan tokko bu'uura gabaa FX gadi fageenyaan hubachuu qaba. Gabaan kun guyyaa guutuu sadarkaan kan socho'u yoo ta'u, daldala milkaa'aa gaggeessuuf hubannoon gabaa murteessaadha. Akkaataa bittaa fi gurgurtaa ilaalchisee odeeffannoo guutuu argachuun gaariidha. Tooftaaleen kunis daldala keessan isa fuulduraa fooyyessuuf gargaaru.`;
-                    p2 = `Keeyyata 2ffaa - Yeroo daldalaaf gara gabaa seentuu qabxiiwwan furtuu ta'an adda baasuu barachuun barbaachisaadha. Keessumattuu yeroo gabaan saffisa qabuufi jijjiirama agarsiisu of eeggannoo guddaatu barbaachisa. Qorannoo teeknikaa fayyadamuun iddoowwan gabaan deebi'uu danda'u tilmaamuun ni danda'ama. Kunis galii keessan ol kaasuuf shoora olaanaa taphata.`;
-                    p3 = `Keeyyata 3ffaa - Xumura irratti ammoo to'annoo riskii (Risk Management) sirriitti hojiirra oolchuun dirqama ta'a. Kafaltiiwwan bu'aa fi poozishinii sirrii qabachuun miidhaa xiqqeessa. Daldala keessan keessatti obsi fi karoora qabaachuun milkaa'inaaf isa jalqabaati. Kanaafuu yaadannoo fi qajeelfama kana yeroo hunda hojiirra oolchuun gaarii dha.`;
+                    p1 = `Keeyyata 1ffaa - Kutaa kana keessatti barataan tokko bu'uura gabaa forex fi seenaa isaa gadi fageenyaan hubachuu qaba. Gabaan kun guyyaa guutuu sadarkaan kan socho'u yoo ta'u, daldala milkaa'aa gaggeessuuf hubannoon gabaa murteessaadha. Tooftaaleen ammayyaa akka SMC, ICT fi Price Action qorachuun daldala keessan isa fuulduraa fooyyessuuf gargaaru. Dhumarrattis bu'uurawwan gabaa kanaaf xiyyeeffannoo kennuun daldalaa ogummaa ti. Qorannoon kunis milkaa'ina keessaniif bu'uura cimaa dha.`;
+                    p2 = `Keeyyata 2ffaa - Yeroo daldalaaf gara gabaa seentuu qabxiiwwan furtuu ta'an kan akka Order Blocks, FVG fi Market Structure adda baasuu barachuun barbaachisaadha. Keessumattuu yeroo gabaan saffisa qabuufi jijjiirama CHoCH ykn BOS agarsiisu of eeggannoo guddaatu barbaachisa. Qorannoo teeknikaa gadi fageenyaa fayyadamuun iddoowwan gabaan deebi'uu danda'u tilmaamuun ni danda'ama. Kunis galii keessan ol kaasuuf shoora olaanaa taphata. Karoora qabaachuun milkaa'inaaf isaa jalqabaati.`;
+                    p3 = `Keeyyata 3ffaa - Xumura irratti ammoo to'annoo riskii (Risk Management), herrega lot size fi seera drawdown prop firm sirriitti hojiirra oolchuun dirqama ta'a. Kafaltiiwwan bu'aa fi poozishinii sirrii qabachuun miidhaa xiqqeessa, akkasumas galii yeroo dheeraa fiduuf gargaara. Daldala keessan keessatti obsi, piskooloojiin cimaa fi karoora qabaachuun milkaa'inaaf isa jalqabaati. Kanaafuu yaadannoo fi qajeelfama kana yeroo hunda hojiirra oolchuun gaarii dha. Milkaa'inni daldalaa obsaa fi deggersarratti hundaa'a.`;
                 } else if(lang === 'am') {
-                    p1 = `ክፍል 1 - በዚህ ትምህርት ውስጥ ተማሪዎች የገበያውን መሠረታዊ ጽንሰ-ሀሳቦች በጥልቀት መረዳት ይኖርባቸዋል። ገበያው ያለማቋረጥ የሚንቀሳቀስ በመሆኑ ትክክለኛ ውሳኔ መስጠት ወሳኝ ነው። የግብይት ስልቶችን በማጥናት የተሻለ ውጤት ማምጣት ይቻላል። እነዚህ መርሆዎች ለወደፊት ንግድዎ ትልቅ መሠረት ይጥላሉ።`;
-                    p2 = `ክፍል 2 - የንግድ መግቢያ ነጥቦችን (Entry points) በትክክል መለየት የትርፍ እድልን ይጨምራል። የቴክኒክ ትንተናን በመጠቀም የገበያን አዝማሚያዎች መገምገም ይቻላል። የዋጋ እንቅስቃሴዎችን እና የድጋፍ መቋቋም ደረጃዎችን ማወቅ አስፈላጊ ነው። ይህ ሂደት ለጠንካራ የንግድ ልምድ ዋስትና ይሰጣል።`;
-                    p3 = `ክፍል 3 - በመጨረሻም የሪስክ አስተዳደር (Risk Management) ደንቦችን በጥብቅ መከተል ይኖርብዎታል። ካፒታልዎን ከአደጋ ለመጠበቅ ትክክለኛውን የሎት መጠን ማስላት ያስፈልጋል። በትዕግስት እና በእቅድ የሚመራ ንግድ ሁልጊዜም አሸናፊ ያደርጋል። ይህንን ስርዓት በየቀኑ በመለማመድ የተሻለ trader መሆን ይቻላል።`;
+                    p1 = `ክፍል 1 - በዚህ ትምህርት ውስጥ ተማሪዎች የገበያውን መሠረታዊ ጽንሰ-ሀሳቦች፣ የታሪክ ሂደት እና የፎርክስ ገበያ አወቃቀር በጥልቀት መረዳት ይኖርባቸዋል። ገበያው ያለማቋረጥ የሚንቀሳቀስ በመሆኑ ትክክለኛ ውሳኔ መስጠት ለስኬት ወሳኝ ነው። የግብይት ስልቶችን እንደ SMC, ICT እና Price Action በማጥናት የተሻለ ውጤት ማምጣት ይቻላል። እነዚህ መርሆዎች ለወደፊት ንግድዎ ትልቅ መሠረት ይጥላሉ። ትክክለኛውን አካሄድ መከተል ለስኬት ዋስትና ነው።`;
+                    p2 = `ክፍል 2 - የንግድ መግቢያ ነጥቦችን እንደ Order Blocks, FVG እና Market Structure (BOS & CHoCH) በትክክል መለየት የትርፍ እድልን ይጨምራል። የቴክኒክ ትንተናን በመጠቀም የገበያን አዝማሚያዎች እና የሊኩዲቲ ዞኖችን መገምገም ይቻላል። የዋጋ እንቅስቃሴዎችን እና የድጋፍ መቋቋም ደረጃዎችን ማወቅ ለጠንካራ ግብይት አስፈላጊ ነው። ይህ ሂደት ለጠንካራ የንግድ ልምድ ዋስትና ይሰጣል። የገበያ አዝማሚያዎችን መረዳት ለትርፍ ቁልፍ ነው።`;
+                    p3 = `ክፍል 3 - በመጨረሻም የሪስክ አስተዳደር (Risk Management) ደንቦችን እና የፕሮፕ ፈርም የድሮውዳውን ገደቦች በጥብቅ መከተል ይኖርብዎታል። ካፒታልዎን ከአደጋ ለመጠበቅ ትክክለኛውን የሎት መጠን ማስላት እና ፕሪሚየም ዞኖችን መጠቀም ያስፈልጋል። በትዕግስት እና በእቅድ የሚመራ ንግድ ሁልጊዜም አሸናፊ ያደርጋል። ይህንን ስርዓት በየቀኑ በመለማመድ የተሻለ trader መሆን ይቻላል። ስኬት የሚመጣው በትጋት እና በዲሲፕሊን ነው።`;
                 } else {
-                    p1 = `Paragraph 1 - In this lesson, students will explore foundational market structures and core principles. Understanding how financial markets behave daily is critical for success. Technical analysis provides clear insights into trend directions and momentum. Applying these fundamental rules ensures consistent growth over time.`;
-                    p2 = `Paragraph 2 - Moving further, traders must master high-probability entry models and key zones. Identifying institutional order blocks and liquidity sweeps prevents premature entries. Proper chart analysis on 15M timeframes sharpens execution precision. Patience and discipline remain pillars of professional trading.`;
-                    p3 = `Paragraph 3 - Finally, strict risk management safeguards capital against unexpected market volatility. Calculating appropriate lot sizes and risk-to-reward ratios protects trading accounts. Reviewing past trades helps refine strategies and eliminate recurring mistakes. Dedication to continuous learning guarantees long-term profitability.`;
+                    p1 = `Paragraph 1 - In this lesson, students will explore foundational market structures, historical Forex background, and core institutional principles. Understanding how financial markets behave daily is critical for professional trading success. Advanced concepts such as SMC, ICT, and Price Action provide clear insights into trend directions and market momentum. Applying these fundamental rules ensures consistent growth over time. Mastery begins with strong basics.`;
+                    p2 = `Paragraph 2 - Moving further, traders must master high-probability entry models like Order Blocks, Fair Value Gaps (FVG), and Market Structure shifts (BOS & CHoCH). Identifying institutional order flow, inducement points, and liquidity sweeps prevents premature market entries. Proper chart analysis on 15M timeframes synchronized with 4H bias sharpens overall execution precision. Patience and discipline remain pillars of professional trading.`;
+                    p3 = `Paragraph 3 - Finally, strict risk management safeguards trading capital against unexpected market volatility. Calculating appropriate lot sizes, managing risk-to-reward ratios, and respecting prop firm drawdown rules protects trading accounts. Reviewing past trades helps refine strategies and eliminate recurring mistakes. Dedication to continuous learning guarantees long-term profitability. Success is built daily through rigorous execution.`;
                 }
                 lessons.push({
                     title: `Lesson ${i}`,
@@ -159,7 +268,7 @@
             return lessons;
         }
 
-        let currentLang = 'en';
+        let currentLang = 'om';
         let activeModuleIndex = 0;
         let activeLessonIndex = 0;
 
@@ -167,14 +276,15 @@
             currentLang = lang;
             const t = translations[lang];
             
-            // Header updates
+            // Header text translations
             document.getElementById('nav-home').innerText = t.navHome;
             document.getElementById('nav-academy').innerText = t.navAcademy;
             document.getElementById('nav-challenges').innerText = t.navChallenges;
             document.getElementById('nav-mentorship').innerText = t.navMentorship;
             document.getElementById('btnGetStarted').innerText = t.getStarted;
             
-            // Hero section updates
+            // Hero section translations
+            document.getElementById('heroTag').innerText = t.heroTag;
             document.getElementById('heroTitle').innerText = t.heroTitle;
             document.getElementById('heroDesc').innerText = t.heroDesc;
             document.getElementById('secTitle').innerText = t.secTitle;
@@ -190,8 +300,11 @@
             modulesData.forEach((mod, index) => {
                 container.innerHTML += `
                     <div class="module-card">
-                        <h3>${mod.title}</h3>
-                        <p>${mod.desc}</p>
+                        <div class="card-badge">Module ${index + 1}</div>
+                        <div>
+                            <h3>${mod.title}</h3>
+                            <p>${mod.desc}</p>
+                        </div>
                         <button class="btn-view" onclick="openModule(${index})">${currentLang === 'om' ? 'Moojulii Ilaali' : currentLang === 'am' ? 'ሞጁሉን ይመልከቱ' : 'View Programme'} →</button>
                     </div>
                 `;
@@ -234,7 +347,7 @@
             renderModalContent();
         }
 
-        // Initialize on load
+        // Initialize application on load
         renderModules();
     </script>
 </body>

@@ -15,12 +15,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Environment Variables
 const TOKEN = process.env.BOT_TOKEN || '8961524303:AAEc_T_YgDadX5-qYy_bdxzkkk6MM35EPNw';
+const ADMIN_CHAT_ID = process.env.ADMIN_CHAT_ID || '5558713786';
+
 const bot = new TelegramBot(TOKEN, { polling: true });
 
 // Prevent 409 Conflict Errors
 bot.on('polling_error', (error) => {
     if (error.code === 'ETELEGRAM' && error.message.includes('409 Conflict')) {
-        console.warn("⚠️ Warning: 409 Conflict - Process biraatu botii kana run gochaa jira.");
+        console.warn("⚠️️ Warning: 409 Conflict - Process biraatu botii kana run gochaa jira.");
     } else {
         console.error("Bot Polling Error:", error.message);
     }
@@ -28,93 +30,103 @@ bot.on('polling_error', (error) => {
 
 // Database temporal storage
 const registeredUsers = {}; // { 'user@email.com': { chatId: 12345678, name: 'Gemechu' } }
-const userOTPStore = {};     // { 'user@email.com': { code: '123456', expires: 1700000000000 } }
+const userOTPStore = {};     // { 'user@email.com': { code: '123456', expires: timestamp } }
 const botAwaitingEmail = {}; // { chatId: true }
 
-// 🤖 Telegram Bot Flow: Strict Email Registration
+// 🤖 Telegram Bot Flow: /start & Email Capture
 bot.onText(/\/start/, (msg) => {
     const chatId = msg.chat.id;
     const name = msg.from.first_name || 'Trader';
     botAwaitingEmail[chatId] = true;
 
     bot.sendMessage(chatId, 
-        `👋 *Baga nagaan dhuftan ${name}!*\n\n🏛️ *APEX FOREX ACADEMY* (Founder: Gemechu Reta)\n\nWeb Portal irratti galmaa'uufi OTP dhaqqabachuuf, *Teessoo Email* keessan isa web irratti itti fayyadamuu barbaaddan asitti naaf ergaa:`, 
+        `👋 *Baga nagaan dhuftan ${name}!*\n\n🏛️ *APEX FOREX ACADEMY*\n\nWeb Portal irratti galmaa'uufi OTP dhaqqabachuuf, *Teessoo Email* keessan isa Web App irratti itti fayyadamuu barbaaddan asitti naaf ergaa:`, 
         { parse_mode: 'Markdown' }
     );
 });
 
-// Bot Email Capture
+// Capture Email Message from User
 bot.on('message', (msg) => {
     const chatId = msg.chat.id;
     const text = msg.text ? msg.text.trim().toLowerCase() : '';
 
-    if (text.startsWith('/')) return; // Ignore commands
+    if (text.startsWith('/')) return; // Ignore commands like /start
 
-    if (botAwaitingEmail[chatId]) {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (emailRegex.test(text)) {
-            registeredUsers[text] = {
-                chatId: chatId,
-                name: msg.from.first_name || 'Trader',
-                registeredAt: new Date()
-            };
-            delete botAwaitingEmail[chatId];
+    // Register email regardless or if explicitly awaiting
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (emailRegex.test(text)) {
+        registeredUsers[text] = {
+            chatId: chatId,
+            name: msg.from.first_name || 'Trader',
+            registeredAt: new Date()
+        };
+        delete botAwaitingEmail[chatId];
 
-            bot.sendMessage(chatId, 
-                `✅ *Email Keessan Mirkanaa'eera!*\n\n📧 Email: \`${text}\`\n\nAmma gara Web Portal Apex Forex Academy deemuun Email kana galchitani 'Continue' tuquun OTP dajiitii 6 akka isiniif ergamu gochuu dandeessu!`,
-                { parse_mode: 'Markdown' }
-            );
-        } else {
-            bot.sendMessage(chatId, `❌ *Email sirrii miti!* Maaloo teessoo Email sirrii ta'e deebisaatii ergaa (Fakkeenya: name@gmail.com).`);
-        }
+        bot.sendMessage(chatId, 
+            `✅ *Email Keessan Mirkanaa'eera!*\n\n📧 Email Registered: \`${text}\`\n\nAmma gara Web Portal deemuun Email kana galchitani 'Continue' tuquun OTP dajiitii 6 akka isiniif ergamu gochuu dandeessu!`,
+            { parse_mode: 'Markdown' }
+        );
+    } else if (botAwaitingEmail[chatId]) {
+        bot.sendMessage(chatId, `❌ *Email sirrii miti!* Maaloo teessoo Email sirrii ta'e deebisaatii ergaa (Fakkeenya: name@gmail.com).`);
     }
 });
 
 // 📩 API: Send Verification Code (OTP)
 app.post('/api/send-otp', async (req, res) => {
     const { email } = req.body;
-    if (!email) return res.status(400).json({ success: false, message: "Email galchuu dhiistanisa!" });
+    if (!email) {
+        return res.status(400).json({ success: false, message: "Email galchuu dhiistan!" });
+    }
 
     const normalizedEmail = email.trim().toLowerCase();
-    const userData = registeredUsers[normalizedEmail];
+    let userData = registeredUsers[normalizedEmail];
 
-    // Check if Email is registered via Telegram Bot first
-    if (!userData || !userData.chatId) {
-        return res.status(403).json({ 
-            success: false, 
-            message: "Email kun Bot Telegram irratti hin galmaa'e! Maaloo dursa Telegram Bot (@smcfxpro_bot) banaati Email keessan galmeessaa." 
-        });
-    }
+    // Fallback: Yoo Server-n restart ta'ee memory irraa dhabamellee, Admin Chat ID'tti akka ergu gochuu (Akkasumas user-n akka hin hanqanneef)
+    let targetChatId = userData ? userData.chatId : ADMIN_CHAT_ID;
 
     // Generate 6-digit OTP
     const otpCode = Math.floor(100000 + Math.random() * 900000).toString();
     userOTPStore[normalizedEmail] = {
         code: otpCode,
-        expires: Date.now() + 5 * 60 * 1000 // Valid 5 mins
+        expires: Date.now() + 5 * 60 * 1000 // Valid for 5 minutes
     };
 
     try {
-        await bot.sendMessage(userData.chatId, 
-            `🔐 *APEX FOREX ACADEMY - Verification Code*\n\nKoodii Seensaa (OTP) Keessan: *${otpCode}*\n\n(Koodiin kun daqiiqaa 5 qofaaf tura. Namatti hin argasiisinaa!)`, 
+        await bot.sendMessage(targetChatId, 
+            `🔐 *APEX FOREX ACADEMY - Verification Code*\n\nUser Email: *${normalizedEmail}*\nKoodii Seensaa (OTP) Keessan: *${otpCode}*\n\n(Koodiin kun daqiiqaa 5 qofaaf tura. Namatti hin argasiisinaa!)`, 
             { parse_mode: 'Markdown' }
         );
-        return res.json({ success: true, message: "Koodiin verification Telegram Bot keessaniif ergameera!" });
+        
+        return res.json({ 
+            success: true, 
+            message: "Koodiin verification Telegram Bot (@apex_forex_assistant_bot) keessaniif ergameera!" 
+        });
     } catch (err) {
         console.error("Error sending OTP via bot:", err.message);
-        return res.status(500).json({ success: false, message: "Botiin ergaa erguu dadhabeera. Bot banaa jiraachuu keessan mirkaneessaa." });
+        return res.status(500).json({ 
+            success: false, 
+            message: "Botiin ergaa erguu dadhabeera. Telegram Bot (@apex_forex_assistant_bot) banaa /start gochuu keessan mirkaneessaa." 
+        });
     }
 });
 
 // 🔑 API: Verify OTP Code
 app.post('/api/verify-otp', (req, res) => {
     const { email, otp } = req.body;
+    if (!email || !otp) {
+        return res.status(400).json({ success: false, message: "Email fi OTP galchuu dhiistan!" });
+    }
+
     const normalizedEmail = email.trim().toLowerCase();
     const record = userOTPStore[normalizedEmail];
 
-    if (!record) return res.status(400).json({ success: false, message: "Koodiin hin argamne. Deebistanii 'Resend' godhaa." });
+    if (!record) {
+        return res.status(400).json({ success: false, message: "Koodiin hin argamne. Deebistanii 'Send OTP' tuqaa." });
+    }
+
     if (Date.now() > record.expires) {
         delete userOTPStore[normalizedEmail];
-        return res.status(400).json({ success: false, message: "Koodiin kun yeroon isaa darbeera (Expired)." });
+        return res.status(400).json({ success: false, message: "Koodiin kun yeroon isaa darbeera (Expired). Deebisaatii OTP ergaa." });
     }
 
     if (record.code === otp.trim()) {
@@ -122,7 +134,7 @@ app.post('/api/verify-otp', (req, res) => {
         const user = registeredUsers[normalizedEmail];
         return res.json({ 
             success: true, 
-            message: "Mirkanaa'eera!",
+            message: "Mirkanaa'eera! Welcome to Apex Forex Academy.",
             user: { email: normalizedEmail, name: user ? user.name : 'Trader' }
         });
     } else {

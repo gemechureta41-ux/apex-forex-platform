@@ -1,777 +1,262 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="om" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Binance - Buy Bitcoin, Crypto, and P2P Exchange</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Apex Forex Trading Academy</title>
+    <!-- Google Fonts & Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg-main: #181a20;
-            --bg-card: #0b0e11;
-            --bg-hover: #2b313a;
-            --yellow: #f0b90b;
-            --yellow-hover: #fcd535;
-            --green: #0ecb81;
-            --red: #f6465d;
-            --text-primary: #eaecef;
-            --text-secondary: #848e9c;
-            --border: #333333;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-main);
-            color: var(--text-primary);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* Navbar */
-        header {
-            background-color: var(--bg-card);
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 24px;
-            height: 64px;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .logo-area {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 22px;
-            font-weight: bold;
-            color: var(--yellow);
-            cursor: pointer;
-        }
-
-        .logo i {
-            font-size: 28px;
-        }
-
-        nav.nav-links {
-            display: flex;
-            gap: 20px;
-        }
-
-        nav.nav-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 14px;
-            transition: color 0.2s;
-            cursor: pointer;
-        }
-
-        nav.nav-links a:hover, nav.nav-links a.active {
-            color: var(--yellow);
-        }
-
-        .user-actions {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-        }
-
-        .btn {
-            padding: 8px 16px;
-            border-radius: 4px;
-            font-weight: 600;
-            font-size: 14px;
-            cursor: pointer;
-            border: none;
-            transition: all 0.2s;
-        }
-
-        .btn-yellow {
-            background-color: var(--yellow);
-            color: #000;
-        }
-
-        .btn-yellow:hover {
-            background-color: var(--yellow-hover);
-        }
-
-        .btn-outline {
-            background: transparent;
-            color: var(--text-primary);
-            border: 1px solid var(--border);
-        }
-
-        .btn-outline:hover {
-            border-color: var(--yellow);
-            color: var(--yellow);
-        }
-
-        /* Main Container Views */
-        .view-section {
-            display: none;
-            flex: 1;
-            padding: 20px 24px;
-            max-width: 1400px;
-            margin: 0 auto;
-            width: 100%;
-        }
-
-        .view-section.active {
-            display: block;
-        }
-
-        /* Market Home View */
-        .hero-banner {
-            background: linear-gradient(135deg, #1e2329, #0b0e11);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-        }
-
-        .hero-text h1 {
-            font-size: 36px;
-            margin-bottom: 12px;
-        }
-
-        .hero-text p {
-            color: var(--text-secondary);
-            font-size: 16px;
-            margin-bottom: 20px;
-        }
-
-        /* Tables */
-        .crypto-table {
-            width: 100%;
-            border-collapse: collapse;
-            background-color: var(--bg-card);
-            border-radius: 8px;
-            overflow: hidden;
-            border: 1px solid var(--border);
-        }
-
-        .crypto-table th, .crypto-table td {
-            padding: 14px 16px;
-            text-align: left;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .crypto-table th {
-            color: var(--text-secondary);
-            font-size: 13px;
-            font-weight: 500;
-        }
-
-        .crypto-table tr:hover {
-            background-color: var(--bg-hover);
-            cursor: pointer;
-        }
-
-        .text-green { color: var(--green); }
-        .text-red { color: var(--red); }
-
-        /* P2P Section */
-        .p2p-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            background: var(--bg-card);
-            padding: 16px 20px;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-        }
-
-        .p2p-tabs {
-            display: flex;
-            gap: 15px;
-        }
-
-        .p2p-tab {
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            color: var(--text-secondary);
-            padding-bottom: 4px;
-        }
-
-        .p2p-tab.active {
-            color: var(--yellow);
-            border-bottom: 2px solid var(--yellow);
-        }
-
-        .p2p-filters {
-            display: flex;
-            gap: 10px;
-        }
-
-        .p2p-filters select, .p2p-filters input {
-            background: var(--bg-main);
-            border: 1px solid var(--border);
-            color: var(--text-primary);
-            padding: 8px 12px;
-            border-radius: 4px;
-        }
-
-        /* Wallet Section */
-        .wallet-overview {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .wallet-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 24px;
-        }
-
-        .wallet-card h3 {
-            color: var(--text-secondary);
-            font-size: 14px;
-            margin-bottom: 10px;
-        }
-
-        .wallet-card .balance {
-            font-size: 28px;
-            font-weight: bold;
-            margin-bottom: 15px;
-        }
-
-        .wallet-actions-btns {
-            display: flex;
-            gap: 10px;
-        }
-
-        /* Modals */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.7);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal-content {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            width: 420px;
-            padding: 30px;
-            border-radius: 12px;
-            position: relative;
-        }
-
-        .modal-content h2 {
-            margin-bottom: 20px;
-            font-size: 22px;
-        }
-
-        .form-group {
-            margin-bottom: 16px;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 13px;
-            color: var(--text-secondary);
-            margin-bottom: 6px;
-        }
-
-        .form-group input, .form-group select {
-            width: 100%;
-            background: var(--bg-main);
-            border: 1px solid var(--border);
-            color: var(--text-primary);
-            padding: 10px 14px;
-            border-radius: 4px;
-            font-size: 14px;
-        }
-
-        .close-btn {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            font-size: 20px;
-            color: var(--text-secondary);
-            cursor: pointer;
-        }
-
-        /* Spot & Futures trading grids */
-        .trade-container {
-            display: grid;
-            grid-template-columns: 1fr 320px;
-            gap: 20px;
-        }
-
-        @media(max-width: 900px) {
-            .trade-container {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .trade-chart-box {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            height: 500px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            color: var(--text-secondary);
-        }
-
-        .trade-panel {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 20px;
-        }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #070b19; color: #f8fafc; }
+        .hero-gradient { background: radial-gradient(circle at top right, #1e1b4b, #070b19 60%); }
+        .card-bg { background: linear-gradient(145deg, #0f172a, #1e293b); border: 1px solid rgba(255, 255, 255, 0.08); }
     </style>
 </head>
-<body>
+<body class="min-h-screen flex flex-col justify-between">
 
-    <!-- Header / Navbar -->
-    <header>
-        <div class="logo-area">
-            <div class="logo" onclick="switchView('market')">
-                <i class="fa-solid fa-coins"></i> APEX PRO
+    <!-- HEADER / NAVIGATION -->
+    <header class="border-b border-slate-800 bg-[#070b19]/90 sticky top-0 z-50 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="bg-gradient-to-tr from-orange-500 to-amber-400 p-2.5 rounded-xl font-extrabold text-xl shadow-lg shadow-orange-500/20">AF</div>
+                <span class="text-2xl font-extrabold tracking-wide text-white">Apex <span class="text-orange-500">Forex</span></span>
             </div>
-            <nav class="nav-links">
-                <a onclick="switchView('market')" class="active" id="nav-market">Markets</a>
-                <a onclick="switchView('spot')" id="nav-spot">Spot</a>
-                <a onclick="switchView('futures')" id="nav-futures">Futures</a>
-                <a onclick="switchView('p2p')" id="nav-p2p">P2P Trading</a>
-                <a onclick="switchView('wallet')" id="nav-wallet">Wallet</a>
+            
+            <nav class="hidden md:flex space-x-8 text-sm font-medium text-slate-300">
+                <a href="#home" class="hover:text-orange-400 transition" data-translate="nav_home">Home</a>
+                <a href="#academy" class="hover:text-orange-400 transition" data-translate="nav_academy">Academy</a>
+                <a href="#modules" class="hover:text-orange-400 transition" data-translate="nav_modules">15 Modules</a>
             </nav>
-        </div>
-        <div class="user-actions" id="auth-buttons">
-            <button class="btn btn-outline" onclick="openModal('loginModal')">Log In</button>
-            <button class="btn btn-yellow" onclick="openModal('registerModal')">Sign Up</button>
-        </div>
-        <div class="user-actions" id="user-profile-area" style="display: none;">
-            <span id="user-display-email" style="font-size: 14px; color: var(--yellow);"></span>
-            <button class="btn btn-outline" onclick="logout()">Logout</button>
+
+            <div class="flex items-center space-x-4">
+                <!-- Language Selector -->
+                <select id="langSwitch" onchange="changeLanguage(this.value)" class="bg-slate-800 border border-slate-700 text-white text-xs rounded-lg px-2.5 py-2 focus:outline-none focus:border-orange-500">
+                    <option value="om">Afaan Oromoo</option>
+                    <option value="en">English</option>
+                    <option value="am">አማርኛ</option>
+                </select>
+                <button onclick="openAuthModal('login')" class="text-sm font-semibold text-white hover:text-orange-400 px-4 py-2" data-translate="btn_login">Sign In</button>
+                <button onclick="openAuthModal('register')" class="bg-gradient-to-r from-orange-500 to-amber-500 text-white text-sm font-semibold px-5 py-2.5 rounded-xl shadow-lg shadow-orange-500/25 hover:opacity-90 transition" data-translate="btn_get_started">Get Started</button>
+            </div>
         </div>
     </header>
 
-    <!-- 1. Market View -->
-    <section id="view-market" class="view-section active">
-        <div class="hero-banner">
-            <div class="hero-text">
-                <h1>Buy, trade, and hold 350+ cryptocurrencies</h1>
-                <p>The world's premier cryptocurrency exchange trading platform with advanced P2P, Spot, and Derivatives tools.</p>
-                <button class="btn btn-yellow" onclick="switchView('p2p')">Explore P2P Market</button>
+    <!-- HERO SECTION -->
+    <section id="home" class="hero-gradient py-24 px-6 text-center relative overflow-hidden">
+        <div class="max-w-4xl mx-auto space-y-8">
+            <div class="inline-flex items-center space-x-2 bg-orange-500/10 border border-orange-500/30 px-4 py-1.5 rounded-full text-orange-400 text-xs font-semibold tracking-wide">
+                <span>⚡ Apex Digital Ecosystem</span>
             </div>
-        </div>
-        <h2 style="margin-bottom: 15px;">Market Trend</h2>
-        <table class="crypto-table">
-            <thead>
-                <tr>
-                    <th>Pair</th>
-                    <th>Last Price</th>
-                    <th>24h Change</th>
-                    <th>24h High</th>
-                    <th>24h Low</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr onclick="switchView('spot')">
-                    <td><b>BTC/USDT</b></td>
-                    <td>$68,450.20</td>
-                    <td class="text-green">+3.45%</td>
-                    <td>$69,100.00</td>
-                    <td>$65,800.00</td>
-                    <td><button class="btn btn-yellow" style="padding: 4px 10px; font-size: 12px;">Trade</button></td>
-                </tr>
-                <tr onclick="switchView('spot')">
-                    <td><b>ETH/USDT</b></td>
-                    <td>$3,540.80</td>
-                    <td class="text-green">+5.12%</td>
-                    <td>$3,600.00</td>
-                    <td>$3,350.00</td>
-                    <td><button class="btn btn-yellow" style="padding: 4px 10px; font-size: 12px;">Trade</button></td>
-                </tr>
-                <tr onclick="switchView('spot')">
-                    <td><b>SOL/USDT</b></td>
-                    <td>$182.40</td>
-                    <td class="text-red">-1.25%</td>
-                    <td>$189.00</td>
-                    <td>$178.50</td>
-                    <td><button class="btn btn-yellow" style="padding: 4px 10px; font-size: 12px;">Trade</button></td>
-                </tr>
-            </tbody>
-        </table>
-    </section>
-
-    <!-- 2. P2P Trading View -->
-    <section id="view-p2p" class="view-section">
-        <div class="p2p-header">
-            <div class="p2p-tabs">
-                <div class="p2p-tab active" onclick="setP2PType('BUY')">P2P Express Buy</div>
-                <div class="p2p-tab" onclick="setP2PType('SELL')">P2P Sell</div>
-            </div>
-            <div class="p2p-filters">
-                <select id="p2p-crypto" onchange="renderP2PMerchants()">
-                    <option value="USDT">USDT</option>
-                    <option value="BTC">BTC</option>
-                    <option value="ETH">ETH</option>
-                </select>
-                <select id="p2p-fiat" onchange="renderP2PMerchants()">
-                    <option value="ETB">ETB (Ethiopian Birr)</option>
-                    <option value="USD">USD</option>
-                    <option value="EUR">EUR</option>
-                </select>
-                <select id="p2p-payment" onchange="renderP2PMerchants()">
-                    <option value="ALL">All Payments</option>
-                    <option value="Telebirr">Telebirr</option>
-                    <option value="CBE">Commercial Bank of Ethiopia (CBE)</option>
-                    <option value="Bank">Bank Transfer</option>
-                </select>
-            </div>
-        </div>
-
-        <table class="crypto-table">
-            <thead>
-                <tr>
-                    <th>Merchant</th>
-                    <th>Price</th>
-                    <th>Available / Limit</th>
-                    <th>Payment Methods</th>
-                    <th>Trade Execution</th>
-                </tr>
-            </thead>
-            <tbody id="p2p-merchants-list">
-                <!-- Dynamically Rendered -->
-            </tbody>
-        </table>
-    </section>
-
-    <!-- 3. Spot Trading View -->
-    <section id="view-spot" class="view-section">
-        <div class="trade-container">
-            <div>
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
-                    <h2>BTC/USDT <span class="text-green" style="font-size:18px;">$68,450.20</span></h2>
-                </div>
-                <div class="trade-chart-box">
-                    <i class="fa-solid fa-chart-line" style="font-size: 48px; margin-bottom: 10px;"></i>
-                    <p>Advanced TradingView Candlestick Chart Engine Active</p>
-                </div>
-            </div>
-            <div class="trade-panel">
-                <h3 style="margin-bottom:15px;">Spot Order</h3>
-                <div class="form-group">
-                    <label>Order Type</label>
-                    <select><option>Limit Order</option><option>Market Order</option></select>
-                </div>
-                <div class="form-group">
-                    <label>Price (USDT)</label>
-                    <input type="number" value="68450.20">
-                </div>
-                <div class="form-group">
-                    <label>Amount (BTC)</label>
-                    <input type="number" placeholder="0.00">
-                </div>
-                <button class="btn btn-yellow" style="width: 100%; margin-top: 10px;" onclick="alert('Spot order placed successfully!')">Buy BTC</button>
+            <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight leading-tight text-white">
+                Master Forex with <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-amber-500">Smart Money.</span>
+            </h1>
+            <p class="text-slate-400 text-lg md:text-xl max-w-2xl mx-auto" data-translate="hero_desc">
+                A structured 15-module curriculum covering SMC, Price Action, Liquidity, FVG, IDM, and advanced market structure.
+            </p>
+            <div class="flex justify-center space-x-4">
+                <button onclick="openAuthModal('register')" class="bg-orange-500 hover:bg-orange-600 text-white font-bold px-8 py-4 rounded-xl shadow-xl shadow-orange-500/30 transition" data-translate="btn_start_bootcamp">Join Bootcamp →</button>
+                <a href="#modules" class="border border-slate-700 hover:border-slate-500 text-white font-bold px-8 py-4 rounded-xl transition" data-translate="btn_curriculum">See Curriculum</a>
             </div>
         </div>
     </section>
 
-    <!-- 4. Futures Trading View -->
-    <section id="view-futures" class="view-section">
-        <div class="trade-container">
-            <div>
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
-                    <h2>BTCUSDT Perpetual <span style="background:#2b313a; padding: 2px 8px; font-size:12px; border-radius:4px;">20x Leverage</span></h2>
-                </div>
-                <div class="trade-chart-box" style="border-color: #f6465d;">
-                    <i class="fa-solid fa-chart-candlestick" style="font-size: 48px; margin-bottom: 10px; color: var(--red);"></i>
-                    <p>Derivatives & Margin Engine (USDT-Margined)</p>
-                </div>
-            </div>
-            <div class="trade-panel">
-                <h3 style="margin-bottom:15px;">Futures Position</h3>
-                <div class="form-group">
-                    <label>Margin Mode</label>
-                    <select><option>Cross</option><option>Isolated</option></select>
-                </div>
-                <div class="form-group">
-                    <label>Leverage</label>
-                    <input type="range" min="1" max="125" value="20" style="width:100%;">
-                </div>
-                <div class="form-group">
-                    <label>Price (USDT)</label>
-                    <input type="number" value="68450.20">
-                </div>
-                <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px;">
-                    <button class="btn" style="background:var(--green); color:#fff;" onclick="alert('Long Position Opened!')">Open Long</button>
-                    <button class="btn" style="background:var(--red); color:#fff;" onclick="alert('Short Position Opened!')">Open Short</button>
-                </div>
-            </div>
+    <!-- MODULES OVERVIEW SECTION (15 MODULES) -->
+    <section id="modules" class="py-20 px-6 max-w-7xl mx-auto w-full">
+        <div class="text-center mb-16 space-y-3">
+            <h2 class="text-xs uppercase tracking-widest text-orange-500 font-bold">The Programmes</h2>
+            <h3 class="text-3xl md:text-4xl font-extrabold text-white">Structured, Not Scattered</h3>
+            <p class="text-slate-400">15 Comprehensive Modules, each containing 4 detailed lessons with verified insights.</p>
+        </div>
+
+        <div id="modulesContainer" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Dynamically populated via JS -->
         </div>
     </section>
 
-    <!-- 5. Wallet View -->
-    <section id="view-wallet" class="view-section">
-        <h2 style="margin-bottom: 20px;">Asset Portfolio & Wallet</h2>
-        <div class="wallet-overview">
-            <div class="wallet-card">
-                <h3>Estimated Balance</h3>
-                <div class="balance" id="wallet-total-balance">$12,450.00</div>
-                <div class="wallet-actions-btns">
-                    <button class="btn btn-yellow" onclick="openDepositModal()">Deposit</button>
-                    <button class="btn btn-outline" onclick="openWithdrawModal()">Withdraw</button>
-                </div>
-            </div>
-            <div class="wallet-card">
-                <h3>P2P Account Balance</h3>
-                <div class="balance">5,400.00 USDT</div>
-                <p style="color:var(--text-secondary); font-size:12px;">Ready for instant fiat exchange</p>
-            </div>
-        </div>
-        <table class="crypto-table">
-            <thead>
-                <tr>
-                    <th>Asset</th>
-                    <th>Total Balance</th>
-                    <th>Available</th>
-                    <th>In Order</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><b>USDT</b> Tether</td>
-                    <td>5,400.00000000</td>
-                    <td>5,400.00000000</td>
-                    <td>0.00</td>
-                    <td><button class="btn btn-outline" style="padding:4px 10px; font-size:12px;" onclick="openTransferModal()">Transfer</button></td>
-                </tr>
-                <tr>
-                    <td><b>BTC</b> Bitcoin</td>
-                    <td>0.10500000</td>
-                    <td>0.10500000</td>
-                    <td>0.00</td>
-                    <td><button class="btn btn-outline" style="padding:4px 10px; font-size:12px;" onclick="openTransferModal()">Transfer</button></td>
-                </tr>
-            </tbody>
-        </table>
-    </section>
+    <!-- AUTH MODAL (REGISTRATION & LOGIN WITH TELEGRAM OTP) -->
+    <div id="authModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm hidden items-center justify-center z-50 p-4">
+        <div class="card-bg w-full max-w-md rounded-3xl p-8 relative shadow-2xl">
+            <button onclick="closeAuthModal()" class="absolute top-6 right-6 text-slate-400 hover:text-white text-xl">✕</button>
+            
+            <div id="modalTitle" class="text-2xl font-bold text-white mb-6">Create Account</div>
 
-    <!-- Registration Modal with Real 4-Digit OTP flow -->
-    <div class="modal" id="registerModal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('registerModal')">&times;</span>
-            <h2>Create Binance Pro Account</h2>
-            <div id="reg-step-1">
-                <div class="form-group">
-                    <label>Email Address</label>
-                    <input type="email" id="reg-email" placeholder="name@example.com">
+            <!-- Step 1: Form Inputs -->
+            <form id="authForm" onsubmit="handleAuthSubmit(event)" class="space-y-4">
+                <div id="nameFields" class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-400 mb-1">First Name</label>
+                        <input type="text" id="firstName" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-orange-500 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-400 mb-1">Last Name</label>
+                        <input type="text" id="lastName" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-orange-500 text-sm">
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" id="reg-password" placeholder="At least 8 characters">
+
+                <div>
+                    <label class="block text-xs font-semibold text-slate-400 mb-1">Email Address (Must match Telegram Bot)</label>
+                    <input type="email" id="userEmail" required placeholder="you@example.com" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-orange-500 text-sm">
                 </div>
-                <button class="btn btn-yellow" style="width:100%; margin-top:10px;" onclick="triggerEmailOTP()">Next & Send OTP</button>
-            </div>
-            <div id="reg-step-2" style="display: none;">
-                <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 15px;">We have sent a real 4-digit verification code to your email inbox. (Simulation Code: <b id="simulated-otp-hint" style="color:var(--yellow)"></b>)</p>
-                <div class="form-group">
-                    <label>Enter 4-Digit OTP Code</label>
-                    <input type="text" id="entered-otp-code" maxlength="4" placeholder="4 digits">
+
+                <div>
+                    <label class="block text-xs font-semibold text-slate-400 mb-1">Password</label>
+                    <input type="password" id="userPassword" required placeholder="••••••••" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-orange-500 text-sm">
                 </div>
-                <button class="btn btn-yellow" style="width:100%; margin-top:10px;" onclick="verifyAndRegister()">Verify & Complete Registration</button>
+
+                <!-- Step 2: OTP Verification Section -->
+                <div id="otpSection" class="hidden space-y-4 pt-2">
+                    <div class="bg-orange-500/10 border border-orange-500/20 p-3 rounded-xl text-xs text-orange-400">
+                        ℹ️ 4-digit OTP code ergameera. Mee Bot Telegram keenya (<a href="https://t.me/smcfxpro_bot" target="_blank" class="underline font-bold">@smcfxpro_bot</a>) ilaalaa.
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-400 mb-1">Enter 4-Digit OTP Code</label>
+                        <input type="text" id="otpInput" maxlength="4" placeholder="1234" class="w-full text-center tracking-widest text-xl bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-orange-500">
+                    </div>
+                </div>
+
+                <button type="submit" id="submitBtn" class="w-full bg-orange-500 hover:bg-orange-600 font-bold py-3.5 rounded-xl text-white shadow-lg shadow-orange-500/25 transition">Continue</button>
+            </form>
+
+            <div class="mt-6 text-center text-xs text-slate-400">
+                <span id="switchText">Already have an account?</span> 
+                <button onclick="toggleAuthMode()" id="switchBtnText" class="text-orange-400 font-semibold ml-1 hover:underline">Sign In</button>
             </div>
         </div>
     </div>
 
-    <!-- Login Modal -->
-    <div class="modal" id="loginModal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('loginModal')">&times;</span>
-            <h2>Log In to Apex Exchange</h2>
-            <div class="form-group">
-                <label>Email Address</label>
-                <input type="email" id="login-email" placeholder="name@example.com">
-            </div>
-            <div class="form-group">
-                <label>Password</label>
-                <input type="password" id="login-password" placeholder="Password">
-            </div>
-            <button class="btn btn-yellow" style="width:100%; margin-top:10px;" onclick="loginUser()">Log In</button>
-        </div>
-    </div>
+    <!-- FOOTER -->
+    <footer class="border-t border-slate-800 bg-[#050813] py-8 text-center text-xs text-slate-500">
+        <p>© 2026 Apex Forex Academy. All rights reserved. Built with Smart Money & Price Action Principles.</p>
+    </footer>
 
-    <!-- Deposit Modal (TRC20 / ERC20 Network Support) -->
-    <div class="modal" id="depositModal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('depositModal')">&times;</span>
-            <h2>Deposit Crypto</h2>
-            <div class="form-group">
-                <label>Select Coin</label>
-                <select><option>USDT</option><option>BTC</option><option>ETH</option></select>
-            </div>
-            <div class="form-group">
-                <label>Deposit Network</label>
-                <select>
-                    <option>Tron (TRC20)</option>
-                    <option>Ethereum (ERC20)</option>
-                    <option>BNB Smart Chain (BEP20)</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>Deposit Address</label>
-                <input type="text" readonly value="TXYZopq92817465038291048574362198_TRC20">
-            </div>
-            <button class="btn btn-yellow" style="width:100%;" onclick="alert('Address copied to clipboard!'); closeModal('depositModal');">Copy Address</button>
-        </div>
-    </div>
-
+    <!-- JAVASCRIPT LOGIC & LOCALIZATION -->
     <script>
-        // Navigation Handler
-        function switchView(viewName) {
-            document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('nav.nav-links a').forEach(el => el.classList.remove('active'));
-            
-            document.getElementById('view-' + viewName).classList.add('active');
-            const navEl = document.getElementById('nav-' + viewName);
-            if(navEl) navEl.classList.add('active');
-        }
-
-        function openModal(modalId) {
-            document.getElementById(modalId).style.display = 'flex';
-        }
-
-        function closeModal(modalId) {
-            document.getElementById(modalId).style.display = 'none';
-        }
-
-        // Authentication & Real OTP Flow variables
-        let generatedOTP = "";
-        let pendingEmail = "";
-
-        function triggerEmailOTP() {
-            const email = document.getElementById('reg-email').value;
-            const pass = document.getElementById('reg-password').value;
-            if(!email || !pass) {
-                alert("Please fill in both email and password.");
-                return;
+        // Translations Dictionary
+        const translations = {
+            om: {
+                nav_home: "Jalqaba",
+                nav_academy: "Akkaadmii",
+                nav_modules: "Moojuloota 15",
+                btn_login: "Seeni",
+                btn_get_started: "Galmaa'i",
+                hero_desc: "Moojuloota 15 kan SMC, Price Action, Liquidity, FVG, IDM fi Market Structure guutuu qabate.",
+                btn_start_bootcamp: "Bootcamp Jalqabi →",
+                btn_curriculum: "Kuriikulam Ilaali"
+            },
+            en: {
+                nav_home: "Home",
+                nav_academy: "Academy",
+                nav_modules: "15 Modules",
+                btn_login: "Sign In",
+                btn_get_started: "Get Started",
+                hero_desc: "A structured 15-module curriculum covering SMC, Price Action, Liquidity, FVG, IDM, and market structure.",
+                btn_start_bootcamp: "Join Bootcamp →",
+                btn_curriculum: "See Curriculum"
+            },
+            am: {
+                nav_home: "መглаሻ",
+                nav_academy: "አካዳሚ",
+                nav_modules: "15 ሞጁሎች",
+                btn_login: "ግባ",
+                btn_get_started: "ተመዝገብ",
+                hero_desc: "ኤስኤምሲ (SMC)፣ የዋጋ እርምጃ (Price Action)፣ ሊኩዲቲ (Liquidity) እና የገበያ አወቃቀርን የያዙ 15 ሞጁሎች።",
+                btn_start_bootcamp: "ትምህርቱን ጀምር →",
+                btn_curriculum: "መርሃ-ትምህርት ይመልከቱ"
             }
-            pendingEmail = email;
-            // Generate 4-digit code
-            generatedOTP = Math.floor(1000 + Math.random() * 9000).toString();
-            document.getElementById('simulated-otp-hint').innerText = generatedOTP;
-            
-            // Switch form steps
-            document.getElementById('reg-step-1').style.display = 'none';
-            document.getElementById('reg-step-2').style.display = 'block';
-            alert(`[Backend SMTP Integration] A 4-digit verification code has been dispatched to ${email}`);
-        }
+        };
 
-        function verifyAndRegister() {
-            const entered = document.getElementById('entered-otp-code').value;
-            if(entered === generatedOTP) {
-                alert("Email verified successfully! Account created.");
-                localStorage.setItem('apex_user', pendingEmail);
-                closeModal('registerModal');
-                checkSession();
-            } else {
-                alert("Invalid 4-digit OTP code. Please check your inbox.");
-            }
-        }
-
-        function loginUser() {
-            const email = document.getElementById('login-email').value;
-            if(!email) {
-                alert("Please enter your login email.");
-                return;
-            }
-            localStorage.setItem('apex_user', email);
-            closeModal('loginModal');
-            checkSession();
-            alert("Login successful!");
-        }
-
-        function logout() {
-            localStorage.removeItem('apex_user');
-            checkSession();
-        }
-
-        function checkSession() {
-            const user = localStorage.getItem('apex_user');
-            if(user) {
-                document.getElementById('auth-buttons').style.display = 'none';
-                document.getElementById('user-profile-area').style.display = 'flex';
-                document.getElementById('user-display-email').innerText = user;
-            } else {
-                document.getElementById('auth-buttons').style.display = 'flex';
-                document.getElementById('user-profile-area').style.display = 'none';
-            }
-        }
-
-        // P2P Merchant Data Render Engine (ETB & Global currencies)
-        const p2pData = [
-            { name: "Abebe_Crypto_Express", priceETB: 138.50, limit: "10,000 - 150,000 ETB", available: "4,500 USDT", methods: ["Telebirr", "CBE"] },
-            { name: "Habesha_Trader_VIP", priceETB: 138.90, limit: "5,000 - 50,000 ETB", available: "1,200 USDT", methods: ["CBE", "Bank Transfer"] },
-            { name: "Global_Escrow_Hub", priceETB: 139.20, limit: "50,000 - 500,000 ETB", available: "15,800 USDT", methods: ["Telebirr", "Bank Transfer"] }
-        ];
-
-        function setP2PType(type) {
-            document.querySelectorAll('.p2p-tab').forEach(el => el.classList.remove('active'));
-            event.target.classList.add('active');
-            renderP2PMerchants();
-        }
-
-        function renderP2PMerchants() {
-            const tbody = document.getElementById('p2p-merchants-list');
-            tbody.innerHTML = '';
-            
-            p2pData.forEach(m => {
-                tbody.innerHTML += `
-                    <tr>
-                        <td><b>${m.name}</b> <br><span style="font-size:12px; color:var(--text-secondary)">99% Completion (500+ orders)</span></td>
-                        <td><span style="font-size:18px; font-weight:bold; color:var(--yellow);">${m.priceETB} ETB</span></td>
-                        <td>Available: ${m.available}<br>Limit: ${m.limit}</td>
-                        <td>${m.methods.map(tag => `<span style="background:#2b313a; padding:2px 6px; font-size:11px; border-radius:3px; margin-right:4px;">${tag}</span>`).join('')}</td>
-                        <td><button class="btn btn-yellow" style="padding:6px 14px; font-size:13px;" onclick="alert('Initiating P2P Escrow transaction order.')">Buy USDT</button></td>
-                    </tr>
-                `;
+        function changeLanguage(lang) {
+            document.querySelectorAll("[data-translate]").forEach(el => {
+                const key = el.getAttribute("data-translate");
+                if (translations[lang] && translations[lang][key]) {
+                    el.innerText = translations[lang][key];
+                }
             });
         }
 
-        function openDepositModal() { openModal('depositModal'); }
-        function openWithdrawModal() { alert('Withdrawal gateway initialized (TRC20/ERC20 network enabled).'); }
-        function openTransferModal() { alert('Internal wallet asset transfer window opened.'); }
+        // 15 Modules Data Generator
+        const modulesData = [
+            { id: 1, title: "Module 1: Introduction to Forex & Market History", desc: "Barumsa seenaa gabaa forex fi bu'uura termoota gabaa keessatti barbaachisoo ta'an." },
+            { id: 2, title: "Module 2: Market Structure & Trend Identification", desc: "Bifaa fi caasaa gabaa (Market Structure) adda baasuun eessaitti akka seenan barachuu." },
+            { id: 3, title: "Module 3: Break of Character (BOS) & Change of Character (CHoCH)", desc: "Mallattoowwan jijjiirama trendii fi faffaca'insa caasaa gabaa hubachuu." },
+            { id: 4, title: "Module 4: Order Blocks (OB) & Mitigation", desc: "Bakka dhaabbileen gurguddaan ajaja itti kennan (Order Blocks) fi fkn itti fayyadamaa." },
+            { id: 5, title: "Module 5: Fair Value Gaps (FVG) & Imbalances", desc: "Bakkoota gabaa keessatti banaa hafan fi bakka gatiin deebi'ee cufuu qabu." },
+            { id: 6, title: "Module 6: Liquidity Pools & Sweeps", desc: "Bakka qabeenyi/liquidity namoota retail caccabsuuf gabaan deemtu qorachuu." },
+            { id: 7, title: "Module 7: Inducement (IDM) & Trap Zones", desc: "Gowwoomsaa gabaa fi bakka daldaltoota xixiqqoo gowwoomsanii seenan adda baasuu." },
+            { id: 8, title: "Module 8: Premium & Discount Pricing Arrays", desc: "Kutaalee gabaa gurguddaa (Discount fi Premium zones) hiruudhaan bakka madaalawaa argachuu." },
+            { id: 9, title: "Module 9: Advanced Price Action Confluence", desc: "Tarsiimoo Price Action fi SMC walitti makuun sirrii ta'e daldaluu." },
+            { id: 10, title: "Module 10: Multi-Timeframe Top-Down Analysis", desc: "Sa'aatii 4 (4H) fi daqiiqaa 15 (15M) walqabsiisuun qorannoo gabaa gaggeessuu." },
+            { id: 11, title: "Module 11: Risk Management & Lot Sizing", desc: "Qabeenya keessan eeguuf akkamitti risk-to-reward ratio fi lot size shallaguu qabdu." },
+            { id: 12, title: "Module 12: Trading Psychology & Emotional Control", desc: "Miira dhuunfaa to'achuu, obsaa fi amala daldalaan milkaa'aa ta'uu qabu." },
+            { id: 13, title: "Module 13: Building Your Trading Plan & Journal", desc: "Pilaanii daldalaa mataa keessanii qopheessuu fi galmee gocha daldalaa (Journal)." },
+            { id: 14, title: "Module 14: Prop Firm Challenges & Rules", desc: "Ulaagaalee dhaabbilee gurguddoo (Prop Firms) akkamitti milkaa'inaan dabruu dandeessu." },
+            { id: 15, title: "Module 15: Live Market Execution & Mentorship", desc: "Gabaa dhugaa irratti hojiirra oolchuu fi daldala guyyaa guyyaa raawwachuu." }
+        ];
 
-        // Initial Page Load
-        window.onload = function() {
-            checkSession();
-            renderP2PMerchants();
+        const container = document.getElementById("modulesContainer");
+        modulesData.forEach(m => {
+            container.innerHTML += `
+                <div class="card-bg p-6 rounded-2xl flex flex-col justify-between hover:border-orange-500/50 transition">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="bg-orange-500/10 text-orange-400 text-xs px-3 py-1 rounded-full font-bold">Module ${m.id}</span>
+                            <span class="text-xs text-slate-500">4 Lessons Inside</span>
+                        </div>
+                        <h4 class="text-lg font-bold text-white mb-2">${m.title}</h4>
+                        <p class="text-slate-400 text-sm mb-6">${m.desc}</p>
+                    </div>
+                    <button onclick="openAuthModal('register')" class="w-full bg-slate-800 hover:bg-orange-500 hover:text-white text-slate-300 font-semibold py-2.5 rounded-xl text-sm transition">Access Module →</button>
+                </div>
+            `;
+        });
+
+        // Modal State Handling
+        let isLogin = false;
+        let otpStep = false;
+
+        function openAuthModal(mode) {
+            isLogin = (mode === 'login');
+            otpStep = false;
+            document.getElementById("authModal").classList.remove("hidden");
+            document.getElementById("authModal").classList.add("flex");
+            document.getElementById("modalTitle").innerText = isLogin ? "Sign In to Portal" : "Create Account";
+            document.getElementById("nameFields").style.display = isLogin ? "none" : "grid";
+            document.getElementById("otpSection").style.display = "none";
+            document.getElementById("submitBtn").innerText = "Continue";
+            document.getElementById("switchText").innerText = isLogin ? "Don't have an account?" : "Already have an account?";
+            document.getElementById("switchBtnText").innerText = isLogin ? "Get Started" : "Sign In";
+        }
+
+        function closeAuthModal() {
+            document.getElementById("authModal").classList.remove("flex");
+            document.getElementById("authModal").classList.add("hidden");
+        }
+
+        function toggleAuthMode() {
+            openAuthModal(isLogin ? 'register' : 'login');
+        }
+
+        function handleAuthSubmit(e) {
+            e.preventDefault();
+            const email = document.getElementById("userEmail").value;
+            
+            if (!otpStep) {
+                // Step 1 done: Trigger Telegram Bot OTP Verification simulation
+                otpStep = true;
+                document.getElementById("otpSection").style.display = "block";
+                document.getElementById("submitBtn").innerText = "Verify & Complete";
+                alert(`OTP 4-digit code ergamera! Mee Bot Telegram keessan (@smcfxpro_bot) ilaalaa email (${email}) wajjin wal simsiisaa.`);
+            } else {
+                // Step 2: Verify OTP and finalize registration/login
+                const otp = document.getElementById("otpInput").value;
+                if(otp.length === 4) {
+                    alert("Galmeen/Seensan milkaa'era! Gara Student Portalitti geessaa jira...");
+                    closeAuthModal();
+                } else {
+                    alert("Mee koodii digit 4 qabu sirriitti galchaa!");
+                }
+            }
         }
     </script>
 </body>

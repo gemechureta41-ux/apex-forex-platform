@@ -1,85 +1,88 @@
 const express = require('express');
-const nodemailer = require('nodemailer');
 const cors = require('cors');
 require('dotenv').config();
+const fetch = require('node-fetch');
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 
-// Kuusaa OTP yeroof (Production irratti Database/Redis fayyadami)
-const otpDatabase = {};
+// Database memory naannoo (Production irratti Database dhugaa akka PostgreSQL ykn MongoDB fayyadamuu dandeessa)
+const users = []; 
+const telegramSubscribers = new Map(); // Email fi Telegram Chat ID walqabsiisuuf
 
-// Nodemailer SMTP Transporter setup (Gmail)
-const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS
+const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
+
+// 1. Telegram Bot Webhook ykn /start tracking (Bot irratti namni galchuuf)
+app.post('/api/telegram-webhook', (express.json()), async (req, res) => {
+    const { email, chatId } = req.body;
+    if(email && chatId) {
+        telegramSubscribers.set(email.toLowerCase().trim(), chatId);
+        return res.json({ success: true, message: "Email registered with Telegram bot successfully!" });
     }
+    res.status(400).json({ success: false, message: "Invalid data" });
 });
 
-// Endpoint 1: OTP Dijiitii 4 uumee Email userichaatti erguu
-app.post('/api/send-otp', async (req, res) => {
+// 2. Request OTP (Karaa Telegram Bot code digit 4 erguu)
+app.post('/api/request-otp', async (req, res) => {
     const { email } = req.body;
-    if (!email) {
-        return res.status(400).json({ success: false, message: "Email address is required!" });
+    const cleanEmail = email.toLowerCase().trim();
+
+    // Check if email registered on Telegram bot first
+    const chatId = telegramSubscribers.get(cleanEmail);
+    if (!chatId) {
+        return res.status(400).json({ 
+            success: false, 
+            message: "Durstee Bot Telegram keenya (@smcfxpro_bot) start godhiitii email kee galchuu qabda!" 
+        });
     }
 
-    // Dijiitii 4 uumuu (Fkn: 4819)
+    // Generate 4-digit OTP
     const otp = Math.floor(1000 + Math.random() * 9000).toString();
     
-    // OTP fi yeroo irra darbu (minutes 5) kuusuu
-    otpDatabase[email] = {
-        otp: otp,
-        expiresAt: Date.now() + 5 * 60 * 1000 
-    };
+    // Store OTP temporarily for user
+    let user = users.find(u => u.email === cleanEmail);
+    if(user) {
+        user.otp = otp;
+    } else {
+        users.push({ email: cleanEmail, otp: otp, verified: false });
+    }
 
-    const mailOptions = {
-        from: `"Apex Exchange Security" <${process.env.EMAIL_USER}>`,
-        to: email,
-        subject: '🔐 Your Apex Exchange Verification Code',
-        text: `Hello,\n\nYour 4-digit email verification code is: ${otp}\n\nThis code is valid for 5 minutes. Do not share it with anyone.\n\nBest regards,\nApex Exchange Team`
-    };
-
+    // Send OTP via Telegram Bot API
     try {
-        await transporter.sendMail(mailOptions);
-        console.log(`[OTP SENT] Code ${otp} sent to ${email}`);
-        res.json({ success: true, message: "4-digit verification code successfully sent to your email!" });
+        const telegramUrl = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+        await fetch(telegramUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                chat_id: chatId,
+                text: `🔐 Apex Forex Academy OTP Code kee: *${otp}*\nDeebisiitii galchi (Koodii kana namni biraa akka argitu hin hayyaminaa).`,
+                parse_mode: 'Markdown'
+            })
+        });
+
+        res.json({ success: true, message: "OTP code sent to your Telegram Bot successfully!" });
     } catch (error) {
-        console.error("Error sending email:", error);
-        res.status(500).json({ success: false, message: "Failed to send email. Check your SMTP configurations." });
+        console.error("Telegram Error:", error);
+        res.status(500).json({ success: false, message: "Failed to send OTP via Telegram." });
     }
 });
 
-// Endpoint 2: OTP Mirkaneessuu (Verify)
+// 3. Verify OTP & Complete Registration / Login
 app.post('/api/verify-otp', (req, res) => {
     const { email, otp } = req.body;
+    const cleanEmail = email.toLowerCase().trim();
     
-    if (!email || !otp) {
-        return res.status(400).json({ success: false, message: "Email and OTP are required!" });
+    const user = users.find(u => u.email === cleanEmail);
+    if(user && user.otp === otp) {
+        user.verified = true;
+        return res.json({ success: true, message: "Verification successful!" });
     }
-
-    const record = otpDatabase[email];
-
-    if (!record) {
-        return res.status(400).json({ success: false, message: "No OTP request found for this email." });
-    }
-
-    if (Date.now() > record.expiresAt) {
-        delete otpDatabase[email];
-        return res.status(400).json({ success: false, message: "OTP has expired. Please request a new one." });
-    }
-
-    if (record.otp === otp) {
-        delete otpDatabase[email]; // Verified ta'ee booda haqamuu qaba
-        res.json({ success: true, message: "Email verified successfully!" });
-    } else {
-        res.status(400).json({ success: false, message: "Invalid 4-digit OTP code." });
-    }
+    
+    res.status(400).json({ success: false, message: "Koodiin OTP sirrii miti ykn dogoggora." });
 });
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log(`Apex Exchange Backend Server running on port ${PORT}`);
+    console.log(`Apex Forex Server is running on port ${PORT}`);
 });

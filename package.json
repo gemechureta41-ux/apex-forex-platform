@@ -1,7 +1,7 @@
 {
-  "name": "apex-binance-p2p",
+  "name": "apex-forex-backend",
   "version": "1.0.0",
-  "description": "Binance Clone P2P and Crypto Exchange with Real Email OTP Verification",
+  "description": "Apex Forex Trading Academy Backend with Telegram Bot OTP",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
@@ -10,6 +10,9 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
-    "nodemailer": "^6.9.13"
+    "node-fetch": "^2.7.0"
+  },
+  "engines": {
+    "node": ">=18.x"
   }
 }
